@@ -1,0 +1,646 @@
+ARM Linker, 5.03 [Build 76] [MDK-ARM Lite]
+
+==============================================================================
+
+Section Cross References
+
+    pcapint_main.o(i.config_reg_set) refers to pcapint_main.o(i.pack) for pack
+    pcapint_main.o(i.config_reg_set) refers to pcapint_main.o(i.pcap_config_write) for pcap_config_write
+    pcapint_main.o(i.data_extract) refers to ffltui.o(.text) for __aeabi_ui2f
+    pcapint_main.o(i.data_extract) refers to pow.o(i.pow) for pow
+    pcapint_main.o(i.data_extract) refers to f2d.o(.text) for __aeabi_f2d
+    pcapint_main.o(i.data_extract) refers to ddiv.o(.text) for __aeabi_ddiv
+    pcapint_main.o(i.data_extract) refers to d2f.o(.text) for __aeabi_d2f
+    pcapint_main.o(i.handle_channel_event) refers to pcapint_main.o(i.pcap_broadcast_data) for pcap_broadcast_data
+    pcapint_main.o(i.handle_channel_event) refers to pcapint_main.o(i.handle_error) for handle_error
+    pcapint_main.o(i.handle_channel_event) refers to nrf_delay.o(i.nrf_delay_ms) for nrf_delay_ms
+    pcapint_main.o(i.handle_channel_event) refers to pcapint_main.o(.data) for s_broadcast_data
+    pcapint_main.o(i.main) refers to pcapint_main.o(i.ant_channel_tx_broadcast_setup) for ant_channel_tx_broadcast_setup
+    pcapint_main.o(i.main) refers to pcapint_main.o(i.pcap_spi_set) for pcap_spi_set
+    pcapint_main.o(i.main) refers to pcapint_main.o(i.pcap_dsp_write) for pcap_dsp_write
+    pcapint_main.o(i.main) refers to memseta.o(.text) for __aeabi_memclr
+    pcapint_main.o(i.main) refers to pcapint_main.o(i.pcap_spi_tx_rx) for pcap_spi_tx_rx
+    pcapint_main.o(i.main) refers to nrf_delay.o(i.nrf_delay_ms) for nrf_delay_ms
+    pcapint_main.o(i.main) refers to pcapint_main.o(i.config_reg_set) for config_reg_set
+    pcapint_main.o(i.main) refers to pcapint_main.o(i.read_reg) for read_reg
+    pcapint_main.o(i.main) refers to pcapint_main.o(i.data_extract) for data_extract
+    pcapint_main.o(i.main) refers to fmul.o(.text) for __aeabi_fmul
+    pcapint_main.o(i.main) refers to pcapint_main.o(i.handle_channel_event) for handle_channel_event
+    pcapint_main.o(i.main) refers to pcapint_main.o(i.softdevice_assert_callback) for softdevice_assert_callback
+    pcapint_main.o(i.main) refers to pcapint_main.o(.data) for s_broadcast_data
+    pcapint_main.o(i.main) refers to pcapint_main.o(.bss) for cap_t
+    pcapint_main.o(i.pcap_broadcast_data) refers to pcapint_main.o(.data) for s_broadcast_data
+    pcapint_main.o(i.pcap_config_write) refers to pcapint_main.o(i.pcap_spi_tx_rx) for pcap_spi_tx_rx
+    pcapint_main.o(i.pcap_config_write) refers to memseta.o(.text) for __aeabi_memclr
+    pcapint_main.o(i.pcap_config_write) refers to nrf_delay.o(i.nrf_delay_ms) for nrf_delay_ms
+    pcapint_main.o(i.pcap_config_write) refers to pcapint_main.o(.data) for MSG_LEN
+    pcapint_main.o(i.pcap_dsp_write) refers to pcapint_main.o(i.pcap_spi_tx_rx) for pcap_spi_tx_rx
+    pcapint_main.o(i.pcap_dsp_write) refers to memseta.o(.text) for __aeabi_memclr
+    pcapint_main.o(i.pcap_dsp_write) refers to pcapint_main.o(.data) for MSG_LEN
+    pcapint_main.o(i.pcap_spi_set) refers to spi_master.o(i.spi_master_init) for spi_master_init
+    pcapint_main.o(i.pcap_spi_tx_rx) refers to spi_master.o(i.spi_master_tx_rx) for spi_master_tx_rx
+    pcapint_main.o(i.pcap_spi_tx_rx) refers to pcapint_main.o(.data) for rx_data
+    pcapint_main.o(i.read_reg) refers to nrf_delay.o(i.nrf_delay_ms) for nrf_delay_ms
+    pcapint_main.o(i.read_reg) refers to pcapint_main.o(i.pcap_spi_tx_rx) for pcap_spi_tx_rx
+    pcapint_main.o(i.read_reg) refers to pcapint_main.o(i.pack) for pack
+    pcapint_main.o(i.read_reg) refers to pcapint_main.o(.data) for MSG_LEN
+    arm_startup_nrf51.o(RESET) refers to arm_startup_nrf51.o(STACK) for __initial_sp
+    arm_startup_nrf51.o(RESET) refers to arm_startup_nrf51.o(.text) for Reset_Handler
+    arm_startup_nrf51.o(.text) refers to system_nrf51422.o(i.SystemInit) for SystemInit
+    arm_startup_nrf51.o(.text) refers to entry.o(.ARM.Collect$$$$00000000) for __main
+    system_nrf51422.o(i.SystemCoreClockUpdate) refers to system_nrf51422.o(.data) for SystemCoreClock
+    system_nrf51422.o(i.SystemInit) refers to system_nrf51422.o(i.is_manual_peripheral_setup_needed) for is_manual_peripheral_setup_needed
+    system_nrf51422.o(i.SystemInit) refers to system_nrf51422.o(i.is_disabled_in_debug_needed) for is_disabled_in_debug_needed
+    spi_master.o(i.spi_master_init) refers to spi_master.o(i.nrf_gpio_cfg_output) for nrf_gpio_cfg_output
+    spi_master.o(i.spi_master_init) refers to spi_master.o(i.nrf_gpio_cfg_input) for nrf_gpio_cfg_input
+    spi_master.o(i.spi_master_init) refers to spi_master.o(i.nrf_gpio_pin_set) for nrf_gpio_pin_set
+    spi_master.o(i.spi_master_tx_rx) refers to spi_master.o(i.nrf_gpio_pin_set) for nrf_gpio_pin_set
+    nrf_delay.o(i.nrf_delay_ms) refers to nrf_delay.o(.emb_text) for __asm___11_nrf_delay_c_532987f3__nrf_delay_us
+    pow.o(i.__softfp_pow) refers (Special) to iusefp.o(.text) for __I$use$fp
+    pow.o(i.__softfp_pow) refers to pow.o(i.pow) for pow
+    pow.o(i.pow) refers (Special) to iusefp.o(.text) for __I$use$fp
+    pow.o(i.pow) refers to dadd.o(.text) for __aeabi_dadd
+    pow.o(i.pow) refers to errno.o(i.__set_errno) for __set_errno
+    pow.o(i.pow) refers to ddiv.o(.text) for __aeabi_ddiv
+    pow.o(i.pow) refers to sqrt.o(i.sqrt) for sqrt
+    pow.o(i.pow) refers to dscalb.o(.text) for __ARM_scalbn
+    pow.o(i.pow) refers to dunder.o(i.__mathlib_dbl_underflow) for __mathlib_dbl_underflow
+    pow.o(i.pow) refers to dmul.o(.text) for __aeabi_dmul
+    pow.o(i.pow) refers to qnan.o(.constdata) for __mathlib_zero
+    pow.o(i.pow) refers to pow.o(.constdata) for .constdata
+    pow.o(i.pow) refers to poly.o(i.__kernel_poly) for __kernel_poly
+    pow.o(i.pow) refers to dflti.o(.text) for __aeabi_i2d
+    pow.o(i.pow) refers to cdrcmple.o(.text) for __aeabi_cdrcmple
+    pow.o(i.pow) refers to fpclassify.o(i.__ARM_fpclassify) for __ARM_fpclassify
+    pow.o(.constdata) refers (Special) to iusefp.o(.text) for __I$use$fp
+    pow_x.o(i.____softfp_pow$lsc) refers (Special) to iusefp.o(.text) for __I$use$fp
+    pow_x.o(i.____softfp_pow$lsc) refers to pow_x.o(i.__pow$lsc) for __pow$lsc
+    pow_x.o(i.__pow$lsc) refers (Special) to iusefp.o(.text) for __I$use$fp
+    pow_x.o(i.__pow$lsc) refers to dadd.o(.text) for __aeabi_dadd
+    pow_x.o(i.__pow$lsc) refers to errno.o(i.__set_errno) for __set_errno
+    pow_x.o(i.__pow$lsc) refers to ddiv.o(.text) for __aeabi_ddiv
+    pow_x.o(i.__pow$lsc) refers to sqrt.o(i.sqrt) for sqrt
+    pow_x.o(i.__pow$lsc) refers to dflti.o(.text) for __aeabi_i2d
+    pow_x.o(i.__pow$lsc) refers to dscalb.o(.text) for __ARM_scalbn
+    pow_x.o(i.__pow$lsc) refers to dmul.o(.text) for __aeabi_dmul
+    pow_x.o(i.__pow$lsc) refers to qnan.o(.constdata) for __mathlib_zero
+    pow_x.o(i.__pow$lsc) refers to poly.o(i.__kernel_poly) for __kernel_poly
+    pow_x.o(i.__pow$lsc) refers to cdrcmple.o(.text) for __aeabi_cdrcmple
+    pow_x.o(i.__pow$lsc) refers to pow_x.o(.constdata) for .constdata
+    pow_x.o(.constdata) refers (Special) to iusefp.o(.text) for __I$use$fp
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry10a.o(.ARM.Collect$$$$0000000D) for __rt_final_cpp
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry11a.o(.ARM.Collect$$$$0000000F) for __rt_final_exit
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry7b.o(.ARM.Collect$$$$00000008) for _main_clock
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry8b.o(.ARM.Collect$$$$0000000A) for _main_cpp_init
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry9a.o(.ARM.Collect$$$$0000000B) for _main_init
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry5.o(.ARM.Collect$$$$00000004) for _main_scatterload
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry2.o(.ARM.Collect$$$$00000001) for _main_stk
+    fmul.o(.text) refers (Special) to iusefp.o(.text) for __I$use$fp
+    ddiv.o(.text) refers (Special) to iusefp.o(.text) for __I$use$fp
+    ddiv.o(.text) refers to depilogue.o(.text) for _double_round
+    ffltui.o(.text) refers (Special) to iusefp.o(.text) for __I$use$fp
+    ffltui.o(.text) refers to fepilogue.o(.text) for _float_epilogue
+    f2d.o(.text) refers (Special) to iusefp.o(.text) for __I$use$fp
+    d2f.o(.text) refers (Special) to iusefp.o(.text) for __I$use$fp
+    d2f.o(.text) refers to fepilogue.o(.text) for _float_round
+    dunder.o(i.__mathlib_dbl_underflow) refers to dscalb.o(.text) for __ARM_scalbn
+    fpclassify.o(i.__ARM_fpclassify) refers (Special) to iusefp.o(.text) for __I$use$fp
+    poly.o(i.__kernel_poly) refers (Special) to iusefp.o(.text) for __I$use$fp
+    poly.o(i.__kernel_poly) refers to dmul.o(.text) for __aeabi_dmul
+    poly.o(i.__kernel_poly) refers to dadd.o(.text) for __aeabi_dadd
+    qnan.o(.constdata) refers (Special) to iusefp.o(.text) for __I$use$fp
+    sqrt.o(i.__softfp_sqrt) refers (Special) to iusefp.o(.text) for __I$use$fp
+    sqrt.o(i.__softfp_sqrt) refers to dsqrt.o(.text) for _dsqrt
+    sqrt.o(i.__softfp_sqrt) refers to errno.o(i.__set_errno) for __set_errno
+    sqrt.o(i.sqrt) refers (Special) to iusefp.o(.text) for __I$use$fp
+    sqrt.o(i.sqrt) refers to dsqrt.o(.text) for _dsqrt
+    sqrt.o(i.sqrt) refers to errno.o(i.__set_errno) for __set_errno
+    sqrt_x.o(i.____softfp_sqrt$lsc) refers (Special) to iusefp.o(.text) for __I$use$fp
+    sqrt_x.o(i.____softfp_sqrt$lsc) refers to cdcmple.o(.text) for __aeabi_cdcmple
+    sqrt_x.o(i.____softfp_sqrt$lsc) refers to errno.o(i.__set_errno) for __set_errno
+    sqrt_x.o(i.____softfp_sqrt$lsc) refers to dsqrt.o(.text) for _dsqrt
+    sqrt_x.o(i.__sqrt$lsc) refers (Special) to iusefp.o(.text) for __I$use$fp
+    sqrt_x.o(i.__sqrt$lsc) refers to cdcmple.o(.text) for __aeabi_cdcmple
+    sqrt_x.o(i.__sqrt$lsc) refers to errno.o(i.__set_errno) for __set_errno
+    sqrt_x.o(i.__sqrt$lsc) refers to dsqrt.o(.text) for _dsqrt
+    entry2.o(.ARM.Collect$$$$00000001) refers to entry2.o(.ARM.Collect$$$$00002712) for __lit__00000000
+    entry2.o(.ARM.Collect$$$$00002712) refers to arm_startup_nrf51.o(STACK) for __initial_sp
+    entry2.o(__vectab_stack_and_reset_area) refers to arm_startup_nrf51.o(STACK) for __initial_sp
+    entry2.o(__vectab_stack_and_reset_area) refers to entry.o(.ARM.Collect$$$$00000000) for __main
+    entry5.o(.ARM.Collect$$$$00000004) refers to init.o(.text) for __scatterload
+    entry9a.o(.ARM.Collect$$$$0000000B) refers to pcapint_main.o(i.main) for main
+    entry9b.o(.ARM.Collect$$$$0000000C) refers to pcapint_main.o(i.main) for main
+    errno.o(i.__aeabi_errno_addr) refers to errno.o(.data) for .data
+    errno.o(i.__read_errno) refers to errno.o(.data) for .data
+    errno.o(i.__set_errno) refers to errno.o(.data) for .data
+    depilogue.o(.text) refers to depilogue.o(i.__ARM_clz) for __ARM_clz
+    depilogue.o(.text) refers to llshl.o(.text) for __aeabi_llsl
+    depilogue.o(.text) refers to llushr.o(.text) for __aeabi_llsr
+    dadd.o(.text) refers to llshl.o(.text) for __aeabi_llsl
+    dadd.o(.text) refers to llsshr.o(.text) for __aeabi_lasr
+    dadd.o(.text) refers to depilogue.o(.text) for _double_epilogue
+    dmul.o(.text) refers to depilogue.o(.text) for _double_epilogue
+    dflti.o(.text) refers to depilogue.o(.text) for _double_epilogue
+    init.o(.text) refers to entry5.o(.ARM.Collect$$$$00000004) for __main_after_scatterload
+    dsqrt.o(.text) refers to llushr.o(.text) for __aeabi_llsr
+    dsqrt.o(.text) refers to depilogue.o(.text) for _double_round
+
+
+==============================================================================
+
+Removing Unused input sections from the image.
+
+    Removing pcapint_main.o(.rev16_text), (4 bytes).
+    Removing pcapint_main.o(.revsh_text), (4 bytes).
+    Removing pcapint_main.o(.emb_text), (30 bytes).
+    Removing pcapint_main.o(i.PROTOCOL_EVENT_IRQHandler), (2 bytes).
+    Removing arm_startup_nrf51.o(HEAP), (2048 bytes).
+    Removing system_nrf51422.o(.rev16_text), (4 bytes).
+    Removing system_nrf51422.o(.revsh_text), (4 bytes).
+    Removing system_nrf51422.o(i.SystemCoreClockUpdate), (16 bytes).
+    Removing spi_master.o(.rev16_text), (4 bytes).
+    Removing spi_master.o(.revsh_text), (4 bytes).
+    Removing spi_master.o(.emb_text), (30 bytes).
+    Removing nrf_delay.o(.rev16_text), (4 bytes).
+    Removing nrf_delay.o(.revsh_text), (4 bytes).
+    Removing cdcmple.o(.text), (40 bytes).
+
+14 unused section(s) (total 2198 bytes) removed from the image.
+
+==============================================================================
+
+Image Symbol Table
+
+    Local Symbols
+
+    Symbol Name                              Value     Ov Type        Size  Object(Section)
+
+    ../clib/../cmprslib/lz77c.c              0x00000000   Number         0  __dclz77c.o ABSOLUTE
+    ../clib/microlib/errno.c                 0x00000000   Number         0  errno.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
+    ../clib/microlib/longlong.c              0x00000000   Number         0  llsshr.o ABSOLUTE
+    ../clib/microlib/longlong.c              0x00000000   Number         0  llushr.o ABSOLUTE
+    ../clib/microlib/longlong.c              0x00000000   Number         0  llshl.o ABSOLUTE
+    ../clib/microlib/string/memset.c         0x00000000   Number         0  memseta.o ABSOLUTE
+    ../clib/microlib/stubs.s                 0x00000000   Number         0  iusefp.o ABSOLUTE
+    ../fplib/microlib/d2f.c                  0x00000000   Number         0  d2f.o ABSOLUTE
+    ../fplib/microlib/f2d.c                  0x00000000   Number         0  f2d.o ABSOLUTE
+    ../fplib/microlib/fpadd.c                0x00000000   Number         0  dadd.o ABSOLUTE
+    ../fplib/microlib/fpdiv.c                0x00000000   Number         0  ddiv.o ABSOLUTE
+    ../fplib/microlib/fpepilogue.c           0x00000000   Number         0  depilogue.o ABSOLUTE
+    ../fplib/microlib/fpepilogue.c           0x00000000   Number         0  fepilogue.o ABSOLUTE
+    ../fplib/microlib/fpflt.c                0x00000000   Number         0  dflti.o ABSOLUTE
+    ../fplib/microlib/fpflt.c                0x00000000   Number         0  ffltui.o ABSOLUTE
+    ../fplib/microlib/fpmul.c                0x00000000   Number         0  dmul.o ABSOLUTE
+    ../fplib/microlib/fpmul.c                0x00000000   Number         0  fmul.o ABSOLUTE
+    ../fplib/microlib/fpscalb.c              0x00000000   Number         0  dscalb.o ABSOLUTE
+    ../fplib/microlib/fpsqrt.c               0x00000000   Number         0  dsqrt.o ABSOLUTE
+    ../mathlib/dunder.c                      0x00000000   Number         0  dunder.o ABSOLUTE
+    ../mathlib/fpclassify.c                  0x00000000   Number         0  fpclassify.o ABSOLUTE
+    ../mathlib/poly.c                        0x00000000   Number         0  poly.o ABSOLUTE
+    ../mathlib/pow.c                         0x00000000   Number         0  pow.o ABSOLUTE
+    ../mathlib/pow.c                         0x00000000   Number         0  pow_x.o ABSOLUTE
+    ../mathlib/qnan.c                        0x00000000   Number         0  qnan.o ABSOLUTE
+    ../mathlib/sqrt.c                        0x00000000   Number         0  sqrt.o ABSOLUTE
+    ../mathlib/sqrt.c                        0x00000000   Number         0  sqrt_x.o ABSOLUTE
+    ..\PCAPint_main.c                        0x00000000   Number         0  pcapint_main.o ABSOLUTE
+    ..\\PCAPint_main.c                       0x00000000   Number         0  pcapint_main.o ABSOLUTE
+    ..\\nrf51422\\Source\\nrf_delay\\nrf_delay.c 0x00000000   Number         0  nrf_delay.o ABSOLUTE
+    ..\\nrf51422\\Source\\spi_master\\spi_master.c 0x00000000   Number         0  spi_master.o ABSOLUTE
+    ..\\nrf51422\\Source\\templates\\system_nrf51422.c 0x00000000   Number         0  system_nrf51422.o ABSOLUTE
+    ..\nrf51422\Source\nrf_delay\nrf_delay.c 0x00000000   Number         0  nrf_delay.o ABSOLUTE
+    ..\nrf51422\Source\spi_master\spi_master.c 0x00000000   Number         0  spi_master.o ABSOLUTE
+    ..\nrf51422\Source\templates\system_nrf51422.c 0x00000000   Number         0  system_nrf51422.o ABSOLUTE
+    arm_startup_nrf51.s                      0x00000000   Number         0  arm_startup_nrf51.o ABSOLUTE
+    cdcmple.s                                0x00000000   Number         0  cdcmple.o ABSOLUTE
+    cdrcmple.s                               0x00000000   Number         0  cdrcmple.o ABSOLUTE
+    dc.s                                     0x00000000   Number         0  dc.o ABSOLUTE
+    handlers.s                               0x00000000   Number         0  handlers.o ABSOLUTE
+    init.s                                   0x00000000   Number         0  init.o ABSOLUTE
+    RESET                                    0x0000c000   Section      192  arm_startup_nrf51.o(RESET)
+    .ARM.Collect$$$$00000000                 0x0000c0c0   Section        0  entry.o(.ARM.Collect$$$$00000000)
+    .ARM.Collect$$$$00000001                 0x0000c0c0   Section        4  entry2.o(.ARM.Collect$$$$00000001)
+    .ARM.Collect$$$$00000004                 0x0000c0c4   Section        4  entry5.o(.ARM.Collect$$$$00000004)
+    .ARM.Collect$$$$00000008                 0x0000c0c8   Section        0  entry7b.o(.ARM.Collect$$$$00000008)
+    .ARM.Collect$$$$0000000A                 0x0000c0c8   Section        0  entry8b.o(.ARM.Collect$$$$0000000A)
+    .ARM.Collect$$$$0000000B                 0x0000c0c8   Section        8  entry9a.o(.ARM.Collect$$$$0000000B)
+    .ARM.Collect$$$$0000000D                 0x0000c0d0   Section        0  entry10a.o(.ARM.Collect$$$$0000000D)
+    .ARM.Collect$$$$0000000F                 0x0000c0d0   Section        0  entry11a.o(.ARM.Collect$$$$0000000F)
+    .ARM.Collect$$$$00002712                 0x0000c0d0   Section        4  entry2.o(.ARM.Collect$$$$00002712)
+    __lit__00000000                          0x0000c0d0   Data           4  entry2.o(.ARM.Collect$$$$00002712)
+    .emb_text                                0x0000c0d4   Section       30  nrf_delay.o(.emb_text)
+    .text                                    0x0000c0f4   Section       44  arm_startup_nrf51.o(.text)
+    .text                                    0x0000c120   Section        0  memseta.o(.text)
+    .text                                    0x0000c144   Section        0  fmul.o(.text)
+    .text                                    0x0000c1c0   Section        0  ddiv.o(.text)
+    .text                                    0x0000c2b0   Section        0  ffltui.o(.text)
+    .text                                    0x0000c2be   Section        0  f2d.o(.text)
+    .text                                    0x0000c2e6   Section        0  d2f.o(.text)
+    .text                                    0x0000c31e   Section        0  fepilogue.o(.text)
+    .text                                    0x0000c31e   Section        0  iusefp.o(.text)
+    .text                                    0x0000c3a2   Section        0  depilogue.o(.text)
+    .text                                    0x0000c464   Section        0  dadd.o(.text)
+    .text                                    0x0000c5c8   Section        0  dmul.o(.text)
+    .text                                    0x0000c698   Section        0  dscalb.o(.text)
+    .text                                    0x0000c6c4   Section        0  dflti.o(.text)
+    .text                                    0x0000c6ec   Section       40  cdrcmple.o(.text)
+    .text                                    0x0000c714   Section       36  init.o(.text)
+    .text                                    0x0000c738   Section        0  llshl.o(.text)
+    .text                                    0x0000c758   Section        0  llushr.o(.text)
+    .text                                    0x0000c77a   Section        0  llsshr.o(.text)
+    .text                                    0x0000c7a0   Section        0  dsqrt.o(.text)
+    .text                                    0x0000c842   Section        0  __dclz77c.o(.text)
+    i.SystemInit                             0x0000c8a0   Section        0  system_nrf51422.o(i.SystemInit)
+    i.__ARM_clz                              0x0000c8d8   Section        0  depilogue.o(i.__ARM_clz)
+    i.__ARM_fpclassify                       0x0000c908   Section        0  fpclassify.o(i.__ARM_fpclassify)
+    i.__kernel_poly                          0x0000c934   Section        0  poly.o(i.__kernel_poly)
+    i.__mathlib_dbl_underflow                0x0000c9e0   Section        0  dunder.o(i.__mathlib_dbl_underflow)
+    i.__scatterload_copy                     0x0000c9f4   Section       14  handlers.o(i.__scatterload_copy)
+    i.__scatterload_null                     0x0000ca02   Section        2  handlers.o(i.__scatterload_null)
+    i.__scatterload_zeroinit                 0x0000ca04   Section       14  handlers.o(i.__scatterload_zeroinit)
+    i.__set_errno                            0x0000ca14   Section        0  errno.o(i.__set_errno)
+    i.ant_channel_tx_broadcast_setup         0x0000ca20   Section        0  pcapint_main.o(i.ant_channel_tx_broadcast_setup)
+    i.config_reg_set                         0x0000ca7c   Section        0  pcapint_main.o(i.config_reg_set)
+    i.data_extract                           0x0000cbf4   Section        0  pcapint_main.o(i.data_extract)
+    i.handle_channel_event                   0x0000cc34   Section        0  pcapint_main.o(i.handle_channel_event)
+    handle_channel_event                     0x0000cc35   Thumb Code    46  pcapint_main.o(i.handle_channel_event)
+    i.handle_error                           0x0000cc68   Section        0  pcapint_main.o(i.handle_error)
+    handle_error                             0x0000cc69   Thumb Code     4  pcapint_main.o(i.handle_error)
+    i.is_disabled_in_debug_needed            0x0000cc6c   Section        0  system_nrf51422.o(i.is_disabled_in_debug_needed)
+    is_disabled_in_debug_needed              0x0000cc6d   Thumb Code    48  system_nrf51422.o(i.is_disabled_in_debug_needed)
+    i.is_manual_peripheral_setup_needed      0x0000cca0   Section        0  system_nrf51422.o(i.is_manual_peripheral_setup_needed)
+    is_manual_peripheral_setup_needed        0x0000cca1   Thumb Code    94  system_nrf51422.o(i.is_manual_peripheral_setup_needed)
+    i.main                                   0x0000cd04   Section        0  pcapint_main.o(i.main)
+    i.nrf_delay_ms                           0x0000cff4   Section        0  nrf_delay.o(i.nrf_delay_ms)
+    i.nrf_gpio_cfg_input                     0x0000d010   Section        0  spi_master.o(i.nrf_gpio_cfg_input)
+    nrf_gpio_cfg_input                       0x0000d011   Thumb Code    20  spi_master.o(i.nrf_gpio_cfg_input)
+    i.nrf_gpio_cfg_output                    0x0000d024   Section        0  spi_master.o(i.nrf_gpio_cfg_output)
+    nrf_gpio_cfg_output                      0x0000d025   Thumb Code    18  spi_master.o(i.nrf_gpio_cfg_output)
+    i.nrf_gpio_pin_set                       0x0000d038   Section        0  spi_master.o(i.nrf_gpio_pin_set)
+    nrf_gpio_pin_set                         0x0000d039   Thumb Code    10  spi_master.o(i.nrf_gpio_pin_set)
+    i.pack                                   0x0000d048   Section        0  pcapint_main.o(i.pack)
+    i.pcap_broadcast_data                    0x0000d07c   Section        0  pcapint_main.o(i.pcap_broadcast_data)
+    pcap_broadcast_data                      0x0000d07d   Thumb Code    68  pcapint_main.o(i.pcap_broadcast_data)
+    i.pcap_config_write                      0x0000d0c4   Section        0  pcapint_main.o(i.pcap_config_write)
+    i.pcap_dsp_write                         0x0000d1bc   Section        0  pcapint_main.o(i.pcap_dsp_write)
+    i.pcap_spi_set                           0x0000d238   Section        0  pcapint_main.o(i.pcap_spi_set)
+    i.pcap_spi_tx_rx                         0x0000d24c   Section        0  pcapint_main.o(i.pcap_spi_tx_rx)
+    i.pow                                    0x0000d274   Section        0  pow.o(i.pow)
+    i.read_reg                               0x0000dc5c   Section        0  pcapint_main.o(i.read_reg)
+    i.softdevice_assert_callback             0x0000dcc4   Section        0  pcapint_main.o(i.softdevice_assert_callback)
+    i.spi_master_init                        0x0000dcc8   Section        0  spi_master.o(i.spi_master_init)
+    i.spi_master_tx_rx                       0x0000ddcc   Section        0  spi_master.o(i.spi_master_tx_rx)
+    i.sqrt                                   0x0000de5c   Section        0  sqrt.o(i.sqrt)
+    .constdata                               0x0000dea8   Section      136  pow.o(.constdata)
+    bp                                       0x0000dea8   Data          16  pow.o(.constdata)
+    dp_h                                     0x0000deb8   Data          16  pow.o(.constdata)
+    dp_l                                     0x0000dec8   Data          16  pow.o(.constdata)
+    L                                        0x0000ded8   Data          48  pow.o(.constdata)
+    P                                        0x0000df08   Data          40  pow.o(.constdata)
+    .constdata                               0x0000df30   Section        8  qnan.o(.constdata)
+    .data                                    0x20000900   Section     4121  pcapint_main.o(.data)
+    prgdata                                  0x20000900   Data        4096  pcapint_main.o(.data)
+    tx_data                                  0x20001900   Data           8  pcapint_main.o(.data)
+    rx_data                                  0x20001908   Data           8  pcapint_main.o(.data)
+    MSG_LEN                                  0x20001910   Data           1  pcapint_main.o(.data)
+    s_broadcast_data                         0x20001911   Data           8  pcapint_main.o(.data)
+    .data                                    0x2000191c   Section        4  system_nrf51422.o(.data)
+    __tagsym$$used                           0x2000191c   Number         0  system_nrf51422.o(.data)
+    .data                                    0x20001920   Section        4  errno.o(.data)
+    _errno                                   0x20001920   Data           4  errno.o(.data)
+    .bss                                     0x20001924   Section       64  pcapint_main.o(.bss)
+    event_message_buffer                     0x20001924   Data          32  pcapint_main.o(.bss)
+    cap_t                                    0x20001944   Data          32  pcapint_main.o(.bss)
+    STACK                                    0x20001968   Section     2048  arm_startup_nrf51.o(STACK)
+
+    Global Symbols
+
+    Symbol Name                              Value     Ov Type        Size  Object(Section)
+
+    BuildAttributes$$THM_ISAv3M$S$PE$A:L22$X:L11$S22$IEEE1$IW$USESV6$~STKCKD$USESV7$~SHL$OTIME$ROPI$IEEEX$EBA8$MICROLIB$REQ8$PRES8$EABIv2 0x00000000   Number         0  anon$$obj.o ABSOLUTE
+    __ARM_use_no_argv                        0x00000000   Number         0  pcapint_main.o ABSOLUTE
+    __cpp_initialize__aeabi_                  - Undefined Weak Reference
+    __cxa_finalize                            - Undefined Weak Reference
+    _clock_init                               - Undefined Weak Reference
+    _microlib_exit                            - Undefined Weak Reference
+    __Vectors_Size                           0x000000c0   Number         0  arm_startup_nrf51.o ABSOLUTE
+    __Vectors                                0x0000c000   Data           4  arm_startup_nrf51.o(RESET)
+    __Vectors_End                            0x0000c0c0   Data           0  arm_startup_nrf51.o(RESET)
+    __main                                   0x0000c0c1   Thumb Code     0  entry.o(.ARM.Collect$$$$00000000)
+    _main_stk                                0x0000c0c1   Thumb Code     0  entry2.o(.ARM.Collect$$$$00000001)
+    _main_scatterload                        0x0000c0c5   Thumb Code     0  entry5.o(.ARM.Collect$$$$00000004)
+    __main_after_scatterload                 0x0000c0c9   Thumb Code     0  entry5.o(.ARM.Collect$$$$00000004)
+    _main_clock                              0x0000c0c9   Thumb Code     0  entry7b.o(.ARM.Collect$$$$00000008)
+    _main_cpp_init                           0x0000c0c9   Thumb Code     0  entry8b.o(.ARM.Collect$$$$0000000A)
+    _main_init                               0x0000c0c9   Thumb Code     0  entry9a.o(.ARM.Collect$$$$0000000B)
+    __rt_final_cpp                           0x0000c0d1   Thumb Code     0  entry10a.o(.ARM.Collect$$$$0000000D)
+    __rt_final_exit                          0x0000c0d1   Thumb Code     0  entry11a.o(.ARM.Collect$$$$0000000F)
+    __asm___11_nrf_delay_c_532987f3__nrf_delay_us 0x0000c0d5   Thumb Code    30  nrf_delay.o(.emb_text)
+    Reset_Handler                            0x0000c0f5   Thumb Code    18  arm_startup_nrf51.o(.text)
+    NMI_Handler                              0x0000c107   Thumb Code     2  arm_startup_nrf51.o(.text)
+    HardFault_Handler                        0x0000c109   Thumb Code     2  arm_startup_nrf51.o(.text)
+    SVC_Handler                              0x0000c10b   Thumb Code     2  arm_startup_nrf51.o(.text)
+    PendSV_Handler                           0x0000c10d   Thumb Code     2  arm_startup_nrf51.o(.text)
+    SysTick_Handler                          0x0000c10f   Thumb Code     2  arm_startup_nrf51.o(.text)
+    ADC_IRQHandler                           0x0000c111   Thumb Code     0  arm_startup_nrf51.o(.text)
+    CCM_AAR_IRQHandler                       0x0000c111   Thumb Code     0  arm_startup_nrf51.o(.text)
+    ECB_IRQHandler                           0x0000c111   Thumb Code     0  arm_startup_nrf51.o(.text)
+    GPIOTE_IRQHandler                        0x0000c111   Thumb Code     0  arm_startup_nrf51.o(.text)
+    POWER_CLOCK_IRQHandler                   0x0000c111   Thumb Code     0  arm_startup_nrf51.o(.text)
+    QDEC_IRQHandler                          0x0000c111   Thumb Code     0  arm_startup_nrf51.o(.text)
+    RADIO_IRQHandler                         0x0000c111   Thumb Code     0  arm_startup_nrf51.o(.text)
+    RNG_IRQHandler                           0x0000c111   Thumb Code     0  arm_startup_nrf51.o(.text)
+    RTC0_IRQHandler                          0x0000c111   Thumb Code     0  arm_startup_nrf51.o(.text)
+    RTC1_IRQHandler                          0x0000c111   Thumb Code     0  arm_startup_nrf51.o(.text)
+    SPI0_TWI0_IRQHandler                     0x0000c111   Thumb Code     0  arm_startup_nrf51.o(.text)
+    SPI1_TWI1_IRQHandler                     0x0000c111   Thumb Code     0  arm_startup_nrf51.o(.text)
+    SWI0_IRQHandler                          0x0000c111   Thumb Code     0  arm_startup_nrf51.o(.text)
+    SWI1_IRQHandler                          0x0000c111   Thumb Code     0  arm_startup_nrf51.o(.text)
+    SWI2_IRQHandler                          0x0000c111   Thumb Code     0  arm_startup_nrf51.o(.text)
+    SWI3_IRQHandler                          0x0000c111   Thumb Code     0  arm_startup_nrf51.o(.text)
+    SWI4_IRQHandler                          0x0000c111   Thumb Code     0  arm_startup_nrf51.o(.text)
+    SWI5_IRQHandler                          0x0000c111   Thumb Code     0  arm_startup_nrf51.o(.text)
+    TEMP_IRQHandler                          0x0000c111   Thumb Code     0  arm_startup_nrf51.o(.text)
+    TIMER0_IRQHandler                        0x0000c111   Thumb Code     0  arm_startup_nrf51.o(.text)
+    TIMER1_IRQHandler                        0x0000c111   Thumb Code     0  arm_startup_nrf51.o(.text)
+    TIMER2_IRQHandler                        0x0000c111   Thumb Code     0  arm_startup_nrf51.o(.text)
+    UART0_IRQHandler                         0x0000c111   Thumb Code     0  arm_startup_nrf51.o(.text)
+    WDT_IRQHandler                           0x0000c111   Thumb Code     0  arm_startup_nrf51.o(.text)
+    WUCOMP_COMP_IRQHandler                   0x0000c111   Thumb Code     0  arm_startup_nrf51.o(.text)
+    __aeabi_memset                           0x0000c121   Thumb Code    14  memseta.o(.text)
+    __aeabi_memset4                          0x0000c121   Thumb Code     0  memseta.o(.text)
+    __aeabi_memset8                          0x0000c121   Thumb Code     0  memseta.o(.text)
+    __aeabi_memclr                           0x0000c12f   Thumb Code     4  memseta.o(.text)
+    __aeabi_memclr4                          0x0000c12f   Thumb Code     0  memseta.o(.text)
+    __aeabi_memclr8                          0x0000c12f   Thumb Code     0  memseta.o(.text)
+    _memset$wrapper                          0x0000c133   Thumb Code    18  memseta.o(.text)
+    __aeabi_fmul                             0x0000c145   Thumb Code   122  fmul.o(.text)
+    __aeabi_ddiv                             0x0000c1c1   Thumb Code   234  ddiv.o(.text)
+    __aeabi_ui2f                             0x0000c2b1   Thumb Code    14  ffltui.o(.text)
+    __aeabi_f2d                              0x0000c2bf   Thumb Code    40  f2d.o(.text)
+    __aeabi_d2f                              0x0000c2e7   Thumb Code    56  d2f.o(.text)
+    __I$use$fp                               0x0000c31f   Thumb Code     0  iusefp.o(.text)
+    _float_round                             0x0000c31f   Thumb Code    16  fepilogue.o(.text)
+    _float_epilogue                          0x0000c32f   Thumb Code   116  fepilogue.o(.text)
+    _double_round                            0x0000c3a3   Thumb Code    26  depilogue.o(.text)
+    _double_epilogue                         0x0000c3bd   Thumb Code   166  depilogue.o(.text)
+    __aeabi_dadd                             0x0000c465   Thumb Code   326  dadd.o(.text)
+    __aeabi_dsub                             0x0000c5ab   Thumb Code    12  dadd.o(.text)
+    __aeabi_drsub                            0x0000c5b7   Thumb Code    12  dadd.o(.text)
+    __aeabi_dmul                             0x0000c5c9   Thumb Code   202  dmul.o(.text)
+    __ARM_scalbn                             0x0000c699   Thumb Code    44  dscalb.o(.text)
+    scalbn                                   0x0000c699   Thumb Code     0  dscalb.o(.text)
+    __aeabi_i2d                              0x0000c6c5   Thumb Code    34  dflti.o(.text)
+    __aeabi_cdrcmple                         0x0000c6ed   Thumb Code    38  cdrcmple.o(.text)
+    __scatterload                            0x0000c715   Thumb Code    28  init.o(.text)
+    __scatterload_rt2                        0x0000c715   Thumb Code     0  init.o(.text)
+    __aeabi_llsl                             0x0000c739   Thumb Code    32  llshl.o(.text)
+    _ll_shift_l                              0x0000c739   Thumb Code     0  llshl.o(.text)
+    __aeabi_llsr                             0x0000c759   Thumb Code    34  llushr.o(.text)
+    _ll_ushift_r                             0x0000c759   Thumb Code     0  llushr.o(.text)
+    __aeabi_lasr                             0x0000c77b   Thumb Code    38  llsshr.o(.text)
+    _ll_sshift_r                             0x0000c77b   Thumb Code     0  llsshr.o(.text)
+    _dsqrt                                   0x0000c7a1   Thumb Code   162  dsqrt.o(.text)
+    __decompress                             0x0000c843   Thumb Code     0  __dclz77c.o(.text)
+    __decompress2                            0x0000c843   Thumb Code    94  __dclz77c.o(.text)
+    SystemInit                               0x0000c8a1   Thumb Code    38  system_nrf51422.o(i.SystemInit)
+    __ARM_clz                                0x0000c8d9   Thumb Code    46  depilogue.o(i.__ARM_clz)
+    __ARM_fpclassify                         0x0000c909   Thumb Code    38  fpclassify.o(i.__ARM_fpclassify)
+    __kernel_poly                            0x0000c935   Thumb Code   172  poly.o(i.__kernel_poly)
+    __mathlib_dbl_underflow                  0x0000c9e1   Thumb Code    14  dunder.o(i.__mathlib_dbl_underflow)
+    __scatterload_copy                       0x0000c9f5   Thumb Code    14  handlers.o(i.__scatterload_copy)
+    __scatterload_null                       0x0000ca03   Thumb Code     2  handlers.o(i.__scatterload_null)
+    __scatterload_zeroinit                   0x0000ca05   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
+    __set_errno                              0x0000ca15   Thumb Code     6  errno.o(i.__set_errno)
+    ant_channel_tx_broadcast_setup           0x0000ca21   Thumb Code    86  pcapint_main.o(i.ant_channel_tx_broadcast_setup)
+    config_reg_set                           0x0000ca7d   Thumb Code   372  pcapint_main.o(i.config_reg_set)
+    data_extract                             0x0000cbf5   Thumb Code    58  pcapint_main.o(i.data_extract)
+    main                                     0x0000cd05   Thumb Code   724  pcapint_main.o(i.main)
+    nrf_delay_ms                             0x0000cff5   Thumb Code    24  nrf_delay.o(i.nrf_delay_ms)
+    pack                                     0x0000d049   Thumb Code    50  pcapint_main.o(i.pack)
+    pcap_config_write                        0x0000d0c5   Thumb Code   234  pcapint_main.o(i.pcap_config_write)
+    pcap_dsp_write                           0x0000d1bd   Thumb Code   108  pcapint_main.o(i.pcap_dsp_write)
+    pcap_spi_set                             0x0000d239   Thumb Code    20  pcapint_main.o(i.pcap_spi_set)
+    pcap_spi_tx_rx                           0x0000d24d   Thumb Code    34  pcapint_main.o(i.pcap_spi_tx_rx)
+    pow                                      0x0000d275   Thumb Code  2526  pow.o(i.pow)
+    read_reg                                 0x0000dc5d   Thumb Code    90  pcapint_main.o(i.read_reg)
+    softdevice_assert_callback               0x0000dcc5   Thumb Code     4  pcapint_main.o(i.softdevice_assert_callback)
+    spi_master_init                          0x0000dcc9   Thumb Code   250  spi_master.o(i.spi_master_init)
+    spi_master_tx_rx                         0x0000ddcd   Thumb Code   134  spi_master.o(i.spi_master_tx_rx)
+    sqrt                                     0x0000de5d   Thumb Code    66  sqrt.o(i.sqrt)
+    __mathlib_zero                           0x0000df30   Data           8  qnan.o(.constdata)
+    Region$$Table$$Base                      0x0000df38   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x0000df48   Number         0  anon$$obj.o(Region$$Table)
+    SystemCoreClock                          0x2000191c   Data           4  system_nrf51422.o(.data)
+    __initial_sp                             0x20002168   Data           0  arm_startup_nrf51.o(STACK)
+
+
+
+==============================================================================
+
+Memory Map of the image
+
+  Image Entry point : 0x0000c0c1
+
+  Load Region LR_IROM1 (Base: 0x0000c000, Size: 0x00002f6c, Max: 0x00034000, ABSOLUTE, COMPRESSED[0x000021b8])
+
+    Execution Region ER_IROM1 (Base: 0x0000c000, Size: 0x00001f48, Max: 0x00034000, ABSOLUTE)
+
+    Base Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x0000c000   0x000000c0   Data   RO          222    RESET               arm_startup_nrf51.o
+    0x0000c0c0   0x00000000   Code   RO          361  * .ARM.Collect$$$$00000000  mc_p.l(entry.o)
+    0x0000c0c0   0x00000004   Code   RO          391    .ARM.Collect$$$$00000001  mc_p.l(entry2.o)
+    0x0000c0c4   0x00000004   Code   RO          394    .ARM.Collect$$$$00000004  mc_p.l(entry5.o)
+    0x0000c0c8   0x00000000   Code   RO          396    .ARM.Collect$$$$00000008  mc_p.l(entry7b.o)
+    0x0000c0c8   0x00000000   Code   RO          398    .ARM.Collect$$$$0000000A  mc_p.l(entry8b.o)
+    0x0000c0c8   0x00000008   Code   RO          399    .ARM.Collect$$$$0000000B  mc_p.l(entry9a.o)
+    0x0000c0d0   0x00000000   Code   RO          401    .ARM.Collect$$$$0000000D  mc_p.l(entry10a.o)
+    0x0000c0d0   0x00000000   Code   RO          403    .ARM.Collect$$$$0000000F  mc_p.l(entry11a.o)
+    0x0000c0d0   0x00000004   Code   RO          392    .ARM.Collect$$$$00002712  mc_p.l(entry2.o)
+    0x0000c0d4   0x0000001e   Code   RO          322    .emb_text           nrf_delay.o
+    0x0000c0f2   0x00000002   PAD
+    0x0000c0f4   0x0000002c   Code   RO          223    .text               arm_startup_nrf51.o
+    0x0000c120   0x00000024   Code   RO          364    .text               mc_p.l(memseta.o)
+    0x0000c144   0x0000007a   Code   RO          366    .text               mf_p.l(fmul.o)
+    0x0000c1be   0x00000002   PAD
+    0x0000c1c0   0x000000f0   Code   RO          368    .text               mf_p.l(ddiv.o)
+    0x0000c2b0   0x0000000e   Code   RO          370    .text               mf_p.l(ffltui.o)
+    0x0000c2be   0x00000028   Code   RO          372    .text               mf_p.l(f2d.o)
+    0x0000c2e6   0x00000038   Code   RO          374    .text               mf_p.l(d2f.o)
+    0x0000c31e   0x00000000   Code   RO          412    .text               mc_p.l(iusefp.o)
+    0x0000c31e   0x00000084   Code   RO          413    .text               mf_p.l(fepilogue.o)
+    0x0000c3a2   0x000000c0   Code   RO          415    .text               mf_p.l(depilogue.o)
+    0x0000c462   0x00000002   PAD
+    0x0000c464   0x00000164   Code   RO          419    .text               mf_p.l(dadd.o)
+    0x0000c5c8   0x000000d0   Code   RO          421    .text               mf_p.l(dmul.o)
+    0x0000c698   0x0000002c   Code   RO          423    .text               mf_p.l(dscalb.o)
+    0x0000c6c4   0x00000028   Code   RO          425    .text               mf_p.l(dflti.o)
+    0x0000c6ec   0x00000028   Code   RO          427    .text               mf_p.l(cdrcmple.o)
+    0x0000c714   0x00000024   Code   RO          429    .text               mc_p.l(init.o)
+    0x0000c738   0x00000020   Code   RO          431    .text               mc_p.l(llshl.o)
+    0x0000c758   0x00000022   Code   RO          433    .text               mc_p.l(llushr.o)
+    0x0000c77a   0x00000026   Code   RO          435    .text               mc_p.l(llsshr.o)
+    0x0000c7a0   0x000000a2   Code   RO          437    .text               mf_p.l(dsqrt.o)
+    0x0000c842   0x0000005e   Code   RO          449    .text               mc_p.l(__dclz77c.o)
+    0x0000c8a0   0x00000038   Code   RO          230    i.SystemInit        system_nrf51422.o
+    0x0000c8d8   0x0000002e   Code   RO          417    i.__ARM_clz         mf_p.l(depilogue.o)
+    0x0000c906   0x00000002   PAD
+    0x0000c908   0x0000002c   Code   RO          378    i.__ARM_fpclassify  m_ps.l(fpclassify.o)
+    0x0000c934   0x000000ac   Code   RO          380    i.__kernel_poly     m_ps.l(poly.o)
+    0x0000c9e0   0x00000014   Code   RO          376    i.__mathlib_dbl_underflow  m_ps.l(dunder.o)
+    0x0000c9f4   0x0000000e   Code   RO          443    i.__scatterload_copy  mc_p.l(handlers.o)
+    0x0000ca02   0x00000002   Code   RO          444    i.__scatterload_null  mc_p.l(handlers.o)
+    0x0000ca04   0x0000000e   Code   RO          445    i.__scatterload_zeroinit  mc_p.l(handlers.o)
+    0x0000ca12   0x00000002   PAD
+    0x0000ca14   0x0000000c   Code   RO          407    i.__set_errno       mc_p.l(errno.o)
+    0x0000ca20   0x0000005c   Code   RO            5    i.ant_channel_tx_broadcast_setup  pcapint_main.o
+    0x0000ca7c   0x00000178   Code   RO            6    i.config_reg_set    pcapint_main.o
+    0x0000cbf4   0x00000040   Code   RO            7    i.data_extract      pcapint_main.o
+    0x0000cc34   0x00000034   Code   RO            8    i.handle_channel_event  pcapint_main.o
+    0x0000cc68   0x00000004   Code   RO            9    i.handle_error      pcapint_main.o
+    0x0000cc6c   0x00000034   Code   RO          231    i.is_disabled_in_debug_needed  system_nrf51422.o
+    0x0000cca0   0x00000064   Code   RO          232    i.is_manual_peripheral_setup_needed  system_nrf51422.o
+    0x0000cd04   0x000002f0   Code   RO           10    i.main              pcapint_main.o
+    0x0000cff4   0x0000001c   Code   RO          323    i.nrf_delay_ms      nrf_delay.o
+    0x0000d010   0x00000014   Code   RO          272    i.nrf_gpio_cfg_input  spi_master.o
+    0x0000d024   0x00000012   Code   RO          273    i.nrf_gpio_cfg_output  spi_master.o
+    0x0000d036   0x00000002   PAD
+    0x0000d038   0x00000010   Code   RO          274    i.nrf_gpio_pin_set  spi_master.o
+    0x0000d048   0x00000032   Code   RO           11    i.pack              pcapint_main.o
+    0x0000d07a   0x00000002   PAD
+    0x0000d07c   0x00000048   Code   RO           12    i.pcap_broadcast_data  pcapint_main.o
+    0x0000d0c4   0x000000f8   Code   RO           13    i.pcap_config_write  pcapint_main.o
+    0x0000d1bc   0x0000007c   Code   RO           14    i.pcap_dsp_write    pcapint_main.o
+    0x0000d238   0x00000014   Code   RO           15    i.pcap_spi_set      pcapint_main.o
+    0x0000d24c   0x00000028   Code   RO           16    i.pcap_spi_tx_rx    pcapint_main.o
+    0x0000d274   0x000009e8   Code   RO          352    i.pow               m_ps.l(pow.o)
+    0x0000dc5c   0x00000068   Code   RO           17    i.read_reg          pcapint_main.o
+    0x0000dcc4   0x00000004   Code   RO           18    i.softdevice_assert_callback  pcapint_main.o
+    0x0000dcc8   0x00000104   Code   RO          275    i.spi_master_init   spi_master.o
+    0x0000ddcc   0x00000090   Code   RO          276    i.spi_master_tx_rx  spi_master.o
+    0x0000de5c   0x00000048   Code   RO          384    i.sqrt              m_ps.l(sqrt.o)
+    0x0000dea4   0x00000004   PAD
+    0x0000dea8   0x00000088   Data   RO          353    .constdata          m_ps.l(pow.o)
+    0x0000df30   0x00000008   Data   RO          382    .constdata          m_ps.l(qnan.o)
+    0x0000df38   0x00000010   Data   RO          441    Region$$Table       anon$$obj.o
+
+
+    Execution Region RW_IRAM1 (Base: 0x20000900, Size: 0x00001868, Max: 0x00003700, ABSOLUTE, UNINIT, COMPRESSED[0x00000270])
+
+    Base Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x20000900   0x00001019   Data   RW           20    .data               pcapint_main.o
+    0x20001919   0x00000003   PAD
+    0x2000191c   0x00000004   Data   RW          233    .data               system_nrf51422.o
+    0x20001920   0x00000004   Data   RW          408    .data               mc_p.l(errno.o)
+    0x20001924   0x00000040   Zero   RW           19    .bss                pcapint_main.o
+    0x20001964   0x00000004   PAD
+    0x20001968   0x00000800   Zero   RW          220    STACK               arm_startup_nrf51.o
+
+
+==============================================================================
+
+Image component sizes
+
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
+
+        44         14        192          0       2048        544   arm_startup_nrf51.o
+        58          4          0          0          0       1259   nrf_delay.o
+      2002        104          0       4121         64      31836   pcapint_main.o
+       458         26          0          0          0       5537   spi_master.o
+       208         28          0          4          0       1663   system_nrf51422.o
+
+    ----------------------------------------------------------------------
+      2776        176        208       4128       2116      40839   Object Totals
+         0          0         16          0          0          0   (incl. Generated)
+         6          0          0          3          4          0   (incl. Padding)
+
+    ----------------------------------------------------------------------
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Library Member Name
+
+        20          6          0          0          0         68   dunder.o
+        44          6          0          0          0         60   fpclassify.o
+       172          0          0          0          0         76   poly.o
+      2536        224        136          0          0        216   pow.o
+         0          0          8          0          0          0   qnan.o
+        72          6          0          0          0         76   sqrt.o
+        94          0          0          0          0          0   __dclz77c.o
+         0          0          0          0          0          0   entry.o
+         0          0          0          0          0          0   entry10a.o
+         0          0          0          0          0          0   entry11a.o
+         8          4          0          0          0          0   entry2.o
+         4          0          0          0          0          0   entry5.o
+         0          0          0          0          0          0   entry7b.o
+         0          0          0          0          0          0   entry8b.o
+         8          4          0          0          0          0   entry9a.o
+        12          6          0          4          0         60   errno.o
+        30          0          0          0          0          0   handlers.o
+        36          8          0          0          0         68   init.o
+         0          0          0          0          0          0   iusefp.o
+        32          0          0          0          0         68   llshl.o
+        38          0          0          0          0         68   llsshr.o
+        34          0          0          0          0         68   llushr.o
+        36          0          0          0          0        100   memseta.o
+        40          2          0          0          0         68   cdrcmple.o
+        56          0          0          0          0         68   d2f.o
+       356          6          0          0          0        140   dadd.o
+       240          6          0          0          0         84   ddiv.o
+       238          0          0          0          0        216   depilogue.o
+        40          6          0          0          0         68   dflti.o
+       208          6          0          0          0         88   dmul.o
+        44          0          0          0          0         72   dscalb.o
+       162          0          0          0          0         80   dsqrt.o
+        40          0          0          0          0         60   f2d.o
+       132          0          0          0          0        144   fepilogue.o
+        14          0          0          0          0         68   ffltui.o
+       122          0          0          0          0         72   fmul.o
+
+    ----------------------------------------------------------------------
+      4880        294        144          4          0       2156   Library Totals
+        12          4          0          0          0          0   (incl. Padding)
+
+    ----------------------------------------------------------------------
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Library Name
+
+      2844        242        144          0          0        496   m_ps.l
+       332         22          0          4          0        432   mc_p.l
+      1692         26          0          0          0       1228   mf_p.l
+
+    ----------------------------------------------------------------------
+      4880        294        144          4          0       2156   Library Totals
+
+    ----------------------------------------------------------------------
+
+==============================================================================
+
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
+
+      7656        470        352       4132       2116      40903   Grand Totals
+      7656        470        352        624       2116      40903   ELF Image Totals (compressed)
+      7656        470        352        624          0          0   ROM Totals
+
+==============================================================================
+
+    Total RO  Size (Code + RO Data)                 8008 (   7.82kB)
+    Total RW  Size (RW Data + ZI Data)              6248 (   6.10kB)
+    Total ROM Size (Code + RO Data + RW Data)       8632 (   8.43kB)
+
+==============================================================================
+

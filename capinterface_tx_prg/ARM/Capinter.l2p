@@ -1,0 +1,10 @@
+--cpu Cortex-M0
+".\pcapint_main.o"
+".\arm_startup_nrf51.o"
+".\system_nrf51422.o"
+".\spi_master.o"
+".\nrf_delay.o"
+--library_type=microlib --strict --scatter ".\Capinter.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Capinter.map" -o .\Capinter.axf
