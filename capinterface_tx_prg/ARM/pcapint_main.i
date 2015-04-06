@@ -15045,6 +15045,8 @@ float data_extract(uint32_t data)
 
  
 static uint8_t s_broadcast_data[(8)];	
+int rtc_flag = 1;
+
 
 
 
@@ -15141,7 +15143,22 @@ static void handle_channel_event(uint32_t event, uint8_t add, uint32_t data1,uin
 
 
  
+
+void RTC1_IRQHandler(void) 
+{ 
+    
+    if(((NRF_RTC_Type *) 0x40011000UL)->EVENTS_COMPARE[0]) 
+    { 
+       ((NRF_RTC_Type *) 0x40011000UL)->EVENTS_COMPARE[0] = 0; 
+       rtc_flag = 0;           
+       ((NRF_RTC_Type *) 0x40011000UL)->TASKS_CLEAR = 1; 
+    } 
+}
+
+
+
 int main(void)
+
 {
 	
 	_Bool ret0, ret1, ret2, ret3; 
@@ -15157,17 +15174,31 @@ int main(void)
   char cap1_s[7][16]; 
   float cap1, cap2, cap3, cap4, cap5, cap6, cap7, capref;
 	int check = 0;
+	
 		 
 	 
 	static uint8_t event_message_buffer[(32)];
 	
 	 
 	return_value = sd_softdevice_enable(NRF_CLOCK_LFCLKSRC_SYNTH_250_PPM, softdevice_assert_callback);
-	if (return_value != ((0x0) + 0)) 
-	{			while(1);	
+	if (return_value != ((0x0) + 0)) 	{	while(1);}
 
-	}
+  
+
+
+
+
+
+
+
+ 
 	
+  
+  ((NRF_RTC_Type *) 0x40011000UL)->PRESCALER = 0; 
+  ((NRF_RTC_Type *) 0x40011000UL)->EVTENSET = (0x1UL << (16UL));  
+  ((NRF_RTC_Type *) 0x40011000UL)->INTENSET = (0x1UL << (16UL));  
+  ((NRF_RTC_Type *) 0x40011000UL)->CC[0] = 5*32768; 
+  NVIC_EnableIRQ(RTC1_IRQn); 
 	 
 	
 	
@@ -15178,15 +15209,12 @@ int main(void)
 	
 	return_value = ant_channel_tx_broadcast_setup(); 
   if (return_value != 0) while(1);
-
-	
-	s_broadcast_data[0] = 0x05;;
-	return_value = sd_ant_broadcast_message_tx((0), (8), s_broadcast_data );
-
   
 	  
 	uint32_t *PCAP_spi_address = pcap_spi_set(SPI1); 
   pcap_dsp_write(PCAP_spi_address); 
+	
+
 
 	 
 	while(1)
@@ -15301,6 +15329,11 @@ int main(void)
  
 	
 	return_value = sd_ant_channel_open((0));
+		
+	s_broadcast_data[0] = 0x05;;
+	return_value = sd_ant_broadcast_message_tx((0), (8), s_broadcast_data );
+
+
 	if( return_value != ((0x0) + 0) ) {
 		return 1; 
 	}
@@ -15351,7 +15384,22 @@ int main(void)
 		sw2 = 0;			
 		sw3 = 1;			
 		return_value = sd_ant_channel_close((0));
-		 sd_power_system_off(); 
+		
+		rtc_flag = 1;
+		((NRF_RTC_Type *) 0x40011000UL)->TASKS_START = 1;
+		do 
+    { 
+       
+       __wfe();   
+       
+       __sev(); 
+       __wfe();                 
+    }while(rtc_flag); 
+		
+    ((NRF_RTC_Type *) 0x40011000UL)->TASKS_STOP = 1; 
+    ((NRF_RTC_Type *) 0x40011000UL)->TASKS_CLEAR = 1; 
+
+		
 }
 } 
 

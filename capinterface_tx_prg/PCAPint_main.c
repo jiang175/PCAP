@@ -56,6 +56,8 @@
 
 /* Static variables and buffers */
 static uint8_t s_broadcast_data[BROADCAST_DATA_BUFFER_SIZE];	///< Primary data transmit buffer
+int rtc_flag = 1;
+
 
 //static uint8_t s_counter = 1;																 ///< Counter to increment the ANT broadcast data payload
 
@@ -152,7 +154,22 @@ static void handle_channel_event(uint32_t event, uint8_t add, uint32_t data1,uin
  * main() function
  * @return 0. int return type required by ANSI/ISO standard. 
  */
+
+void RTC1_IRQHandler(void) 
+{ 
+    // This handler will be run after wakeup from system ON (RTC wakeup) 
+    if(NRF_RTC1->EVENTS_COMPARE[0]) 
+    { 
+       NRF_RTC1->EVENTS_COMPARE[0] = 0; 
+       rtc_flag = 0;           
+       NRF_RTC1->TASKS_CLEAR = 1; 
+    } 
+}
+
+
+
 int main(void)
+
 {
 	// Variable declarations 
 	bool ret0, ret1, ret2, ret3; // error checkers
@@ -168,17 +185,31 @@ int main(void)
   char cap1_s[7][16]; 
   float cap1, cap2, cap3, cap4, cap5, cap6, cap7, capref;
 	int check = 0;
+	
 		 
 	/* ANT event message buffer */
 	static uint8_t event_message_buffer[ANT_EVENT_MSG_BUFFER_MIN_SIZE];
 	
 	/* Enable softdevice */
 	return_value = sd_softdevice_enable(NRF_CLOCK_LFCLKSRC_SYNTH_250_PPM, softdevice_assert_callback);
-	if (return_value != NRF_SUCCESS) 
-	{			while(true);	
+	if (return_value != NRF_SUCCESS) 	{	while(true);}
 
-	}
+  /*RTC Intialisation
+	// Internal 32kHz RC 
+  NRF_CLOCK->LFCLKSRC = CLOCK_LFCLKSRC_SRC_RC << CLOCK_LFCLKSRC_SRC_Pos; 
+  
+  // Start the 32 kHz clock, and wait for the start up to complete 
+  NRF_CLOCK->EVENTS_LFCLKSTARTED = 0; 
+  NRF_CLOCK->TASKS_LFCLKSTART = 1; 
+  while(NRF_CLOCK->EVENTS_LFCLKSTARTED == 0); 
+  */
 	
+  // Configure the RTC to run at 2 second intervals, and make sure COMPARE0 generates an interrupt (this will be the wakeup source) 
+  NRF_RTC1->PRESCALER = 0; 
+  NRF_RTC1->EVTENSET = RTC_EVTEN_COMPARE0_Msk;  
+  NRF_RTC1->INTENSET = RTC_INTENSET_COMPARE0_Msk;  
+  NRF_RTC1->CC[0] = 5*32768; 
+  NVIC_EnableIRQ(RTC1_IRQn); 
 	/* Set application IRQ to lowest priority */
 	//return_value = sd_nvic_SetPriority(SD_EVT_IRQn, NRF_APP_PRIORITY_LOW); 
 	
@@ -189,15 +220,12 @@ int main(void)
 	
 	return_value = ant_channel_tx_broadcast_setup(); 
   if (return_value != false) while(true);
-
-	// Get first data to send
-	s_broadcast_data[0] = DEVICE_ID;
-	return_value = sd_ant_broadcast_message_tx(CHANNEL_0, BROADCAST_DATA_BUFFER_SIZE, s_broadcast_data );
-
   
 	/* SPI Intialisation */ 
 	uint32_t *PCAP_spi_address = pcap_spi_set(SPI1); 
   pcap_dsp_write(PCAP_spi_address); 
+	
+
 
 	/* Main Loop */
 	while(true)
@@ -312,6 +340,11 @@ int main(void)
 			}		*/
 	// Open channel. 
 	return_value = sd_ant_channel_open(CHANNEL_0);
+		// Get first data to send
+	s_broadcast_data[0] = DEVICE_ID;
+	return_value = sd_ant_broadcast_message_tx(CHANNEL_0, BROADCAST_DATA_BUFFER_SIZE, s_broadcast_data );
+
+
 	if( return_value != NRF_SUCCESS ) {
 		return true; // error
 	}
@@ -362,7 +395,22 @@ int main(void)
 		sw2 = 0;			
 		sw3 = 1;			
 		return_value = sd_ant_channel_close(CHANNEL_0);
-		 sd_power_system_off(); 
+		
+		rtc_flag = 1;
+		NRF_RTC1->TASKS_START = 1;
+		do 
+    { 
+       // Enter System ON sleep mode 
+       __WFE();   
+       // Make sure any pending events are cleared 
+       __SEV(); 
+       __WFE();                 
+    }while(rtc_flag); 
+		
+    NRF_RTC1->TASKS_STOP = 1; 
+    NRF_RTC1->TASKS_CLEAR = 1; 
+
+		// sd_power_system_off(); 
 }
 } // int main(void)
 
