@@ -256,7 +256,7 @@ uint32_t read_reg(uint32_t *PCAP_spi_address, uint8_t wr_reg_add)
         p = (p << 6)|wr_reg_add;   // Address 
         tx_data[0] = p; 
         
-        nrf_delay_ms(100);
+        //nrf_delay_ms(100);
         meas = pcap_spi_tx_rx(PCAP_spi_address, MSG_LEN, tx_data); //Intiate the read of capacitance data
         
         rx_reg_data = pack(rx_data[1], rx_data[2], 8, rx_data[3], 8, 0, 0, 0, 0 );
@@ -266,6 +266,8 @@ uint32_t read_reg(uint32_t *PCAP_spi_address, uint8_t wr_reg_add)
             return meas;
         else
             return rx_reg_data;
+				memset(tx_data, 0, 8);
+				memset(rx_data, 0, 8);
     }
 
 /**** PCAP data extraction function ***
@@ -311,3 +313,55 @@ bool pcap_commcheck(uint32_t *PCAP_spi_address)
 		
 }
 
+/**** PCAP config function ***
+    * @PCAP_spi_address:  SPI address set by the SPI Set function 
+		* Initiates configuration Register set and implements a partial reset.
+    * Return false for unsucessful set
+*/
+bool 	pcap_config(uint32_t *PCAP_spi_address)
+{
+		bool w,w1,w2; 
+		/* Set configuration registers */
+		w1 = config_reg_set(PCAP_spi_address);
+		
+		/* Send a partial reset */
+		MSG_LEN = 8;
+		memset(tx_data, 0, 8);
+		memset(rx_data, 0, 8);
+		tx_data[0] = 0x8A; // Partial Reset 
+		
+		//nrf_delay_ms(DELAY_MS);
+		w2 = pcap_spi_tx_rx(PCAP_spi_address, MSG_LEN, tx_data);
+	
+		if (w1 && w2 == 1)
+		{
+		return w = true;
+		}
+		else
+		{
+			return w = false;
+		}
+}
+	
+/**** PCAP measure function ***
+    * @PCAP_spi_address:  SPI address set by the SPI Set function 
+		* Initiates measures and implements minimum delay before read.
+    * Return false for unsucessful start
+*/
+bool 	pcap_measure(uint32_t *PCAP_spi_address)
+{
+	bool w;
+	/* Start Capacitance Measurement */
+		MSG_LEN = 8;
+		memset(tx_data, 0, 8);
+		memset(rx_data, 0, 8);
+		tx_data[0] = 0x8C; // Start Command 
+		
+		//nrf_delay_ms(DELAY_MS);
+		w = pcap_spi_tx_rx(PCAP_spi_address, MSG_LEN, tx_data);
+		/* Measurement Delay */
+		nrf_delay_ms(1000)
+		//rexamin this function
+		//nrf_delay_ms(4*C_AVRG*20);
+		return w;
+}
