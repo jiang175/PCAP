@@ -224,25 +224,19 @@ int main(void)
 	/* SPI Intialisation */ 
 	uint32_t *PCAP_spi_address = pcap_spi_set(SPI1); 
   pcap_dsp_write(PCAP_spi_address); 
-	
-
+	return_value = pcap_commcheck(PCAP_spi_address);
+	while( return_value != true) 
+		{
+		 pcap_dsp_write(PCAP_spi_address); 
+		 return_value = pcap_commcheck(PCAP_spi_address);
+		}
 
 	/* Main Loop */
 	while(true)
 	{	
 		check = 0;
-		/* SPI communication check */
-		MSG_LEN = 8;
-		memset(tx_data, 0, 8);
-		memset(rx_data, 0, 8);
-		tx_data[0] = 0x10;	
-		tx_data[1] = 0x08;					
-		ret1 = pcap_spi_tx_rx(PCAP_spi_address, MSG_LEN, tx_data);
-		nrf_delay_ms(DELAY_MS);
 		
 		/* Set configuration registers */
-		memset(tx_data, 0, 8);
-		memset(rx_data, 0, 8);
 		ret0 = config_reg_set(PCAP_spi_address);
 		
 		/* Send a partial reset */
@@ -251,7 +245,7 @@ int main(void)
 		memset(rx_data, 0, 8);
 		tx_data[0] = 0x8A; // Partial Reset 
 		
-		nrf_delay_ms(DELAY_MS);
+		//nrf_delay_ms(DELAY_MS);
 		ret1 = pcap_spi_tx_rx(PCAP_spi_address, MSG_LEN, tx_data);
 
 		/* Start Capacitance Measurement */
@@ -260,7 +254,7 @@ int main(void)
 		memset(rx_data, 0, 8);
 		tx_data[0] = 0x8C; // Start Command 
 		
-		nrf_delay_ms(DELAY_MS);
+		//nrf_delay_ms(DELAY_MS);
 		ret2 = pcap_spi_tx_rx(PCAP_spi_address, MSG_LEN, tx_data);
 
 		/* Measurement Delay */
@@ -471,4 +465,6 @@ int main(void)
  in pcapdsp_write changed the declaration of x & regadd to uint16
  change the prg_data to global variable and static
  This works!!!
+ 4/8/2015
+ Implemented commcheck
  **/

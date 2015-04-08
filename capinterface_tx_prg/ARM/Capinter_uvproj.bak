@@ -404,6 +404,13 @@
       <Groups>
         <Group>
           <GroupName>Main</GroupName>
+          <Files>
+            <File>
+              <FileName>PCAPint_main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\PCAPint_main.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>core</GroupName>

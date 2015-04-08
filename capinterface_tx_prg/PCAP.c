@@ -95,7 +95,7 @@ bool pcap_config_write(uint32_t *PCAP_spi_address, uint32_t *regdata) // why doe
         //Variable declaration & initialisation 
         // uint8_t n = 0;
         uint8_t regadd = 0;
-      uint8_t x, y;
+				uint8_t x, y;
         uint32_t p;
         bool b; 
         
@@ -103,7 +103,8 @@ bool pcap_config_write(uint32_t *PCAP_spi_address, uint32_t *regdata) // why doe
 
         /*run bit configuration (register 20) */ 
         /* set run bit   = 0 for configuration set*/
-        
+        memset(tx_data, 0, 8);
+				memset(rx_data, 0, 8);
         p = 0x03; // Add write code
         p = (p << 6)|20; // add Address 
         p = (p << 24)|(0); // add data
@@ -281,3 +282,32 @@ float data_extract(uint32_t data)
     float ext= p/(pow(2,21));
     return ext;
 }
+
+/**** PCAP communication check ***
+    * @PCAP_spi_address:  SPI address set by the SPI Set function 
+		* Checks the DSP of teh PCAP to ensure a sucessful SPI communication/DSP program in the PCAP.
+    * Return false for unsucessful set
+*/
+bool pcap_commcheck(uint32_t *PCAP_spi_address)
+{
+		bool w; 
+		/* SPI communication check */
+		MSG_LEN = 8;
+		memset(tx_data, 0, 8);
+		memset(rx_data, 0, 8);
+		tx_data[0] = 0x10;	
+		tx_data[1] = 0x08;				
+	
+		w = pcap_spi_tx_rx(PCAP_spi_address, MSG_LEN, tx_data);
+	
+		if (rx_data[1] == 0x00)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+		
+}
+
