@@ -335,10 +335,12 @@ bool 	pcap_config(uint32_t *PCAP_spi_address)
 	
 		if (w1 && w2 == 1)
 		{
-		return w = true;
+			w = true;
+			return w ;
 		}
 		else
 		{
+			w = false;
 			return w = false;
 		}
 }
@@ -351,6 +353,7 @@ bool 	pcap_config(uint32_t *PCAP_spi_address)
 bool 	pcap_measure(uint32_t *PCAP_spi_address)
 {
 	bool w;
+	uint8_t cap_n, n;
 	/* Start Capacitance Measurement */
 		MSG_LEN = 8;
 		memset(tx_data, 0, 8);
@@ -360,8 +363,49 @@ bool 	pcap_measure(uint32_t *PCAP_spi_address)
 		//nrf_delay_ms(DELAY_MS);
 		w = pcap_spi_tx_rx(PCAP_spi_address, MSG_LEN, tx_data);
 		/* Measurement Delay */
-		nrf_delay_ms(1000)
-		//rexamin this function
-		//nrf_delay_ms(4*C_AVRG*20);
+		//nrf_delay_ms(1000);
+		//rexamine this function Hope this works
+		switch(CMEAS_BITS)
+			{
+				case 1: // grounded
+					n = 1;
+					cap_n = 0;
+					do
+					{
+						uint16_t chk = (CMEAS_PORT_EN >> n) & 0x01;					
+						if(chk == 1) 
+						{
+							cap_n++;
+						}
+							n++;
+					}while(n < 8);
+					break;
+				case 4: // floating
+					n = 1;
+					cap_n = 0;
+					do
+					{
+						uint16_t chk = (CMEAS_PORT_EN >> 2*n) & 0x03;
+
+						/* Check for transmission and no of capacitors to be read*/
+						if(chk == 3) 
+						{
+							cap_n++;
+						}
+						n++;
+					} while(n < 4);
+					/* Flag to ensure all capacitors values have been transmitted*/
+					break;
+			}
+		switch(TMEAS_TRIG_SEL)
+		{
+			case 0:
+			nrf_delay_ms((cap_n*C_AVRG*0.02)+20);
+			break;
+			
+			case 1:
+			nrf_delay_ms((cap_n*C_AVRG*0.02) +(0.14*2*4) + 20); //4fold averaging harcoded
+			break;				
+		}
 		return w;
 }

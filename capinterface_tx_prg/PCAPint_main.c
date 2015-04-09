@@ -231,6 +231,9 @@ int main(void)
 		 return_value = pcap_commcheck(PCAP_spi_address);
 		}
 
+	/* PCAP Config */
+	ret0 = pcap_config(PCAP_spi_address);
+	
 	/* Main Loop */
 	while(true)
 	{	
@@ -238,16 +241,11 @@ int main(void)
 		
 		/* PCAP Config */
 		//needs implementation into loop to check if this needs to be reconfigured based on ANT recieved messages
-		ret0 = pcap_config(PCAP_spi_address);
+		//ret0 = pcap_config(PCAP_spi_address);
 		
 		/* Capacitance Measurement */
 		ret2 = pcap_measure(PCAP_spi_address);
 		
-		memset(tx_data, 0, 8);
-		memset(rx_data, 0, 8);
-		
-		/* Read Status register: */
-		stat = read_reg(PCAP_spi_address, read_stat);
 		
 		/* Prep broad cast data for transmit */
 		//pcap_broadcast_data(read_stat, stat);
@@ -255,13 +253,9 @@ int main(void)
 		/* Read cap values: */
 
 		/* Reference Capacitor */
-		cap_t[0] = read_reg(PCAP_spi_address, read_reg0);
-		/* Measured Capacitors */
-		cap_t[1] = read_reg(PCAP_spi_address, read_reg1);
-
-		cap_t[2] = read_reg(PCAP_spi_address, read_reg2);
+		//cap_t[0] = read_reg(PCAP_spi_address, read_reg0);
 		
-		cap_t[3] = read_reg(PCAP_spi_address, read_reg3);
+
 		
 		cap_t[4] = read_reg(PCAP_spi_address, read_reg4);
 		
@@ -336,12 +330,22 @@ int main(void)
 								switch (n)
 								{
 										case 1:
-										cap1 = data_extract(cap_t[1])*47;
+										memset(tx_data, 0, 8);
+										memset(rx_data, 0, 8);
+		
+										/* Read Status register: */
+										stat = read_reg(PCAP_spi_address, read_stat);
+										/* Measure Capacitor 1  */
+										//Needs a bit of refinement here ... this switch statement is useless but can be refined to handle registers
+										cap_t[1] = read_reg(PCAP_spi_address, read_reg1);
 										handle_channel_event(event, read_reg1, stat,cap_t[1]);
 										break;
 										
 										case 2:
-										cap2 = data_extract(cap_t[2])*47;
+										/* Measure Capacitor 2 & 3 */
+										//May need a memset
+										cap_t[2] = read_reg(PCAP_spi_address, read_reg2);
+										cap_t[3] = read_reg(PCAP_spi_address, read_reg3);
 										handle_channel_event(event, read_reg2, cap_t[2],cap_t[3]);
 										break;
 																			
@@ -436,4 +440,6 @@ int main(void)
  Implemented commcheck
  Removed 100ms delay in read reg
  moved memset function to same function
+ 4/9/2015
+ Refined the minimum time for measuring... Hope it works
  **/

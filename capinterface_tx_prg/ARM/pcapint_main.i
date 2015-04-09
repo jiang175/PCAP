@@ -1767,6 +1767,8 @@ typedef struct {
   volatile uint32_t  PROTENSET1;                         
   volatile uint32_t  DISABLEINDEBUG;                     
   volatile uint32_t  PROTBLOCKSIZE;                      
+  volatile const  uint32_t  RESERVED2[255];
+  volatile uint32_t  ENRBDREG;                           
 } NRF_MPU_Type;
 
 
@@ -2546,7 +2548,8 @@ typedef struct {
   volatile const  uint32_t  RESERVED0[4];
   volatile const  uint32_t  CODEPAGESIZE;                       
   volatile const  uint32_t  CODESIZE;                           
-  volatile const  uint32_t  RESERVED1[4];
+  volatile const  uint32_t  RBD;                                
+  volatile const  uint32_t  RESERVED1[3];
   volatile const  uint32_t  CLENR0;                             
   volatile const  uint32_t  PPFC;                               
   volatile const  uint32_t  RESERVED2;
@@ -2557,7 +2560,7 @@ typedef struct {
 
  
     volatile const  uint32_t  SIZERAMBLOCKS;                    
-  };
+  } ;
   volatile const  uint32_t  RESERVED3[5];
   volatile const  uint32_t  CONFIGID;                           
   volatile const  uint32_t  DEVICEID[2];                        
@@ -2620,7 +2623,7 @@ typedef struct {
  
 
   #pragma pop
-#line 1138 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51.h"
+#line 1141 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51.h"
 
 
 
@@ -2629,14 +2632,14 @@ typedef struct {
  
  
 
-#line 1179 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51.h"
+#line 1182 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51.h"
 
 
  
  
  
 
-#line 1218 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51.h"
+#line 1221 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51.h"
 
 
    
@@ -3389,6 +3392,15 @@ typedef struct {
 
 
 
+
+
+ 
+ 
+
+ 
+
+
+
  
 
 
@@ -4925,7 +4937,7 @@ typedef struct {
 
 
  
-#line 2683 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
+#line 2692 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
 
  
 
@@ -5183,13 +5195,13 @@ typedef struct {
  
 
  
-#line 2950 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
+#line 2959 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
 
  
  
 
  
-#line 2965 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
+#line 2974 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
 
  
  
@@ -5819,6 +5831,15 @@ typedef struct {
  
 
  
+
+
+
+
+ 
+ 
+
+ 
+
 
 
 
@@ -5958,7 +5979,7 @@ typedef struct {
  
 
  
-#line 3739 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
+#line 3757 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
 
  
 
@@ -7073,7 +7094,7 @@ typedef struct {
  
 
  
-#line 4863 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
+#line 4881 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
 
  
  
@@ -7086,7 +7107,7 @@ typedef struct {
  
 
  
-#line 4885 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
+#line 4903 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
 
  
  
@@ -7362,13 +7383,13 @@ typedef struct {
  
 
  
-#line 5170 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
+#line 5188 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
 
  
  
 
  
-#line 5181 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
+#line 5199 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
 
  
  
@@ -7518,7 +7539,7 @@ typedef struct {
 
 
  
-#line 5336 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
+#line 5354 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
 
  
  
@@ -7567,7 +7588,7 @@ typedef struct {
  
 
  
-#line 5395 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
+#line 5413 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
 
  
  
@@ -8078,7 +8099,7 @@ typedef struct {
  
 
  
-#line 5914 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
+#line 5932 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
 
  
  
@@ -8161,7 +8182,7 @@ typedef struct {
  
 
  
-#line 6002 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
+#line 6020 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
 
  
  
@@ -8424,7 +8445,7 @@ typedef struct {
  
 
  
-#line 6270 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
+#line 6288 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
 
  
  
@@ -8784,7 +8805,7 @@ typedef struct {
  
 
  
-#line 6647 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
+#line 6665 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
 
  
  
@@ -14843,7 +14864,7 @@ _Bool pcap_config_write(uint32_t *PCAP_spi_address, uint32_t *regdata)
         
         
         uint8_t regadd = 0;
-      uint8_t x, y;
+				uint8_t x, y;
         uint32_t p;
         _Bool b; 
         
@@ -14851,7 +14872,8 @@ _Bool pcap_config_write(uint32_t *PCAP_spi_address, uint32_t *regdata)
 
           
          
-        
+        memset(tx_data, 0, 8);
+				memset(rx_data, 0, 8);
         p = 0x03; 
         p = (p << 6)|20; 
         p = (p << 24)|(0); 
@@ -14922,10 +14944,10 @@ _Bool config_reg_set(uint32_t *PCAP_spi_address)
         config_reg_d[3] = pack(((uint8_t) 0), ((uint8_t) 0x0D), 6, ((uint8_t) 0), 3, ((uint16_t) 100), 13 , 0, 0);
         
          
-        config_reg_d[4] = pack(((uint8_t) 0), ((uint8_t) 0), 2, ((uint16_t) 4), 10, ((uint8_t) 0 ), 4, ((((uint8_t) 0) << 2)|((uint8_t) 0)), 4);
+        config_reg_d[4] = pack(((uint8_t) 0), ((uint8_t) 0), 2, ((uint16_t) 4), 10, ((uint8_t) 0 ), 4, ((((uint8_t) 0) << 2)|((uint8_t) 1)), 4);
         
          
-        config_reg_d[5] = pack(((uint8_t) 0), ((uint32_t) 0), 22, 0, 0, 0, 0, 0 ,0);
+        config_reg_d[5] = pack(((uint8_t) 1), ((uint32_t) 0), 22, 0, 0, 0, 0, 0 ,0);
         
             
          
@@ -15003,7 +15025,7 @@ uint32_t read_reg(uint32_t *PCAP_spi_address, uint8_t wr_reg_add)
         p = (p << 6)|wr_reg_add;   
         tx_data[0] = p; 
         
-        nrf_delay_ms(100);
+        
         meas = pcap_spi_tx_rx(PCAP_spi_address, MSG_LEN, tx_data); 
         
         rx_reg_data = pack(rx_data[1], rx_data[2], 8, rx_data[3], 8, 0, 0, 0, 0 );
@@ -15013,6 +15035,8 @@ uint32_t read_reg(uint32_t *PCAP_spi_address, uint8_t wr_reg_add)
             return meas;
         else
             return rx_reg_data;
+				memset(tx_data, 0, 8);
+				memset(rx_data, 0, 8);
     }
 
 
@@ -15028,6 +15052,131 @@ float data_extract(uint32_t data)
     float p = data;
     float ext= p/(pow(2,21));
     return ext;
+}
+
+
+
+
+
+ 
+_Bool pcap_commcheck(uint32_t *PCAP_spi_address)
+{
+		_Bool w; 
+		 
+		MSG_LEN = 8;
+		memset(tx_data, 0, 8);
+		memset(rx_data, 0, 8);
+		tx_data[0] = 0x10;	
+		tx_data[1] = 0x08;				
+	
+		w = pcap_spi_tx_rx(PCAP_spi_address, MSG_LEN, tx_data);
+	
+		if (rx_data[1] == 0x00)
+		{
+			return 1;
+		}
+		else
+		{
+			return 0;
+		}
+		
+}
+
+
+
+
+
+ 
+_Bool 	pcap_config(uint32_t *PCAP_spi_address)
+{
+		_Bool w,w1,w2; 
+		 
+		w1 = config_reg_set(PCAP_spi_address);
+		
+		 
+		MSG_LEN = 8;
+		memset(tx_data, 0, 8);
+		memset(rx_data, 0, 8);
+		tx_data[0] = 0x8A; 
+		
+		
+		w2 = pcap_spi_tx_rx(PCAP_spi_address, MSG_LEN, tx_data);
+	
+		if (w1 && w2 == 1)
+		{
+			w = 1;
+			return w ;
+		}
+		else
+		{
+			w = 0;
+			return w = 0;
+		}
+}
+	
+
+
+
+
+ 
+_Bool 	pcap_measure(uint32_t *PCAP_spi_address)
+{
+	_Bool w;
+	uint8_t cap_n, n;
+	 
+		MSG_LEN = 8;
+		memset(tx_data, 0, 8);
+		memset(rx_data, 0, 8);
+		tx_data[0] = 0x8C; 
+		
+		
+		w = pcap_spi_tx_rx(PCAP_spi_address, MSG_LEN, tx_data);
+		 
+		
+		
+		switch(((uint8_t) 4))
+			{
+				case 1: 
+					n = 1;
+					cap_n = 0;
+					do
+					{
+						uint16_t chk = (((uint8_t) 0xFF) >> n) & 0x01;					
+						if(chk == 1) 
+						{
+							cap_n++;
+						}
+							n++;
+					}while(n < 8);
+					break;
+				case 4: 
+					n = 1;
+					cap_n = 0;
+					do
+					{
+						uint16_t chk = (((uint8_t) 0xFF) >> 2*n) & 0x03;
+
+						 
+						if(chk == 3) 
+						{
+							cap_n++;
+						}
+						n++;
+					} while(n < 4);
+					 
+					break;
+			}
+		switch(((uint8_t) 1))
+		{
+			case 0:
+			nrf_delay_ms((cap_n*((uint16_t) 100)*0.02)+20);
+			break;
+			
+			case 1:
+			nrf_delay_ms((cap_n*((uint16_t) 100)*0.02) +(0.14*2*4) + 20); 
+			break;				
+		}
+		return w;
 }
 #line 44 "..\\PCAPint_main.c"
 
@@ -15213,90 +15362,45 @@ int main(void)
 	  
 	uint32_t *PCAP_spi_address = pcap_spi_set(SPI1); 
   pcap_dsp_write(PCAP_spi_address); 
+	return_value = pcap_commcheck(PCAP_spi_address);
+	while( return_value != 1) 
+		{
+		 pcap_dsp_write(PCAP_spi_address); 
+		 return_value = pcap_commcheck(PCAP_spi_address);
+		}
+
+	 
+	ret0 = pcap_config(PCAP_spi_address);
 	
-
-
 	 
 	while(1)
 	{	
 		check = 0;
-		 
-		MSG_LEN = 8;
-		memset(tx_data, 0, 8);
-		memset(rx_data, 0, 8);
-		tx_data[0] = 0x10;	
-		tx_data[1] = 0x08;					
-		ret1 = pcap_spi_tx_rx(PCAP_spi_address, MSG_LEN, tx_data);
-		nrf_delay_ms(100);
 		
 		 
-		memset(tx_data, 0, 8);
-		memset(rx_data, 0, 8);
-		ret0 = config_reg_set(PCAP_spi_address);
+		
+		
 		
 		 
-		MSG_LEN = 8;
-		memset(tx_data, 0, 8);
-		memset(rx_data, 0, 8);
-		tx_data[0] = 0x8A; 
+		ret2 = pcap_measure(PCAP_spi_address);
 		
-		nrf_delay_ms(100);
-		ret1 = pcap_spi_tx_rx(PCAP_spi_address, MSG_LEN, tx_data);
+		
+		 
+		
+		
+		 
 
 		 
-		MSG_LEN = 8;
-		memset(tx_data, 0, 8);
-		memset(rx_data, 0, 8);
-		tx_data[0] = 0x8C; 
 		
-		nrf_delay_ms(100);
-		ret2 = pcap_spi_tx_rx(PCAP_spi_address, MSG_LEN, tx_data);
+		
 
-		 
-		nrf_delay_ms(1000);
-		memset(tx_data, 0, 8);
-		memset(rx_data, 0, 8);
-
-		 
-		stat = read_reg(PCAP_spi_address, (8));
 		
-		 
-		
-		
-		 
-		
-		 
-		memset(tx_data, 0, 8);
-		memset(rx_data, 0, 8);
-		cap_t[0] = read_reg(PCAP_spi_address, (0));
-		
-		 
-		memset(tx_data, 0, 8);
-		memset(rx_data, 0, 8);
-		cap_t[1] = read_reg(PCAP_spi_address, (1));
-		
-		memset(tx_data, 0, 8);
-		memset(rx_data, 0, 8);
-		cap_t[2] = read_reg(PCAP_spi_address, (2));
-		
-		memset(tx_data, 0, 8);
-		memset(rx_data, 0, 8);
-		cap_t[3] = read_reg(PCAP_spi_address, (3));
-		
-		memset(tx_data, 0, 8);
-		memset(rx_data, 0, 8);
 		cap_t[4] = read_reg(PCAP_spi_address, (4));
 		
-		memset(tx_data, 0, 8);
-		memset(rx_data, 0, 8);
 		cap_t[5] = read_reg(PCAP_spi_address, (5));
 		
-		memset(tx_data, 0, 8);
-		memset(rx_data, 0, 8);
 		cap_t[6] = read_reg(PCAP_spi_address, (6));
 		
-		memset(tx_data, 0, 8);
-		memset(rx_data, 0, 8);
 		cap_t[7] = read_reg(PCAP_spi_address, (7));
 														
 		
@@ -15364,12 +15468,22 @@ int main(void)
 								switch (n)
 								{
 										case 1:
-										cap1 = data_extract(cap_t[1])*47;
+										memset(tx_data, 0, 8);
+										memset(rx_data, 0, 8);
+		
+										 
+										stat = read_reg(PCAP_spi_address, (8));
+										 
+										
+										cap_t[1] = read_reg(PCAP_spi_address, (1));
 										handle_channel_event(event, (1), stat,cap_t[1]);
 										break;
 										
 										case 2:
-										cap2 = data_extract(cap_t[2])*47;
+										 
+										
+										cap_t[2] = read_reg(PCAP_spi_address, (2));
+										cap_t[3] = read_reg(PCAP_spi_address, (3));
 										handle_channel_event(event, (2), cap_t[2],cap_t[3]);
 										break;
 																			
@@ -15402,6 +15516,12 @@ int main(void)
 		
 }
 } 
+
+
+
+
+
+
 
 
 

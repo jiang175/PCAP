@@ -1758,6 +1758,8 @@ typedef struct {
   volatile uint32_t  PROTENSET1;                         
   volatile uint32_t  DISABLEINDEBUG;                     
   volatile uint32_t  PROTBLOCKSIZE;                      
+  volatile const  uint32_t  RESERVED2[255];
+  volatile uint32_t  ENRBDREG;                           
 } NRF_MPU_Type;
 
 
@@ -2537,7 +2539,8 @@ typedef struct {
   volatile const  uint32_t  RESERVED0[4];
   volatile const  uint32_t  CODEPAGESIZE;                       
   volatile const  uint32_t  CODESIZE;                           
-  volatile const  uint32_t  RESERVED1[4];
+  volatile const  uint32_t  RBD;                                
+  volatile const  uint32_t  RESERVED1[3];
   volatile const  uint32_t  CLENR0;                             
   volatile const  uint32_t  PPFC;                               
   volatile const  uint32_t  RESERVED2;
@@ -2548,7 +2551,7 @@ typedef struct {
 
  
     volatile const  uint32_t  SIZERAMBLOCKS;                    
-  };
+  } ;
   volatile const  uint32_t  RESERVED3[5];
   volatile const  uint32_t  CONFIGID;                           
   volatile const  uint32_t  DEVICEID[2];                        
@@ -2611,7 +2614,7 @@ typedef struct {
  
 
   #pragma pop
-#line 1138 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51.h"
+#line 1141 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51.h"
 
 
 
@@ -2620,14 +2623,14 @@ typedef struct {
  
  
 
-#line 1179 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51.h"
+#line 1182 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51.h"
 
 
  
  
  
 
-#line 1218 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51.h"
+#line 1221 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51.h"
 
 
    
@@ -3380,6 +3383,15 @@ typedef struct {
 
 
 
+
+
+ 
+ 
+
+ 
+
+
+
  
 
 
@@ -4916,7 +4928,7 @@ typedef struct {
 
 
  
-#line 2683 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
+#line 2692 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
 
  
 
@@ -5174,13 +5186,13 @@ typedef struct {
  
 
  
-#line 2950 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
+#line 2959 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
 
  
  
 
  
-#line 2965 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
+#line 2974 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
 
  
  
@@ -5810,6 +5822,15 @@ typedef struct {
  
 
  
+
+
+
+
+ 
+ 
+
+ 
+
 
 
 
@@ -5949,7 +5970,7 @@ typedef struct {
  
 
  
-#line 3739 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
+#line 3757 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
 
  
 
@@ -7064,7 +7085,7 @@ typedef struct {
  
 
  
-#line 4863 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
+#line 4881 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
 
  
  
@@ -7077,7 +7098,7 @@ typedef struct {
  
 
  
-#line 4885 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
+#line 4903 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
 
  
  
@@ -7353,13 +7374,13 @@ typedef struct {
  
 
  
-#line 5170 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
+#line 5188 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
 
  
  
 
  
-#line 5181 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
+#line 5199 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
 
  
  
@@ -7509,7 +7530,7 @@ typedef struct {
 
 
  
-#line 5336 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
+#line 5354 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
 
  
  
@@ -7558,7 +7579,7 @@ typedef struct {
  
 
  
-#line 5395 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
+#line 5413 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
 
  
  
@@ -8069,7 +8090,7 @@ typedef struct {
  
 
  
-#line 5914 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
+#line 5932 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
 
  
  
@@ -8152,7 +8173,7 @@ typedef struct {
  
 
  
-#line 6002 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
+#line 6020 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
 
  
  
@@ -8415,7 +8436,7 @@ typedef struct {
  
 
  
-#line 6270 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
+#line 6288 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
 
  
  
@@ -8775,7 +8796,7 @@ typedef struct {
  
 
  
-#line 6647 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
+#line 6665 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf51_bitfields.h"
 
  
  
