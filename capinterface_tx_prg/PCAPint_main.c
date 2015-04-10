@@ -56,7 +56,7 @@
 
 /* Static variables and buffers */
 static uint8_t s_broadcast_data[BROADCAST_DATA_BUFFER_SIZE];	///< Primary data transmit buffer
-int rtc_flag = 1;
+//int rtc_flag = 1;
 
 
 //static uint8_t s_counter = 1;																 ///< Counter to increment the ANT broadcast data payload
@@ -147,7 +147,21 @@ static void handle_channel_event(uint32_t event, uint8_t add, uint32_t data1,uin
 			/* Error */
 			handle_error();
 	 }
-		nrf_delay_ms(1000);
+	 
+		NRF_RTC1->CC[0] = 1*32768; 
+	  rtc_flag = 1;
+		NRF_RTC1->TASKS_START = 1;
+		do 
+    { 
+       // Enter System ON sleep mode 
+       __WFE();   
+       // Make sure any pending events are cleared 
+       __SEV(); 
+       __WFE();                 
+    }while(rtc_flag); 
+		
+    NRF_RTC1->TASKS_STOP = 1; 
+    NRF_RTC1->TASKS_CLEAR = 1; 
 }
 
 /**
@@ -224,93 +238,48 @@ int main(void)
 	/* SPI Intialisation */ 
 	uint32_t *PCAP_spi_address = pcap_spi_set(SPI1); 
   pcap_dsp_write(PCAP_spi_address); 
+	return_value = pcap_commcheck(PCAP_spi_address);
+	while( return_value != true) 
+		{
+		 pcap_dsp_write(PCAP_spi_address); 
+		 return_value = pcap_commcheck(PCAP_spi_address);
+		}
+
+	/* PCAP Config */
+	ret0 = pcap_config(PCAP_spi_address);
 	
-
-
 	/* Main Loop */
 	while(true)
 	{	
 		check = 0;
-		/* SPI communication check */
-		MSG_LEN = 8;
-		memset(tx_data, 0, 8);
-		memset(rx_data, 0, 8);
-		tx_data[0] = 0x10;	
-		tx_data[1] = 0x08;					
-		ret1 = pcap_spi_tx_rx(PCAP_spi_address, MSG_LEN, tx_data);
-		nrf_delay_ms(DELAY_MS);
 		
-		/* Set configuration registers */
-		memset(tx_data, 0, 8);
-		memset(rx_data, 0, 8);
-		ret0 = config_reg_set(PCAP_spi_address);
+		/* PCAP Config */
+		//needs implementation into loop to check if this needs to be reconfigured based on ANT recieved messages
+		//ret0 = pcap_config(PCAP_spi_address);
 		
-		/* Send a partial reset */
-		MSG_LEN = 8;
-		memset(tx_data, 0, 8);
-		memset(rx_data, 0, 8);
-		tx_data[0] = 0x8A; // Partial Reset 
+		/* Capacitance Measurement */
+		ret2 = pcap_measure(PCAP_spi_address);
 		
-		nrf_delay_ms(DELAY_MS);
-		ret1 = pcap_spi_tx_rx(PCAP_spi_address, MSG_LEN, tx_data);
-
-		/* Start Capacitance Measurement */
-		MSG_LEN = 8;
-		memset(tx_data, 0, 8);
-		memset(rx_data, 0, 8);
-		tx_data[0] = 0x8C; // Start Command 
-		
-		nrf_delay_ms(DELAY_MS);
-		ret2 = pcap_spi_tx_rx(PCAP_spi_address, MSG_LEN, tx_data);
-
-		/* Measurement Delay */
-		nrf_delay_ms(1000);
-		memset(tx_data, 0, 8);
-		memset(rx_data, 0, 8);
-
-		/* Read Status register: */
-		stat = read_reg(PCAP_spi_address, read_stat);
 		
 		/* Prep broad cast data for transmit */
 		//pcap_broadcast_data(read_stat, stat);
 		
 		/* Read cap values: */
-		
+
 		/* Reference Capacitor */
-		memset(tx_data, 0, 8);
-		memset(rx_data, 0, 8);
-		cap_t[0] = read_reg(PCAP_spi_address, read_reg0);
+		//cap_t[0] = read_reg(PCAP_spi_address, read_reg0);
+		/*
+
 		
-		/* Measured Capacitors */
-		memset(tx_data, 0, 8);
-		memset(rx_data, 0, 8);
-		cap_t[1] = read_reg(PCAP_spi_address, read_reg1);
-		
-		memset(tx_data, 0, 8);
-		memset(rx_data, 0, 8);
-		cap_t[2] = read_reg(PCAP_spi_address, read_reg2);
-		
-		memset(tx_data, 0, 8);
-		memset(rx_data, 0, 8);
-		cap_t[3] = read_reg(PCAP_spi_address, read_reg3);
-		
-		memset(tx_data, 0, 8);
-		memset(rx_data, 0, 8);
 		cap_t[4] = read_reg(PCAP_spi_address, read_reg4);
 		
-		memset(tx_data, 0, 8);
-		memset(rx_data, 0, 8);
 		cap_t[5] = read_reg(PCAP_spi_address, read_reg5);
 		
-		memset(tx_data, 0, 8);
-		memset(rx_data, 0, 8);
 		cap_t[6] = read_reg(PCAP_spi_address, read_reg6);
 		
-		memset(tx_data, 0, 8);
-		memset(rx_data, 0, 8);
 		cap_t[7] = read_reg(PCAP_spi_address, read_reg7);
 														
-		
+		*/
 		ret3 = (stat == 0 && cap_t == 0 && cap_t[1] == 0); 
 		
 		/* Status bits */ 
@@ -375,12 +344,22 @@ int main(void)
 								switch (n)
 								{
 										case 1:
-										cap1 = data_extract(cap_t[1])*47;
+										memset(tx_data, 0, 8);
+										memset(rx_data, 0, 8);
+		
+										/* Read Status register: */
+										stat = read_reg(PCAP_spi_address, read_stat);
+										/* Measure Capacitor 1  */
+										//Needs a bit of refinement here ... this switch statement is useless but can be refined to handle registers
+										cap_t[1] = read_reg(PCAP_spi_address, read_reg1);
 										handle_channel_event(event, read_reg1, stat,cap_t[1]);
 										break;
 										
 										case 2:
-										cap2 = data_extract(cap_t[2])*47;
+										/* Measure Capacitor 2 & 3 */
+										//May need a memset
+										cap_t[2] = read_reg(PCAP_spi_address, read_reg2);
+										cap_t[3] = read_reg(PCAP_spi_address, read_reg3);
 										handle_channel_event(event, read_reg2, cap_t[2],cap_t[3]);
 										break;
 																			
@@ -396,6 +375,7 @@ int main(void)
 		sw3 = 1;			
 		return_value = sd_ant_channel_close(CHANNEL_0);
 		
+	  NRF_RTC1->CC[0] = 1*32768; 
 		rtc_flag = 1;
 		NRF_RTC1->TASKS_START = 1;
 		do 
@@ -471,4 +451,10 @@ int main(void)
  in pcapdsp_write changed the declaration of x & regadd to uint16
  change the prg_data to global variable and static
  This works!!!
+ 4/8/2015
+ Implemented commcheck
+ Removed 100ms delay in read reg
+ moved memset function to same function
+ 4/9/2015
+ Refined the minimum time for measuring... Hope it works
  **/

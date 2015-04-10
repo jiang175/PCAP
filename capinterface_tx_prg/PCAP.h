@@ -72,7 +72,7 @@
 #define TMEAS_TRIG_SEL ((uint8_t) 0) // trigger source for the temperature measurement 0 = off/opcode triggered , 1 = cmeas-triggered 2 = timer-triggered mode 3= pulse-triggered mode. 
 
 //Register 5
-#define T_AVRG ((uint8_t) 0) // 0( 1 = no overaging, 1 (4 fold averaging) , 2 (8-fold averaging) , 3(16-fold averaging) 
+#define T_AVRG ((uint8_t) 1) // 0( no averaging), 1 (4 fold averaging) , 2 (8-fold averaging) , 3(16-fold averaging) 
 #define TMEAS_TRIG_PREDIV ((uint32_t) 0) //zero counts as one, set zero for hygrometers etc 
 
 //Register 6 

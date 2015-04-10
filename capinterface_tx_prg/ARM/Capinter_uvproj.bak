@@ -141,7 +141,7 @@
             <RestoreToolbox>1</RestoreToolbox>
             <RestoreTracepoints>1</RestoreTracepoints>
             <RestoreSysVw>1</RestoreSysVw>
-            <UsePdscDebugDescription>0</UsePdscDebugDescription>
+            <UsePdscDebugDescription>1</UsePdscDebugDescription>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
           <TargetSelection>6</TargetSelection>
@@ -170,7 +170,7 @@
             <Capability>1</Capability>
             <DriverSelection>4096</DriverSelection>
           </Flash1>
-          <bUseTDR>1</bUseTDR>
+          <bUseTDR>0</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
           <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
@@ -404,6 +404,13 @@
       <Groups>
         <Group>
           <GroupName>Main</GroupName>
+          <Files>
+            <File>
+              <FileName>PCAPint_main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\PCAPint_main.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>core</GroupName>
