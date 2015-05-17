@@ -353,7 +353,7 @@ bool 	pcap_config(uint32_t *PCAP_spi_address, int c_avg)
 bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg)
 {
 	bool w;
-	uint8_t cap_n, n;
+	uint8_t cap_n, n, pul_n;
 	/* Start Capacitance Measurement */
 		MSG_LEN = 8;
 		memset(tx_data, 0, 8);
@@ -369,7 +369,7 @@ bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg)
 			{
 				case 1: // grounded
 					n = 1;
-					cap_n = 2;
+					cap_n = 1;
 					do
 					{
 						uint16_t chk = (CMEAS_PORT_EN >> n) & 0x01;					
@@ -379,10 +379,11 @@ bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg)
 						}
 							n++;
 					}while(n < 8);
+					pul_n = cap_n*2 + 1;
 					break;
 				case 4: // floating
 					n = 1;
-					cap_n = 2;
+					cap_n = 1;
 					do
 					{
 						uint16_t chk = (CMEAS_PORT_EN >> 2*n) & 0x03;
@@ -394,6 +395,7 @@ bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg)
 						}
 						n++;
 					} while(n < 4);
+					pul_n = cap_n*3 + 1;
 					/* Flag to ensure all capacitors values have been transmitted*/
 					break;
 			}
@@ -401,7 +403,8 @@ bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg)
 		{
 			case 0:
 			//nrf_delay_ms((cap_n*C_AVRG*0.02)+200);
-			float time = (((float)cap_n*(float)((float)c_avg*CMEAS_CYTIME)*0.02)+2000)/1000;
+			//float time = (((float)cap_n*(float)((float)c_avg*CMEAS_CYTIME)*0.02)+2000)/1000;
+			float time = ((float)pul_n*(float)(CMEAS_CYTIME*0.02*c_avg)+ 10)/1000;
 			NRF_RTC1->CC[0] = time*32768; 
 			rtc_flag = 1;
 			NRF_RTC1->TASKS_START = 1;
@@ -419,7 +422,8 @@ bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg)
 			break;
 			
 			case 1:
-			nrf_delay_ms((cap_n*c_avg*0.02) +(0.14*2*4) + 200); //4fold averaging harcoded
+			//nrf_delay_ms((cap_n*c_avg*0.02) +(0.14*2*4) + 200); //4fold averaging harcoded
+			float time = ((float)pul_n*(float)(CMEAS_CYTIME*0.02*c_avg)+ 10 + (0.14*2*4))/1000;
 			break;				
 		}
 		return w;
