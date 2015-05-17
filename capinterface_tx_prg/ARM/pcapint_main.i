@@ -14584,7 +14584,7 @@ _Bool ant_channel_tx_broadcast_setup( void ) {
 	
 	
 	err_code = sd_ant_channel_period_set( (0), 
-																				(1638) ); 
+																				(819) ); 
 	if( err_code != ((0x0) + 0) ) {
 		return 1; 
 	}
@@ -14904,7 +14904,7 @@ _Bool pcap_config_write(uint32_t *PCAP_spi_address, uint32_t *regdata)
 
 
  
-_Bool config_reg_set(uint32_t *PCAP_spi_address) 
+_Bool config_reg_set(uint32_t *PCAP_spi_address,int c_avg) 
     { 
         uint32_t config_reg_d[20];
         uint8_t DSP_PRESET, PG_PRESET;
@@ -14920,7 +14920,7 @@ _Bool config_reg_set(uint32_t *PCAP_spi_address)
         config_reg_d[2] = pack(((uint8_t) 0xFF), ((uint8_t) 4), 4, ((uint8_t) 6), 4, 0x0B, 8, 0, 0);
         
          
-        config_reg_d[3] = pack(((uint8_t) 0), ((uint8_t) 0x0D), 6, ((uint8_t) 0), 3, ((uint16_t) 100), 13 , 0, 0);
+        config_reg_d[3] = pack(((uint8_t) 0), ((uint8_t) 0x0D), 6, ((uint8_t) 0), 3, c_avg, 13 , 0, 0);
         
          
         config_reg_d[4] = pack(((uint8_t) 0), ((uint8_t) 0), 2, ((uint16_t) 4), 10, ((uint8_t) 0 ), 4, ((((uint8_t) 0) << 2)|((uint8_t) 0)), 4);
@@ -15066,11 +15066,11 @@ _Bool pcap_commcheck(uint32_t *PCAP_spi_address)
 
 
  
-_Bool 	pcap_config(uint32_t *PCAP_spi_address)
+_Bool 	pcap_config(uint32_t *PCAP_spi_address, int c_avg)
 {
 		_Bool w,w1,w2; 
 		 
-		w1 = config_reg_set(PCAP_spi_address);
+		w1 = config_reg_set(PCAP_spi_address, c_avg);
 		
 		 
 		MSG_LEN = 8;
@@ -15098,7 +15098,7 @@ _Bool 	pcap_config(uint32_t *PCAP_spi_address)
 
 
  
-_Bool 	pcap_measure(uint32_t *PCAP_spi_address)
+_Bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg)
 {
 	_Bool w;
 	uint8_t cap_n, n;
@@ -15117,7 +15117,7 @@ _Bool 	pcap_measure(uint32_t *PCAP_spi_address)
 			{
 				case 1: 
 					n = 1;
-					cap_n = 1;
+					cap_n = 2;
 					do
 					{
 						uint16_t chk = (((uint8_t) 0xFF) >> n) & 0x01;					
@@ -15130,7 +15130,7 @@ _Bool 	pcap_measure(uint32_t *PCAP_spi_address)
 					break;
 				case 4: 
 					n = 1;
-					cap_n = 1;
+					cap_n = 2;
 					do
 					{
 						uint16_t chk = (((uint8_t) 0xFF) >> 2*n) & 0x03;
@@ -15149,7 +15149,7 @@ _Bool 	pcap_measure(uint32_t *PCAP_spi_address)
 		{
 			case 0:
 			
-			float time = (((float)cap_n*(float)(((uint16_t) 100)*((uint16_t) 4))*0.02)+200)/1000;
+			float time = (((float)cap_n*(float)((float)c_avg*((uint16_t) 4))*0.02)+2000)/1000;
 			((NRF_RTC_Type *) 0x40011000UL)->CC[0] = time*32768; 
 			rtc_flag = 1;
 			((NRF_RTC_Type *) 0x40011000UL)->TASKS_START = 1;
@@ -15167,7 +15167,7 @@ _Bool 	pcap_measure(uint32_t *PCAP_spi_address)
 			break;
 			
 			case 1:
-			nrf_delay_ms((cap_n*((uint16_t) 100)*0.02) +(0.14*2*4) + 200); 
+			nrf_delay_ms((cap_n*c_avg*0.02) +(0.14*2*4) + 200); 
 			break;				
 		}
 		return w;
@@ -15180,6 +15180,731 @@ _Bool 	pcap_measure(uint32_t *PCAP_spi_address)
 #line 49 "..\\PCAPint_main.c"
 #line 50 "..\\PCAPint_main.c"
 
+#line 1 "C:\\Keil\\ARM\\ARMCC\\bin\\..\\include\\stdlib.h"
+ 
+ 
+ 
+
+
+
+
+ 
+ 
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+ 
+
+
+
+
+
+
+
+
+#line 46 "C:\\Keil\\ARM\\ARMCC\\bin\\..\\include\\stdlib.h"
+
+
+  
+  typedef unsigned int size_t;
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    typedef unsigned short wchar_t;  
+#line 75 "C:\\Keil\\ARM\\ARMCC\\bin\\..\\include\\stdlib.h"
+
+typedef struct div_t { int quot, rem; } div_t;
+    
+typedef struct ldiv_t { long int quot, rem; } ldiv_t;
+    
+
+typedef struct lldiv_t { __int64 quot, rem; } lldiv_t;
+    
+
+
+#line 96 "C:\\Keil\\ARM\\ARMCC\\bin\\..\\include\\stdlib.h"
+   
+
+
+
+ 
+
+   
+
+
+
+
+ 
+#line 115 "C:\\Keil\\ARM\\ARMCC\\bin\\..\\include\\stdlib.h"
+   
+
+
+ 
+extern __declspec(__nothrow) int __aeabi_MB_CUR_MAX(void);
+
+   
+
+
+
+
+ 
+
+   
+
+
+
+
+ 
+
+
+
+
+extern __declspec(__nothrow) double atof(const char *  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+ 
+extern __declspec(__nothrow) int atoi(const char *  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+ 
+extern __declspec(__nothrow) long int atol(const char *  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+ 
+
+extern __declspec(__nothrow) __int64 atoll(const char *  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+ 
+
+
+extern __declspec(__nothrow) double strtod(const char * __restrict  , char ** __restrict  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+extern __declspec(__nothrow) float strtof(const char * __restrict  , char ** __restrict  ) __attribute__((__nonnull__(1)));
+extern __declspec(__nothrow) long double strtold(const char * __restrict  , char ** __restrict  ) __attribute__((__nonnull__(1)));
+   
+
+ 
+
+extern __declspec(__nothrow) long int strtol(const char * __restrict  ,
+                        char ** __restrict  , int  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) unsigned long int strtoul(const char * __restrict  ,
+                                       char ** __restrict  , int  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+ 
+extern __declspec(__nothrow) __int64 strtoll(const char * __restrict  ,
+                               char ** __restrict  , int  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+
+ 
+extern __declspec(__nothrow) unsigned __int64 strtoull(const char * __restrict  ,
+                                         char ** __restrict  , int  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+ 
+
+extern __declspec(__nothrow) int rand(void);
+   
+
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) void srand(unsigned int  );
+   
+
+
+
+
+
+
+ 
+
+struct _rand_state { int __x[57]; };
+extern __declspec(__nothrow) int _rand_r(struct _rand_state *);
+extern __declspec(__nothrow) void _srand_r(struct _rand_state *, unsigned int);
+struct _ANSI_rand_state { int __x[1]; };
+extern __declspec(__nothrow) int _ANSI_rand_r(struct _ANSI_rand_state *);
+extern __declspec(__nothrow) void _ANSI_srand_r(struct _ANSI_rand_state *, unsigned int);
+   
+
+
+ 
+
+extern __declspec(__nothrow) void *calloc(size_t  , size_t  );
+   
+
+
+
+ 
+extern __declspec(__nothrow) void free(void *  );
+   
+
+
+
+
+
+ 
+extern __declspec(__nothrow) void *malloc(size_t  );
+   
+
+
+
+ 
+extern __declspec(__nothrow) void *realloc(void *  , size_t  );
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+extern __declspec(__nothrow) int posix_memalign(void **  , size_t  , size_t  );
+   
+
+
+
+
+
+
+
+
+
+ 
+
+typedef int (*__heapprt)(void *, char const *, ...);
+extern __declspec(__nothrow) void __heapstats(int (*  )(void *  ,
+                                           char const *  , ...),
+                        void *  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) int __heapvalid(int (*  )(void *  ,
+                                           char const *  , ...),
+                       void *  , int  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) __declspec(__noreturn) void abort(void);
+   
+
+
+
+
+
+
+
+ 
+
+extern __declspec(__nothrow) int atexit(void (*  )(void)) __attribute__((__nonnull__(1)));
+   
+
+
+
+
+ 
+#line 415 "C:\\Keil\\ARM\\ARMCC\\bin\\..\\include\\stdlib.h"
+
+
+extern __declspec(__nothrow) __declspec(__noreturn) void exit(int  );
+   
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+extern __declspec(__nothrow) __declspec(__noreturn) void _Exit(int  );
+   
+
+
+
+
+
+
+
+      
+
+extern __declspec(__nothrow) char *getenv(const char *  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+
+
+
+
+
+
+ 
+
+extern __declspec(__nothrow) int  system(const char *  );
+   
+
+
+
+
+
+
+
+
+
+ 
+
+extern  void *bsearch(const void *  , const void *  ,
+              size_t  , size_t  ,
+              int (*  )(const void *, const void *)) __attribute__((__nonnull__(1,2,5)));
+   
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+#line 503 "C:\\Keil\\ARM\\ARMCC\\bin\\..\\include\\stdlib.h"
+
+
+extern  void qsort(void *  , size_t  , size_t  ,
+           int (*  )(const void *, const void *)) __attribute__((__nonnull__(1,4)));
+   
+
+
+
+
+
+
+
+
+
+ 
+
+#line 532 "C:\\Keil\\ARM\\ARMCC\\bin\\..\\include\\stdlib.h"
+
+extern __declspec(__nothrow) __pure int abs(int  );
+   
+
+
+
+ 
+
+extern __declspec(__nothrow) __pure div_t div(int  , int  );
+   
+
+
+
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) __pure long int labs(long int  );
+   
+
+
+
+ 
+
+
+
+
+extern __declspec(__nothrow) __pure ldiv_t ldiv(long int  , long int  );
+   
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+extern __declspec(__nothrow) __pure __int64 llabs(__int64  );
+   
+
+
+
+ 
+
+
+
+
+extern __declspec(__nothrow) __pure lldiv_t lldiv(__int64  , __int64  );
+   
+
+
+
+
+
+
+
+
+
+
+
+ 
+#line 613 "C:\\Keil\\ARM\\ARMCC\\bin\\..\\include\\stdlib.h"
+
+
+
+ 
+typedef struct __sdiv32by16 { int quot, rem; } __sdiv32by16;
+typedef struct __udiv32by16 { unsigned int quot, rem; } __udiv32by16;
+    
+typedef struct __sdiv64by32 { int rem, quot; } __sdiv64by32;
+
+__value_in_regs extern __declspec(__nothrow) __pure __sdiv32by16 __rt_sdiv32by16(
+     int  ,
+     short int  );
+   
+
+ 
+__value_in_regs extern __declspec(__nothrow) __pure __udiv32by16 __rt_udiv32by16(
+     unsigned int  ,
+     unsigned short  );
+   
+
+ 
+__value_in_regs extern __declspec(__nothrow) __pure __sdiv64by32 __rt_sdiv64by32(
+     int  , unsigned int  ,
+     int  );
+   
+
+ 
+
+
+
+ 
+extern __declspec(__nothrow) unsigned int __fp_status(unsigned int  , unsigned int  );
+   
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) int mblen(const char *  , size_t  );
+   
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) int mbtowc(wchar_t * __restrict  ,
+                   const char * __restrict  , size_t  );
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) int wctomb(char *  , wchar_t  );
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+extern __declspec(__nothrow) size_t mbstowcs(wchar_t * __restrict  ,
+                      const char * __restrict  , size_t  ) __attribute__((__nonnull__(2)));
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) size_t wcstombs(char * __restrict  ,
+                      const wchar_t * __restrict  , size_t  ) __attribute__((__nonnull__(2)));
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+extern __declspec(__nothrow) void __use_realtime_heap(void);
+extern __declspec(__nothrow) void __use_realtime_division(void);
+extern __declspec(__nothrow) void __use_two_region_memory(void);
+extern __declspec(__nothrow) void __use_no_heap(void);
+extern __declspec(__nothrow) void __use_no_heap_region(void);
+
+extern __declspec(__nothrow) char const *__C_library_version_string(void);
+extern __declspec(__nothrow) int __C_library_version_number(void);
+
+
+
+
+
+
+
+
+
+
+
+#line 867 "C:\\Keil\\ARM\\ARMCC\\bin\\..\\include\\stdlib.h"
+
+
+ 
+
+#line 52 "..\\PCAPint_main.c"
+
 
 
 
@@ -15188,6 +15913,8 @@ _Bool 	pcap_measure(uint32_t *PCAP_spi_address)
 
  
 static uint8_t s_broadcast_data[(8)];	
+
+
 
 
 
@@ -15229,7 +15956,7 @@ void softdevice_assert_callback(uint32_t pc, uint16_t line_num, const uint8_t * 
  
 static void pcap_broadcast_data(uint8_t add, uint32_t data1,uint32_t data2)
 		{
-				s_broadcast_data[0] = 0x05;;
+				s_broadcast_data[0] = 0x0A;;
 				s_broadcast_data[1] = add;
 				for (uint8_t y = 2; y < (5); y++)
 				{
@@ -15280,7 +16007,7 @@ static void handle_channel_event(uint32_t event, uint8_t add, uint32_t data1,uin
 			handle_error();
 	 }
 	 
-		((NRF_RTC_Type *) 0x40011000UL)->CC[0] = 1*32768; 
+		((NRF_RTC_Type *) 0x40011000UL)->CC[0] = 2*32768; 
 	  rtc_flag = 1;
 		((NRF_RTC_Type *) 0x40011000UL)->TASKS_START = 1;
 		do 
@@ -15293,7 +16020,7 @@ static void handle_channel_event(uint32_t event, uint8_t add, uint32_t data1,uin
     }while(rtc_flag); 
 		
     ((NRF_RTC_Type *) 0x40011000UL)->TASKS_STOP = 1; 
-    ((NRF_RTC_Type *) 0x40011000UL)->TASKS_CLEAR = 1; 
+    ((NRF_RTC_Type *) 0x40011000UL)->TASKS_CLEAR = 1;
 }
 
 
@@ -15331,10 +16058,19 @@ int main(void)
   char cap1_s[7][16]; 
   float cap1, cap2, cap3, cap4, cap5, cap6, cap7, capref;
 	int check = 0;
+	int acknowledge_flag = 0;
+	int event_flag = 0;
+	int delay = 1;
+	int pcap_flag = 1;
+	int c_avg = 100;
 	
 		 
 	 
 	static uint8_t event_message_buffer[(32)];
+	
+	 
+	nrf_delay_ms(rand() % 1000 + 1);
+
 	
 	 
 	return_value = sd_softdevice_enable(NRF_CLOCK_LFCLKSRC_SYNTH_250_PPM, softdevice_assert_callback);
@@ -15377,12 +16113,16 @@ int main(void)
 		 return_value = pcap_commcheck(PCAP_spi_address);
 		}
 
-	 
-	ret0 = pcap_config(PCAP_spi_address);
 	
 	 
 	while(1)
 	{	
+		if(pcap_flag)
+		{
+			pcap_flag = 0;
+			 
+	    ret0 = pcap_config(PCAP_spi_address,c_avg);
+		}
 		check = 0;
 		
 		 
@@ -15390,7 +16130,7 @@ int main(void)
 		
 		
 		 
-		ret2 = pcap_measure(PCAP_spi_address);
+		ret2 = pcap_measure(PCAP_spi_address,c_avg);
 		
 		
 		 
@@ -15442,7 +16182,7 @@ int main(void)
 	
 	return_value = sd_ant_channel_open((0));
 		
-	s_broadcast_data[0] = 0x05;;
+	s_broadcast_data[0] = 0x0A;;
 	return_value = sd_ant_broadcast_message_tx((0), (8), s_broadcast_data );
 
 
@@ -15505,9 +16245,50 @@ int main(void)
 		n = 0;			
 		sw2 = 0;			
 		sw3 = 1;			
-		return_value = sd_ant_channel_close((0));
 		
-	  ((NRF_RTC_Type *) 0x40011000UL)->CC[0] = 1*32768; 
+		acknowledge_flag = 1;
+		
+		event_flag = 0;
+		while(!event_flag){
+	  return_value = sd_ant_event_get(&ant_channel, &event, event_message_buffer);
+		if (return_value == ((0x0) + 0)) 
+		{
+			switch (event)
+			{
+				case ((uint8_t)0x80):
+					if(event_message_buffer[1u] ==  ((uint8_t)0x4E) ) {
+						delay = event_message_buffer[5];
+						if(c_avg !=  (int)(event_message_buffer[8] << 8 |event_message_buffer[7] ))
+						{
+							c_avg = (int)(event_message_buffer[8] << 8 |event_message_buffer[7] );
+							pcap_flag = 1;
+						}	
+						if(event_message_buffer[6] != 1)
+						{
+							do 
+							{ 
+								
+								__wfe();   
+								
+								__sev(); 
+								__wfe();                 
+							}while(1); 
+						}
+					}
+					event_flag = 1;
+					break;
+				default:
+					
+					event_flag = 0;
+				break;
+			}
+		}			
+	}
+		
+		return_value = sd_ant_channel_close((0));
+	
+		if(acknowledge_flag){
+	  ((NRF_RTC_Type *) 0x40011000UL)->CC[0] = delay*32768; 
 		rtc_flag = 1;
 		((NRF_RTC_Type *) 0x40011000UL)->TASKS_START = 1;
 		do 
@@ -15521,7 +16302,7 @@ int main(void)
 		
     ((NRF_RTC_Type *) 0x40011000UL)->TASKS_STOP = 1; 
     ((NRF_RTC_Type *) 0x40011000UL)->TASKS_CLEAR = 1; 
-
+	}
 		
 }
 } 

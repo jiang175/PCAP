@@ -47,15 +47,19 @@
 #include <string.h>
 #include <stdio.h>
 #include <math.h>
+//#include <time.h>  
+#include <stdlib.h> 
 
 //*****************************************
 //DEVICE ID
-#define DEVICE_ID 0x05;
+#define DEVICE_ID 0x0A; //hex	
 //*******************************************
 
 
 /* Static variables and buffers */
 static uint8_t s_broadcast_data[BROADCAST_DATA_BUFFER_SIZE];	///< Primary data transmit buffer
+
+
 //int rtc_flag = 1;
 
 
@@ -148,7 +152,7 @@ static void handle_channel_event(uint32_t event, uint8_t add, uint32_t data1,uin
 			handle_error();
 	 }
 	 
-		NRF_RTC1->CC[0] = 1*32768; 
+		NRF_RTC1->CC[0] = 2*32768; 
 	  rtc_flag = 1;
 		NRF_RTC1->TASKS_START = 1;
 		do 
@@ -161,7 +165,7 @@ static void handle_channel_event(uint32_t event, uint8_t add, uint32_t data1,uin
     }while(rtc_flag); 
 		
     NRF_RTC1->TASKS_STOP = 1; 
-    NRF_RTC1->TASKS_CLEAR = 1; 
+    NRF_RTC1->TASKS_CLEAR = 1;
 }
 
 /**
@@ -199,13 +203,22 @@ int main(void)
   char cap1_s[7][16]; 
   float cap1, cap2, cap3, cap4, cap5, cap6, cap7, capref;
 	int check = 0;
+	int acknowledge_flag = 0;
+	int event_flag = 0;
+	int delay = 1;
+	int pcap_flag = 1;
+	int c_avg = 100;
 	
 		 
 	/* ANT event message buffer */
 	static uint8_t event_message_buffer[ANT_EVENT_MSG_BUFFER_MIN_SIZE];
 	
+	/*Random Delay*/
+	nrf_delay_ms(rand() % 1000 + 1);
+
+	
 	/* Enable softdevice */
-	return_value = sd_softdevice_enable(NRF_CLOCK_LFCLKSRC_SYNTH_250_PPM, softdevice_assert_callback);
+	return_value = sd_softdevice_enable(NRF_CLOCK_LFCLKSRC_SYNTH_250_PPM, softdevice_assert_callback);//NRF_CLOCK_LFCLKSRC_XTAL_250_PPM   NRF_CLOCK_LFCLKSRC_SYNTH_250_PPM
 	if (return_value != NRF_SUCCESS) 	{	while(true);}
 
   /*RTC Intialisation
@@ -245,12 +258,16 @@ int main(void)
 		 return_value = pcap_commcheck(PCAP_spi_address);
 		}
 
-	/* PCAP Config */
-	ret0 = pcap_config(PCAP_spi_address);
 	
 	/* Main Loop */
 	while(true)
 	{	
+		if(pcap_flag)
+		{
+			pcap_flag = 0;
+			/* PCAP Config */
+	    ret0 = pcap_config(PCAP_spi_address,c_avg);
+		}
 		check = 0;
 		
 		/* PCAP Config */
@@ -258,7 +275,7 @@ int main(void)
 		//ret0 = pcap_config(PCAP_spi_address);
 		
 		/* Capacitance Measurement */
-		ret2 = pcap_measure(PCAP_spi_address);
+		ret2 = pcap_measure(PCAP_spi_address,c_avg);
 		
 		
 		/* Prep broad cast data for transmit */
@@ -373,9 +390,50 @@ int main(void)
 		n = 0;			
 		sw2 = 0;			
 		sw3 = 1;			
-		return_value = sd_ant_channel_close(CHANNEL_0);
 		
-	  NRF_RTC1->CC[0] = 1*32768; 
+		acknowledge_flag = 1;
+		
+		event_flag = 0;
+		while(!event_flag){
+	  return_value = sd_ant_event_get(&ant_channel, &event, event_message_buffer);
+		if (return_value == NRF_SUCCESS) 
+		{
+			switch (event)
+			{
+				case EVENT_RX:
+					if(event_message_buffer[1u] ==  MESG_BROADCAST_DATA_ID ) {
+						delay = event_message_buffer[5];
+						if(c_avg !=  (int)(event_message_buffer[8] << 8 |event_message_buffer[7] ))
+						{
+							c_avg = (int)(event_message_buffer[8] << 8 |event_message_buffer[7] );
+							pcap_flag = 1;
+						}	
+						if(event_message_buffer[6] != 1)
+						{
+							do 
+							{ 
+								// Enter System ON sleep mode 
+								__WFE();   
+								// Make sure any pending events are cleared 
+								__SEV(); 
+								__WFE();                 
+							}while(1); 
+						}
+					}
+					event_flag = 1;
+					break;
+				default:
+					//acknowledge_flag = 0;
+					event_flag = 0;
+				break;
+			}
+		}			
+	}
+		
+		return_value = sd_ant_channel_close(CHANNEL_0);
+	
+		if(acknowledge_flag){
+	  NRF_RTC1->CC[0] = delay*32768; 
 		rtc_flag = 1;
 		NRF_RTC1->TASKS_START = 1;
 		do 
@@ -389,7 +447,7 @@ int main(void)
 		
     NRF_RTC1->TASKS_STOP = 1; 
     NRF_RTC1->TASKS_CLEAR = 1; 
-
+	}
 		// sd_power_system_off(); 
 }
 } // int main(void)

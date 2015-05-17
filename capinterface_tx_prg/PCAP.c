@@ -156,7 +156,7 @@ bool pcap_config_write(uint32_t *PCAP_spi_address, uint32_t *regdata) // why doe
   * Sets the indivual configuration registers and send it to the PCAP_config_write function for SPI write.
     * Return false for unsucessful set
 */
-bool config_reg_set(uint32_t *PCAP_spi_address) 
+bool config_reg_set(uint32_t *PCAP_spi_address,int c_avg) 
     { 
         uint32_t config_reg_d[20];
         uint8_t DSP_PRESET, PG_PRESET;
@@ -172,7 +172,7 @@ bool config_reg_set(uint32_t *PCAP_spi_address)
         config_reg_d[2] = pack(CMEAS_PORT_EN, CMEAS_BITS, 4, RDCHG_INT_SEL, 4, 0x0B, 8, 0, 0);
         
         /* register 3 */
-        config_reg_d[3] = pack(CY_CLK_SEL, SEQ_TIME, 6, CMEAS_FAKE, 3, C_AVRG, 13 , 0, 0);
+        config_reg_d[3] = pack(CY_CLK_SEL, SEQ_TIME, 6, CMEAS_FAKE, 3, c_avg, 13 , 0, 0);
         
         /* register 4 */
         config_reg_d[4] = pack(CMEAS_STARTPIN, CMEAS_TRIG_SEL, 2, CMEAS_CYTIME, 10, TMEAS_CYTIME, 4, ((TMEAS_STARTPIN << 2)|TMEAS_TRIG_SEL), 4);
@@ -318,11 +318,11 @@ bool pcap_commcheck(uint32_t *PCAP_spi_address)
 		* Initiates configuration Register set and implements a partial reset.
     * Return false for unsucessful set
 */
-bool 	pcap_config(uint32_t *PCAP_spi_address)
+bool 	pcap_config(uint32_t *PCAP_spi_address, int c_avg)
 {
 		bool w,w1,w2; 
 		/* Set configuration registers */
-		w1 = config_reg_set(PCAP_spi_address);
+		w1 = config_reg_set(PCAP_spi_address, c_avg);
 		
 		/* Send a partial reset */
 		MSG_LEN = 8;
@@ -350,7 +350,7 @@ bool 	pcap_config(uint32_t *PCAP_spi_address)
 		* Initiates measures and implements minimum delay before read.
     * Return false for unsucessful start
 */
-bool 	pcap_measure(uint32_t *PCAP_spi_address)
+bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg)
 {
 	bool w;
 	uint8_t cap_n, n;
@@ -369,7 +369,7 @@ bool 	pcap_measure(uint32_t *PCAP_spi_address)
 			{
 				case 1: // grounded
 					n = 1;
-					cap_n = 1;
+					cap_n = 2;
 					do
 					{
 						uint16_t chk = (CMEAS_PORT_EN >> n) & 0x01;					
@@ -382,7 +382,7 @@ bool 	pcap_measure(uint32_t *PCAP_spi_address)
 					break;
 				case 4: // floating
 					n = 1;
-					cap_n = 1;
+					cap_n = 2;
 					do
 					{
 						uint16_t chk = (CMEAS_PORT_EN >> 2*n) & 0x03;
@@ -401,7 +401,7 @@ bool 	pcap_measure(uint32_t *PCAP_spi_address)
 		{
 			case 0:
 			//nrf_delay_ms((cap_n*C_AVRG*0.02)+200);
-			float time = (((float)cap_n*(float)(C_AVRG*CMEAS_CYTIME)*0.02)+200)/1000;
+			float time = (((float)cap_n*(float)((float)c_avg*CMEAS_CYTIME)*0.02)+2000)/1000;
 			NRF_RTC1->CC[0] = time*32768; 
 			rtc_flag = 1;
 			NRF_RTC1->TASKS_START = 1;
@@ -419,7 +419,7 @@ bool 	pcap_measure(uint32_t *PCAP_spi_address)
 			break;
 			
 			case 1:
-			nrf_delay_ms((cap_n*C_AVRG*0.02) +(0.14*2*4) + 200); //4fold averaging harcoded
+			nrf_delay_ms((cap_n*c_avg*0.02) +(0.14*2*4) + 200); //4fold averaging harcoded
 			break;				
 		}
 		return w;
