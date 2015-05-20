@@ -15101,7 +15101,7 @@ _Bool 	pcap_config(uint32_t *PCAP_spi_address, int c_avg)
 _Bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg)
 {
 	_Bool w;
-	uint8_t cap_n, n;
+	uint8_t cap_n, n, pul_n;
 	 
 		MSG_LEN = 8;
 		memset(tx_data, 0, 8);
@@ -15117,7 +15117,7 @@ _Bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg)
 			{
 				case 1: 
 					n = 1;
-					cap_n = 2;
+					cap_n = 1;
 					do
 					{
 						uint16_t chk = (((uint8_t) 0xFF) >> n) & 0x01;					
@@ -15127,10 +15127,11 @@ _Bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg)
 						}
 							n++;
 					}while(n < 8);
+					pul_n = cap_n*2 + 1;
 					break;
 				case 4: 
 					n = 1;
-					cap_n = 2;
+					cap_n = 1;
 					do
 					{
 						uint16_t chk = (((uint8_t) 0xFF) >> 2*n) & 0x03;
@@ -15142,6 +15143,7 @@ _Bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg)
 						}
 						n++;
 					} while(n < 4);
+					pul_n = cap_n*3 + 1;
 					 
 					break;
 			}
@@ -15149,7 +15151,8 @@ _Bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg)
 		{
 			case 0:
 			
-			float time = (((float)cap_n*(float)((float)c_avg*((uint16_t) 4))*0.02)+2000)/1000;
+			
+			float time = ((float)pul_n*(float)((float)(((uint16_t) 4)+1)*0.02*(float)c_avg)+5)/1000;
 			((NRF_RTC_Type *) 0x40011000UL)->CC[0] = time*32768; 
 			rtc_flag = 1;
 			((NRF_RTC_Type *) 0x40011000UL)->TASKS_START = 1;
@@ -15167,7 +15170,9 @@ _Bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg)
 			break;
 			
 			case 1:
-			nrf_delay_ms((cap_n*c_avg*0.02) +(0.14*2*4) + 200); 
+			
+			
+			time = ((float)pul_n*(float)(((uint16_t) 4)*0.02*c_avg)+ 10 + (0.14*2*4))/1000;
 			break;				
 		}
 		return w;
@@ -15956,7 +15961,7 @@ void softdevice_assert_callback(uint32_t pc, uint16_t line_num, const uint8_t * 
  
 static void pcap_broadcast_data(uint8_t add, uint32_t data1,uint32_t data2)
 		{
-				s_broadcast_data[0] = 0x0A;;
+				s_broadcast_data[0] = 0x03;;
 				s_broadcast_data[1] = add;
 				for (uint8_t y = 2; y < (5); y++)
 				{
@@ -16182,7 +16187,7 @@ int main(void)
 	
 	return_value = sd_ant_channel_open((0));
 		
-	s_broadcast_data[0] = 0x0A;;
+	s_broadcast_data[0] = 0x03;;
 	return_value = sd_ant_broadcast_message_tx((0), (8), s_broadcast_data );
 
 
