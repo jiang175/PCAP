@@ -14923,14 +14923,14 @@ _Bool config_reg_set(uint32_t *PCAP_spi_address,int c_avg)
         config_reg_d[3] = pack(((uint8_t) 0), ((uint8_t) 0x0D), 6, ((uint8_t) 0), 3, c_avg, 13 , 0, 0);
         
          
-        config_reg_d[4] = pack(((uint8_t) 0), ((uint8_t) 0), 2, ((uint16_t) 4), 10, ((uint8_t) 0 ), 4, ((((uint8_t) 0) << 2)|((uint8_t) 0)), 4);
+        config_reg_d[4] = pack(((uint8_t) 0), ((uint8_t) 0), 2, ((uint16_t) 4), 10, ((uint8_t) 0 ), 4, ((((uint8_t) 0) << 2)|((uint8_t) 1)), 4);
         
          
         config_reg_d[5] = pack(((uint8_t) 1), ((uint32_t) 0), 22, 0, 0, 0, 0, 0 ,0);
         
             
          
-        config_reg_d[6] = pack(0, ((uint8_t) 0), 1, ((uint8_t) 0), 7, 0x40, 8, 0, 0);
+        config_reg_d[6] = pack(0, ((uint8_t) 1), 1, ((uint8_t) 0x0E), 7, 0x40, 8, 0, 0);
         
         
          
@@ -15147,12 +15147,12 @@ _Bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg)
 					 
 					break;
 			}
-		switch(((uint8_t) 0))
+		switch(((uint8_t) 1))
 		{
 			case 0:
 			
 			
-			float time = ((float)pul_n*(float)((float)(((uint16_t) 4)+1)*0.02*(float)c_avg)+5)/1000;
+			float time = ((float)pul_n*(float)((float)(((uint16_t) 4)+1)*0.02*(float)c_avg)+30)/1000; 
 			((NRF_RTC_Type *) 0x40011000UL)->CC[0] = time*32768; 
 			rtc_flag = 1;
 			((NRF_RTC_Type *) 0x40011000UL)->TASKS_START = 1;
@@ -15172,8 +15172,23 @@ _Bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg)
 			case 1:
 			
 			
-			time = ((float)pul_n*(float)(((uint16_t) 4)*0.02*c_avg)+ 10 + (0.14*2*4))/1000;
-			break;				
+			
+			time = ((float)pul_n*(float)((float)(((uint16_t) 4)+1)*0.02*(float)c_avg)+60)/1000; 
+			((NRF_RTC_Type *) 0x40011000UL)->CC[0] = time*32768; 
+			rtc_flag = 1;
+			((NRF_RTC_Type *) 0x40011000UL)->TASKS_START = 1;
+			do 
+			{ 
+				
+				__wfe();   
+				
+				__sev(); 
+				__wfe();                 
+			}while(rtc_flag); 
+			
+			((NRF_RTC_Type *) 0x40011000UL)->TASKS_STOP = 1; 
+			((NRF_RTC_Type *) 0x40011000UL)->TASKS_CLEAR = 1; 
+			break;			
 		}
 		return w;
 }
@@ -15961,7 +15976,7 @@ void softdevice_assert_callback(uint32_t pc, uint16_t line_num, const uint8_t * 
  
 static void pcap_broadcast_data(uint8_t add, uint32_t data1,uint32_t data2)
 		{
-				s_broadcast_data[0] = 0x03;;
+				s_broadcast_data[0] = 0x07;;
 				s_broadcast_data[1] = add;
 				for (uint8_t y = 2; y < (5); y++)
 				{
@@ -16187,7 +16202,7 @@ int main(void)
 	
 	return_value = sd_ant_channel_open((0));
 		
-	s_broadcast_data[0] = 0x03;;
+	s_broadcast_data[0] = 0x07;;
 	return_value = sd_ant_broadcast_message_tx((0), (8), s_broadcast_data );
 
 
@@ -16239,7 +16254,12 @@ int main(void)
 										cap_t[3] = read_reg(PCAP_spi_address, (3));
 										handle_channel_event(event, (2), cap_t[2],cap_t[3]);
 										break;
-																			
+										
+										case 3:
+										 
+										cap_t[4] = read_reg(PCAP_spi_address, (13));
+										cap_t[5] = read_reg(PCAP_spi_address, (14));
+										handle_channel_event(event, 3, cap_t[4],cap_t[5]);
 								}															 
 						}
 

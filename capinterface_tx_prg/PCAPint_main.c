@@ -52,7 +52,7 @@
 
 //*****************************************
 //DEVICE ID
-#define DEVICE_ID 0x03; //hex	
+#define DEVICE_ID 0x07; //hex	
 //*******************************************
 
 
@@ -379,7 +379,12 @@ int main(void)
 										cap_t[3] = read_reg(PCAP_spi_address, read_reg3);
 										handle_channel_event(event, read_reg2, cap_t[2],cap_t[3]);
 										break;
-																			
+										
+										case 3:
+										/*Temp Measure*/
+										cap_t[4] = read_reg(PCAP_spi_address, read_reg10);
+										cap_t[5] = read_reg(PCAP_spi_address, read_reg11);
+										handle_channel_event(event, 3, cap_t[4],cap_t[5]);
 								}															 
 						}
 

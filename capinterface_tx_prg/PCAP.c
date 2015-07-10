@@ -404,7 +404,7 @@ bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg)
 			case 0:
 			//nrf_delay_ms((cap_n*C_AVRG*0.02)+200);
 			//float time = (((float)cap_n*(float)((float)c_avg*CMEAS_CYTIME)*0.02)+2000)/1000;
-			float time = ((float)pul_n*(float)((float)(CMEAS_CYTIME+1)*0.02*(float)c_avg)+5)/1000;
+			float time = ((float)pul_n*(float)((float)(CMEAS_CYTIME+1)*0.02*(float)c_avg)+30)/1000; //used to be 5
 			NRF_RTC1->CC[0] = time*32768; 
 			rtc_flag = 1;
 			NRF_RTC1->TASKS_START = 1;
@@ -424,8 +424,23 @@ bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg)
 			case 1:
 			//nrf_delay_ms((cap_n*c_avg*0.02) +(0.14*2*4) + 200); //4fold averaging harcoded //
 			//need to edit the line below
-			time = ((float)pul_n*(float)(CMEAS_CYTIME*0.02*c_avg)+ 10 + (0.14*2*4))/1000;
-			break;				
+			//time = ((float)pul_n*(float)(CMEAS_CYTIME*0.02*c_avg)+ 10 + (0.14*2*4))/1000;
+			time = ((float)pul_n*(float)((float)(CMEAS_CYTIME+1)*0.02*(float)c_avg)+60)/1000; //used to be 5
+			NRF_RTC1->CC[0] = time*32768; 
+			rtc_flag = 1;
+			NRF_RTC1->TASKS_START = 1;
+			do 
+			{ 
+				// Enter System ON sleep mode 
+				__WFE();   
+				// Make sure any pending events are cleared 
+				__SEV(); 
+				__WFE();                 
+			}while(rtc_flag); 
+			
+			NRF_RTC1->TASKS_STOP = 1; 
+			NRF_RTC1->TASKS_CLEAR = 1; 
+			break;			
 		}
 		return w;
 }
