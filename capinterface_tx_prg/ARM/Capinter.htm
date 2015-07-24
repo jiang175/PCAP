@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Capinter.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Capinter.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Tue Jul 07 10:48:15 2015
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Fri Jul 24 15:38:58 2015
 <BR><P>
 <H3>Maximum Stack Usage =        440 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -508,7 +508,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[44]"></a>config_reg_set</STRONG> (Thumb, 378 bytes, Stack size 128 bytes, pcapint_main.o(i.config_reg_set))
+<P><STRONG><a name="[44]"></a>config_reg_set</STRONG> (Thumb, 380 bytes, Stack size 128 bytes, pcapint_main.o(i.config_reg_set))
 <BR><BR>[Stack]<UL><LI>Max Depth = 232<LI>Call Chain = config_reg_set &rArr; pcap_config_write &rArr; pcap_spi_tx_rx &rArr; spi_master_tx_rx
 </UL>
 <BR>[Calls]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_config_write
@@ -529,7 +529,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[1f]"></a>main</STRONG> (Thumb, 672 bytes, Stack size 120 bytes, pcapint_main.o(i.main))
+<P><STRONG><a name="[1f]"></a>main</STRONG> (Thumb, 788 bytes, Stack size 120 bytes, pcapint_main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 440<LI>Call Chain = main &rArr; data_extract &rArr; pow &rArr; __kernel_poly &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; __aeabi_llsr
 </UL>
 <BR>[Calls]<UL><LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rand
@@ -572,8 +572,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[53]"></a>pcap_config</STRONG> (Thumb, 78 bytes, Stack size 32 bytes, pcapint_main.o(i.pcap_config))
-<BR><BR>[Stack]<UL><LI>Max Depth = 264<LI>Call Chain = pcap_config &rArr; config_reg_set &rArr; pcap_config_write &rArr; pcap_spi_tx_rx &rArr; spi_master_tx_rx
+<P><STRONG><a name="[53]"></a>pcap_config</STRONG> (Thumb, 86 bytes, Stack size 40 bytes, pcapint_main.o(i.pcap_config))
+<BR><BR>[Stack]<UL><LI>Max Depth = 272<LI>Call Chain = pcap_config &rArr; config_reg_set &rArr; pcap_config_write &rArr; pcap_spi_tx_rx &rArr; spi_master_tx_rx
 </UL>
 <BR>[Calls]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_spi_tx_rx
 <LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;config_reg_set
@@ -598,8 +598,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[54]"></a>pcap_measure</STRONG> (Thumb, 402 bytes, Stack size 72 bytes, pcapint_main.o(i.pcap_measure))
-<BR><BR>[Stack]<UL><LI>Max Depth = 200<LI>Call Chain = pcap_measure &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; __aeabi_llsr
+<P><STRONG><a name="[54]"></a>pcap_measure</STRONG> (Thumb, 402 bytes, Stack size 80 bytes, pcapint_main.o(i.pcap_measure))
+<BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = pcap_measure &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; __aeabi_llsr
 </UL>
 <BR>[Calls]<UL><LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
 <LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f

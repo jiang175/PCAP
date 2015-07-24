@@ -73,10 +73,10 @@
 
 //Register 5
 #define T_AVRG ((uint8_t) 1) // 0( no averaging), 1 (4 fold averaging) , 2 (8-fold averaging) , 3(16-fold averaging) 
-#define TMEAS_TRIG_PREDIV ((uint32_t) 0) //zero counts as one, set zero for hygrometers etc 
+#define TMEAS_TRIG_PREDIV ((uint32_t) 1) //zero counts as one, set zero for hygrometers etc 
 
 //Register 6 
-#define TMEAS_FAKE ((uint8_t) 1) // 0 = 2 dummy measuremtns,  1 = 8 dummy measurement
+#define TMEAS_FAKE ((uint8_t) 0) // 0 = 2 dummy measuremtns,  1 = 8 dummy measurement
 #define TMEAS_7BITS ((uint8_t) 0x0E) // 0 = no temp
 
 //Register 8 

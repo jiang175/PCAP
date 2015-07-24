@@ -66,7 +66,7 @@ static uint8_t s_broadcast_data[BROADCAST_DATA_BUFFER_SIZE];	///< Primary data t
 //static uint8_t s_counter = 1;																 ///< Counter to increment the ANT broadcast data payload
 
 #define DELAY_MS							 100				/*!< Timer Delay in milli-seconds */
-#define BUTTON2													2
+#define BUTTON2							 						2
 #define LED7															 15
 #define LED6															 14
 
@@ -207,6 +207,7 @@ int main(void)
 	int event_flag = 0;
 	int delay = 1;
 	int pcap_flag = 1;
+	int temp_flag = 0;
 	int c_avg = 100;
 	
 		 
@@ -258,6 +259,7 @@ int main(void)
 		 return_value = pcap_commcheck(PCAP_spi_address);
 		}
 
+		
 	
 	/* Main Loop */
 	while(true)
@@ -266,16 +268,15 @@ int main(void)
 		{
 			pcap_flag = 0;
 			/* PCAP Config */
-	    ret0 = pcap_config(PCAP_spi_address,c_avg);
+	    ret0 = pcap_config(PCAP_spi_address,c_avg,temp_flag);
 		}
 		check = 0;
-		
 		/* PCAP Config */
 		//needs implementation into loop to check if this needs to be reconfigured based on ANT recieved messages
 		//ret0 = pcap_config(PCAP_spi_address);
 		
 		/* Capacitance Measurement */
-		ret2 = pcap_measure(PCAP_spi_address,c_avg);
+		ret2 = pcap_measure(PCAP_spi_address,c_avg,temp_flag);
 		
 		
 		/* Prep broad cast data for transmit */
@@ -381,10 +382,12 @@ int main(void)
 										break;
 										
 										case 3:
-										/*Temp Measure*/
-										cap_t[4] = read_reg(PCAP_spi_address, read_reg10);
-										cap_t[5] = read_reg(PCAP_spi_address, read_reg11);
-										handle_channel_event(event, 3, cap_t[4],cap_t[5]);
+										if(temp_flag){
+											/*Temp Measure*/
+											cap_t[4] = read_reg(PCAP_spi_address, read_reg10);
+											cap_t[5] = read_reg(PCAP_spi_address, read_reg11);
+											handle_channel_event(event, 3, cap_t[4],cap_t[5]);
+										}
 								}															 
 						}
 
@@ -413,16 +416,10 @@ int main(void)
 							c_avg = (int)(event_message_buffer[8] << 8 |event_message_buffer[7] );
 							pcap_flag = 1;
 						}	
-						if(event_message_buffer[6] != 1)
+						if(event_message_buffer[6] != temp_flag)
 						{
-							do 
-							{ 
-								// Enter System ON sleep mode 
-								__WFE();   
-								// Make sure any pending events are cleared 
-								__SEV(); 
-								__WFE();                 
-							}while(1); 
+						  temp_flag = event_message_buffer[6];
+							ret0 = pcap_config(PCAP_spi_address,c_avg,temp_flag);
 						}
 					}
 					event_flag = 1;
@@ -432,7 +429,42 @@ int main(void)
 					event_flag = 0;
 				break;
 			}
-		}			
+		}
+		else
+		{
+			return_value = sd_ant_channel_close(CHANNEL_0);
+			NRF_RTC1->CC[0] = 5*32768; 
+	    rtc_flag = 1;
+		  NRF_RTC1->TASKS_START = 1;
+			do 
+		  { 
+				// Enter System ON sleep mode 
+				__WFE();   
+				// Make sure any pending events are cleared 
+				__SEV(); 
+				__WFE();                 
+		  }while(rtc_flag); 
+			
+			// Open channel. 
+	    return_value = sd_ant_channel_open(CHANNEL_0);
+		  // Get first data to send
+	    s_broadcast_data[0] = DEVICE_ID;
+	    return_value = sd_ant_broadcast_message_tx(CHANNEL_0, BROADCAST_DATA_BUFFER_SIZE, s_broadcast_data );
+			
+		  NRF_RTC1->CC[0] = 1*32768; 
+	    rtc_flag = 1;
+		  NRF_RTC1->TASKS_START = 1;
+			do 
+		  { 
+				// Enter System ON sleep mode 
+				__WFE();   
+				// Make sure any pending events are cleared 
+				__SEV(); 
+				__WFE();                 
+		  }while(rtc_flag); 
+			
+			
+		}
 	}
 		
 		return_value = sd_ant_channel_close(CHANNEL_0);

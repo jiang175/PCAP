@@ -14904,7 +14904,7 @@ _Bool pcap_config_write(uint32_t *PCAP_spi_address, uint32_t *regdata)
 
 
  
-_Bool config_reg_set(uint32_t *PCAP_spi_address,int c_avg) 
+_Bool config_reg_set(uint32_t *PCAP_spi_address,int c_avg,int onoff) 
     { 
         uint32_t config_reg_d[20];
         uint8_t DSP_PRESET, PG_PRESET;
@@ -14923,14 +14923,14 @@ _Bool config_reg_set(uint32_t *PCAP_spi_address,int c_avg)
         config_reg_d[3] = pack(((uint8_t) 0), ((uint8_t) 0x0D), 6, ((uint8_t) 0), 3, c_avg, 13 , 0, 0);
         
          
-        config_reg_d[4] = pack(((uint8_t) 0), ((uint8_t) 0), 2, ((uint16_t) 4), 10, ((uint8_t) 0 ), 4, ((((uint8_t) 0) << 2)|((uint8_t) 1)), 4);
+        config_reg_d[4] = pack(((uint8_t) 0), ((uint8_t) 0), 2, ((uint16_t) 4), 10, ((uint8_t) 0 ), 4, ((((uint8_t) 0) << 2)|onoff), 4);
         
          
-        config_reg_d[5] = pack(((uint8_t) 1), ((uint32_t) 0), 22, 0, 0, 0, 0, 0 ,0);
+        config_reg_d[5] = pack(((uint8_t) 1), ((uint32_t) 1), 22, 0, 0, 0, 0, 0 ,0);
         
             
          
-        config_reg_d[6] = pack(0, ((uint8_t) 1), 1, ((uint8_t) 0x0E), 7, 0x40, 8, 0, 0);
+        config_reg_d[6] = pack(0, ((uint8_t) 0), 1, ((uint8_t) 0x0E), 7, 0x40, 8, 0, 0);
         
         
          
@@ -15066,11 +15066,11 @@ _Bool pcap_commcheck(uint32_t *PCAP_spi_address)
 
 
  
-_Bool 	pcap_config(uint32_t *PCAP_spi_address, int c_avg)
+_Bool 	pcap_config(uint32_t *PCAP_spi_address, int c_avg,int onoff)
 {
 		_Bool w,w1,w2; 
 		 
-		w1 = config_reg_set(PCAP_spi_address, c_avg);
+		w1 = config_reg_set(PCAP_spi_address, c_avg, onoff);
 		
 		 
 		MSG_LEN = 8;
@@ -15098,7 +15098,7 @@ _Bool 	pcap_config(uint32_t *PCAP_spi_address, int c_avg)
 
 
  
-_Bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg)
+_Bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg, int onoff)
 {
 	_Bool w;
 	uint8_t cap_n, n, pul_n;
@@ -15147,7 +15147,7 @@ _Bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg)
 					 
 					break;
 			}
-		switch(((uint8_t) 1))
+		switch(onoff)
 		{
 			case 0:
 			
@@ -16082,6 +16082,7 @@ int main(void)
 	int event_flag = 0;
 	int delay = 1;
 	int pcap_flag = 1;
+	int temp_flag = 0;
 	int c_avg = 100;
 	
 		 
@@ -16133,6 +16134,7 @@ int main(void)
 		 return_value = pcap_commcheck(PCAP_spi_address);
 		}
 
+		
 	
 	 
 	while(1)
@@ -16141,16 +16143,15 @@ int main(void)
 		{
 			pcap_flag = 0;
 			 
-	    ret0 = pcap_config(PCAP_spi_address,c_avg);
+	    ret0 = pcap_config(PCAP_spi_address,c_avg,temp_flag);
 		}
 		check = 0;
-		
 		 
 		
 		
 		
 		 
-		ret2 = pcap_measure(PCAP_spi_address,c_avg);
+		ret2 = pcap_measure(PCAP_spi_address,c_avg,temp_flag);
 		
 		
 		 
@@ -16256,10 +16257,12 @@ int main(void)
 										break;
 										
 										case 3:
-										 
-										cap_t[4] = read_reg(PCAP_spi_address, (13));
-										cap_t[5] = read_reg(PCAP_spi_address, (14));
-										handle_channel_event(event, 3, cap_t[4],cap_t[5]);
+										if(temp_flag){
+											 
+											cap_t[4] = read_reg(PCAP_spi_address, (13));
+											cap_t[5] = read_reg(PCAP_spi_address, (14));
+											handle_channel_event(event, 3, cap_t[4],cap_t[5]);
+										}
 								}															 
 						}
 
@@ -16288,16 +16291,10 @@ int main(void)
 							c_avg = (int)(event_message_buffer[8] << 8 |event_message_buffer[7] );
 							pcap_flag = 1;
 						}	
-						if(event_message_buffer[6] != 1)
+						if(event_message_buffer[6] != temp_flag)
 						{
-							do 
-							{ 
-								
-								__wfe();   
-								
-								__sev(); 
-								__wfe();                 
-							}while(1); 
+						  temp_flag = event_message_buffer[6];
+							ret0 = pcap_config(PCAP_spi_address,c_avg,temp_flag);
 						}
 					}
 					event_flag = 1;
@@ -16307,7 +16304,42 @@ int main(void)
 					event_flag = 0;
 				break;
 			}
-		}			
+		}
+		else
+		{
+			return_value = sd_ant_channel_close((0));
+			((NRF_RTC_Type *) 0x40011000UL)->CC[0] = 5*32768; 
+	    rtc_flag = 1;
+		  ((NRF_RTC_Type *) 0x40011000UL)->TASKS_START = 1;
+			do 
+		  { 
+				
+				__wfe();   
+				
+				__sev(); 
+				__wfe();                 
+		  }while(rtc_flag); 
+			
+			
+	    return_value = sd_ant_channel_open((0));
+		  
+	    s_broadcast_data[0] = 0x07;;
+	    return_value = sd_ant_broadcast_message_tx((0), (8), s_broadcast_data );
+			
+		  ((NRF_RTC_Type *) 0x40011000UL)->CC[0] = 1*32768; 
+	    rtc_flag = 1;
+		  ((NRF_RTC_Type *) 0x40011000UL)->TASKS_START = 1;
+			do 
+		  { 
+				
+				__wfe();   
+				
+				__sev(); 
+				__wfe();                 
+		  }while(rtc_flag); 
+			
+			
+		}
 	}
 		
 		return_value = sd_ant_channel_close((0));

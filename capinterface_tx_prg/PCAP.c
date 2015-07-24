@@ -156,7 +156,7 @@ bool pcap_config_write(uint32_t *PCAP_spi_address, uint32_t *regdata) // why doe
   * Sets the indivual configuration registers and send it to the PCAP_config_write function for SPI write.
     * Return false for unsucessful set
 */
-bool config_reg_set(uint32_t *PCAP_spi_address,int c_avg) 
+bool config_reg_set(uint32_t *PCAP_spi_address,int c_avg,int onoff) 
     { 
         uint32_t config_reg_d[20];
         uint8_t DSP_PRESET, PG_PRESET;
@@ -175,7 +175,7 @@ bool config_reg_set(uint32_t *PCAP_spi_address,int c_avg)
         config_reg_d[3] = pack(CY_CLK_SEL, SEQ_TIME, 6, CMEAS_FAKE, 3, c_avg, 13 , 0, 0);
         
         /* register 4 */
-        config_reg_d[4] = pack(CMEAS_STARTPIN, CMEAS_TRIG_SEL, 2, CMEAS_CYTIME, 10, TMEAS_CYTIME, 4, ((TMEAS_STARTPIN << 2)|TMEAS_TRIG_SEL), 4);
+        config_reg_d[4] = pack(CMEAS_STARTPIN, CMEAS_TRIG_SEL, 2, CMEAS_CYTIME, 10, TMEAS_CYTIME, 4, ((TMEAS_STARTPIN << 2)|onoff), 4);
         
         /* register 5 */
         config_reg_d[5] = pack(T_AVRG, TMEAS_TRIG_PREDIV, 22, 0, 0, 0, 0, 0 ,0);
@@ -318,11 +318,11 @@ bool pcap_commcheck(uint32_t *PCAP_spi_address)
 		* Initiates configuration Register set and implements a partial reset.
     * Return false for unsucessful set
 */
-bool 	pcap_config(uint32_t *PCAP_spi_address, int c_avg)
+bool 	pcap_config(uint32_t *PCAP_spi_address, int c_avg,int onoff)
 {
 		bool w,w1,w2; 
 		/* Set configuration registers */
-		w1 = config_reg_set(PCAP_spi_address, c_avg);
+		w1 = config_reg_set(PCAP_spi_address, c_avg, onoff);
 		
 		/* Send a partial reset */
 		MSG_LEN = 8;
@@ -350,7 +350,7 @@ bool 	pcap_config(uint32_t *PCAP_spi_address, int c_avg)
 		* Initiates measures and implements minimum delay before read.
     * Return false for unsucessful start
 */
-bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg)
+bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg, int onoff)
 {
 	bool w;
 	uint8_t cap_n, n, pul_n;
@@ -399,7 +399,7 @@ bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg)
 					/* Flag to ensure all capacitors values have been transmitted*/
 					break;
 			}
-		switch(TMEAS_TRIG_SEL)
+		switch(onoff)
 		{
 			case 0:
 			//nrf_delay_ms((cap_n*C_AVRG*0.02)+200);

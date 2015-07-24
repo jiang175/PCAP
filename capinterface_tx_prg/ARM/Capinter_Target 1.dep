@@ -1,5 +1,5 @@
 Dependencies for Project 'Capinter', Target 'Target 1': (DO NOT MODIFY !)
-F (..\PCAPint_main.c)(0x559BE6AC)(-c --cpu Cortex-M0 -D__EVAL -D__MICROLIB --li -g -O0 --apcs=interwork --split_sections -IC:\Keil\ARM\Device\Nordic\nrf51422\Include\s210 -IC:\Keil\ARM\Device\Nordic\nrf51422\Include\sd_common -IC:\Keil\ARM\Device\Nordic\nrf51422\Include\app_common -I..\nrf51422\Board\nrf6310\spi_master_example -IC:\Keil\ARM\Device\Nordic\nrf51422\Include --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51422\Include-DNRF51 -DSETUPA -DBOARD_NRF6310-o .\pcapint_main.o --omf_browse .\pcapint_main.crf --depend .\pcapint_main.d)
+F (..\PCAPint_main.c)(0x55B2944E)(-c --cpu Cortex-M0 -D__EVAL -D__MICROLIB --li -g -O0 --apcs=interwork --split_sections -IC:\Keil\ARM\Device\Nordic\nrf51422\Include\s210 -IC:\Keil\ARM\Device\Nordic\nrf51422\Include\sd_common -IC:\Keil\ARM\Device\Nordic\nrf51422\Include\app_common -I..\nrf51422\Board\nrf6310\spi_master_example -IC:\Keil\ARM\Device\Nordic\nrf51422\Include --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51422\Include-DNRF51 -DSETUPA -DBOARD_NRF6310-o .\pcapint_main.o --omf_browse .\pcapint_main.crf --depend .\pcapint_main.d)
 I (C:\Keil\ARM\Device\Nordic\nrf51422\Include\spi_master.h)(0x5322041C)
 I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C86E14)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C86E14)
@@ -33,8 +33,8 @@ I (..\ant_setup.c)(0x5526772C)
 I (C:\Keil\ARM\ARMCC\include\string.h)(0x51C86E14)
 I (C:\Keil\ARM\ARMCC\include\stdio.h)(0x51C86E14)
 I (C:\Keil\ARM\ARMCC\include\math.h)(0x51C86E14)
-I (..\PCAP.h)(0x558DBAF4)
-I (..\PCAP.c)(0x559BE5EF)
+I (..\PCAP.h)(0x55A7EDE2)
+I (..\PCAP.c)(0x55AE9C1D)
 I (C:\Keil\ARM\ARMCC\include\stdlib.h)(0x51C86E14)
 F (.\arm_startup_nrf51.s)(0x5526772C)(--cpu Cortex-M0 --li --pd "__EVAL SETA 1" -g --apcs=interwork --pd "__MICROLIB SETA 1"-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51422\Include--list .\arm_startup_nrf51.lst --xref -o .\arm_startup_nrf51.o --depend .\arm_startup_nrf51.d)
 F (..\nrf51422\Source\templates\system_nrf51422.c)(0x5526772C)(-c --cpu Cortex-M0 -D__EVAL -D__MICROLIB --li -g -O0 --apcs=interwork --split_sections -IC:\Keil\ARM\Device\Nordic\nrf51422\Include\s210 -IC:\Keil\ARM\Device\Nordic\nrf51422\Include\sd_common -IC:\Keil\ARM\Device\Nordic\nrf51422\Include\app_common -I..\nrf51422\Board\nrf6310\spi_master_example -IC:\Keil\ARM\Device\Nordic\nrf51422\Include --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51422\Include-DNRF51 -DSETUPA -DBOARD_NRF6310-o .\system_nrf51422.o --omf_browse .\system_nrf51422.crf --depend .\system_nrf51422.d)
