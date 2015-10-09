@@ -214,10 +214,6 @@ int main(void)
 	/* ANT event message buffer */
 	static uint8_t event_message_buffer[ANT_EVENT_MSG_BUFFER_MIN_SIZE];
 	
-	/*Random Delay*/
-	nrf_delay_ms(rand() % 1000 + 1);
-
-	
 	/* Enable softdevice */
 	return_value = sd_softdevice_enable(NRF_CLOCK_LFCLKSRC_SYNTH_250_PPM, softdevice_assert_callback);//NRF_CLOCK_LFCLKSRC_XTAL_250_PPM   NRF_CLOCK_LFCLKSRC_SYNTH_250_PPM
 	if (return_value != NRF_SUCCESS) 	{	while(true);}
@@ -238,6 +234,21 @@ int main(void)
   NRF_RTC1->INTENSET = RTC_INTENSET_COMPARE0_Msk;  
   NRF_RTC1->CC[0] = 5*32768; 
   NVIC_EnableIRQ(RTC1_IRQn); 
+	
+  /*Random Delay*/
+	NRF_RTC1->CC[0] = (rand() % 1000 + 1)*32768/1000; 
+  rtc_flag = 1;
+  NRF_RTC1->TASKS_START = 1;
+	do 
+  { 
+	  // Enter System ON sleep mode 
+		__WFE();   
+		// Make sure any pending events are cleared 
+		__SEV(); 
+		__WFE();                 
+  }while(rtc_flag); 
+  //nrf_delay_ms(rand() % 1000 + 1);
+
 	/* Set application IRQ to lowest priority */
 	//return_value = sd_nvic_SetPriority(SD_EVT_IRQn, NRF_APP_PRIORITY_LOW); 
 	

@@ -9754,13 +9754,13 @@ uint32_t* spi_master_init(SPIModuleNumber module_number, SPIMode mode, _Bool lsb
         nrf_gpio_cfg_output(30);
         nrf_gpio_cfg_output(01);
         nrf_gpio_cfg_input(29, NRF_GPIO_PIN_NOPULL);
-        nrf_gpio_cfg_output(0);
+        nrf_gpio_cfg_output(00);
 
          
         spi_base_address->PSELSCK  = 30;
         spi_base_address->PSELMOSI = 01;
         spi_base_address->PSELMISO = 29;
-        nrf_gpio_pin_set(0);  
+        nrf_gpio_pin_set(00);  
     }
     else
     {
@@ -9768,13 +9768,13 @@ uint32_t* spi_master_init(SPIModuleNumber module_number, SPIMode mode, _Bool lsb
         nrf_gpio_cfg_output(30);
         nrf_gpio_cfg_output(01);
         nrf_gpio_cfg_input(29, NRF_GPIO_PIN_NOPULL);
-        nrf_gpio_cfg_output(0);
+        nrf_gpio_cfg_output(00);
 
          
         spi_base_address->PSELSCK  = 30;
         spi_base_address->PSELMOSI = 01;
         spi_base_address->PSELMISO = 29;
-        nrf_gpio_pin_set(0);          
+        nrf_gpio_pin_set(00);          
     }
 
     spi_base_address->FREQUENCY = (uint32_t) ( 0x02000000UL << (uint32_t)Freq_1Mbps );
@@ -9828,11 +9828,11 @@ _Bool spi_master_tx_rx(uint32_t *spi_base_address, uint16_t transfer_size, const
 
     if( (uint32_t *)((NRF_SPI_Type *) 0x40003000UL) == spi_base_address)
     {
-        SEL_SS_PINOUT = 0;
+        SEL_SS_PINOUT = 00;
     }
     else
     {
-        SEL_SS_PINOUT = 0;
+        SEL_SS_PINOUT = 00;
     }
 
      

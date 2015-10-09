@@ -15152,7 +15152,7 @@ _Bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg, int onoff)
 			case 0:
 			
 			
-			float time = ((float)pul_n*(float)((float)(((uint16_t) 4)+1)*0.02*(float)c_avg)+30)/1000; 
+			float time = ((float)pul_n*(float)((float)(((uint16_t) 4)+1)*0.02*(float)c_avg)+250)/1000; 
 			((NRF_RTC_Type *) 0x40011000UL)->CC[0] = time*32768; 
 			rtc_flag = 1;
 			((NRF_RTC_Type *) 0x40011000UL)->TASKS_START = 1;
@@ -15173,7 +15173,7 @@ _Bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg, int onoff)
 			
 			
 			
-			time = ((float)pul_n*(float)((float)(((uint16_t) 4)+1)*0.02*(float)c_avg)+60)/1000; 
+			time = ((float)pul_n*(float)((float)(((uint16_t) 4)+1)*0.02*(float)c_avg)+250)/1000; 
 			((NRF_RTC_Type *) 0x40011000UL)->CC[0] = time*32768; 
 			rtc_flag = 1;
 			((NRF_RTC_Type *) 0x40011000UL)->TASKS_START = 1;
@@ -16090,10 +16090,6 @@ int main(void)
 	static uint8_t event_message_buffer[(32)];
 	
 	 
-	nrf_delay_ms(rand() % 1000 + 1);
-
-	
-	 
 	return_value = sd_softdevice_enable(NRF_CLOCK_LFCLKSRC_SYNTH_250_PPM, softdevice_assert_callback);
 	if (return_value != ((0x0) + 0)) 	{	while(1);}
 
@@ -16113,6 +16109,21 @@ int main(void)
   ((NRF_RTC_Type *) 0x40011000UL)->INTENSET = (0x1UL << (16UL));  
   ((NRF_RTC_Type *) 0x40011000UL)->CC[0] = 5*32768; 
   NVIC_EnableIRQ(RTC1_IRQn); 
+	
+   
+	((NRF_RTC_Type *) 0x40011000UL)->CC[0] = (rand() % 1000 + 1)*32768/1000; 
+  rtc_flag = 1;
+  ((NRF_RTC_Type *) 0x40011000UL)->TASKS_START = 1;
+	do 
+  { 
+	  
+		__wfe();   
+		
+		__sev(); 
+		__wfe();                 
+  }while(rtc_flag); 
+  
+
 	 
 	
 	

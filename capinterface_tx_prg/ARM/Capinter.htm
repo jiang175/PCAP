@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Capinter.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Capinter.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Fri Jul 24 15:38:58 2015
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Mon Oct 05 14:01:29 2015
 <BR><P>
 <H3>Maximum Stack Usage =        440 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -90,7 +90,7 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[25]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__asm___11_nrf_delay_c_532987f3__nrf_delay_us
 </UL>
 <BR>[Called By]<UL><LI><a href="#[25]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__asm___11_nrf_delay_c_532987f3__nrf_delay_us
-<LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_delay_ms
+<LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_delay_ms
 </UL>
 
 <P><STRONG><a name="[0]"></a>Reset_Handler</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, arm_startup_nrf51.o(.text))
@@ -231,7 +231,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_frsub
 <LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fsub
-<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_measure
+<LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_measure
 </UL>
 
 <P><STRONG><a name="[2b]"></a>__aeabi_fsub</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, fadd.o(.text), UNUSED)
@@ -242,10 +242,10 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
 </UL>
 
-<P><STRONG><a name="[55]"></a>__aeabi_fmul</STRONG> (Thumb, 122 bytes, Stack size 16 bytes, fmul.o(.text))
+<P><STRONG><a name="[54]"></a>__aeabi_fmul</STRONG> (Thumb, 122 bytes, Stack size 16 bytes, fmul.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_fmul
 </UL>
-<BR>[Called By]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_measure
+<BR>[Called By]<UL><LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_measure
 <LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -254,7 +254,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_float_round
 </UL>
-<BR>[Called By]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_measure
+<BR>[Called By]<UL><LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_measure
 </UL>
 
 <P><STRONG><a name="[2e]"></a>__aeabi_dmul</STRONG> (Thumb, 202 bytes, Stack size 72 bytes, dmul.o(.text))
@@ -264,7 +264,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
 <LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pow
-<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_measure
+<LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_measure
 </UL>
 
 <P><STRONG><a name="[30]"></a>__aeabi_ddiv</STRONG> (Thumb, 234 bytes, Stack size 40 bytes, ddiv.o(.text))
@@ -281,7 +281,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_float_epilogue
 </UL>
-<BR>[Called By]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_measure
+<BR>[Called By]<UL><LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_measure
 </UL>
 
 <P><STRONG><a name="[33]"></a>__aeabi_ui2f</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, ffltui.o(.text))
@@ -289,16 +289,16 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_float_epilogue
 </UL>
-<BR>[Called By]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_measure
+<BR>[Called By]<UL><LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_measure
 <LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_extract
 </UL>
 
 <P><STRONG><a name="[58]"></a>__aeabi_f2uiz</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, ffixui.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_measure
+<BR><BR>[Called By]<UL><LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_measure
 </UL>
 
 <P><STRONG><a name="[49]"></a>__aeabi_f2d</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, f2d.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_measure
+<BR><BR>[Called By]<UL><LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_measure
 <LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_extract
 </UL>
 
@@ -307,7 +307,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_float_round
 </UL>
-<BR>[Called By]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_measure
+<BR>[Called By]<UL><LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_measure
 <LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_extract
 </UL>
 
@@ -502,7 +502,7 @@ Global Symbols
 <LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pow
 </UL>
 
-<P><STRONG><a name="[4f]"></a>ant_channel_tx_broadcast_setup</STRONG> (Thumb, 86 bytes, Stack size 8 bytes, pcapint_main.o(i.ant_channel_tx_broadcast_setup))
+<P><STRONG><a name="[4e]"></a>ant_channel_tx_broadcast_setup</STRONG> (Thumb, 86 bytes, Stack size 8 bytes, pcapint_main.o(i.ant_channel_tx_broadcast_setup))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = ant_channel_tx_broadcast_setup
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -514,7 +514,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_config_write
 <LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pack
 </UL>
-<BR>[Called By]<UL><LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_config
+<BR>[Called By]<UL><LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_config
 </UL>
 
 <P><STRONG><a name="[47]"></a>data_extract</STRONG> (Thumb, 58 bytes, Stack size 40 bytes, pcapint_main.o(i.data_extract))
@@ -529,42 +529,40 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[1f]"></a>main</STRONG> (Thumb, 788 bytes, Stack size 120 bytes, pcapint_main.o(i.main))
+<P><STRONG><a name="[1f]"></a>main</STRONG> (Thumb, 824 bytes, Stack size 120 bytes, pcapint_main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 440<LI>Call Chain = main &rArr; data_extract &rArr; pow &rArr; __kernel_poly &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; __aeabi_llsr
 </UL>
 <BR>[Calls]<UL><LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rand
 <LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_idivmod
-<LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_delay_ms
-<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
-<LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_reg
-<LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_spi_set
-<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_measure
-<LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_dsp_write
-<LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_config
-<LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_commcheck
+<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
+<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_reg
+<LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_spi_set
+<LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_measure
+<LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_dsp_write
+<LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_config
+<LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_commcheck
 <LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_extract
-<LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ant_channel_tx_broadcast_setup
+<LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ant_channel_tx_broadcast_setup
 <LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_channel_event
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
 </UL>
-<P><STRONG><a name="[4e]"></a>nrf_delay_ms</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, nrf_delay.o(i.nrf_delay_ms))
+<P><STRONG><a name="[56]"></a>nrf_delay_ms</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, nrf_delay.o(i.nrf_delay_ms))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = nrf_delay_ms
 </UL>
 <BR>[Calls]<UL><LI><a href="#[25]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__asm___11_nrf_delay_c_532987f3__nrf_delay_us
 </UL>
 <BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_config_write
-<LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[45]"></a>pack</STRONG> (Thumb, 50 bytes, Stack size 20 bytes, pcapint_main.o(i.pack))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = pack
 </UL>
-<BR>[Called By]<UL><LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_reg
+<BR>[Called By]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_reg
 <LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;config_reg_set
 </UL>
 
-<P><STRONG><a name="[52]"></a>pcap_commcheck</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, pcapint_main.o(i.pcap_commcheck))
+<P><STRONG><a name="[51]"></a>pcap_commcheck</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, pcapint_main.o(i.pcap_commcheck))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = pcap_commcheck &rArr; pcap_spi_tx_rx &rArr; spi_master_tx_rx
 </UL>
 <BR>[Calls]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_spi_tx_rx
@@ -572,7 +570,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[53]"></a>pcap_config</STRONG> (Thumb, 86 bytes, Stack size 40 bytes, pcapint_main.o(i.pcap_config))
+<P><STRONG><a name="[52]"></a>pcap_config</STRONG> (Thumb, 86 bytes, Stack size 40 bytes, pcapint_main.o(i.pcap_config))
 <BR><BR>[Stack]<UL><LI>Max Depth = 272<LI>Call Chain = pcap_config &rArr; config_reg_set &rArr; pcap_config_write &rArr; pcap_spi_tx_rx &rArr; spi_master_tx_rx
 </UL>
 <BR>[Calls]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_spi_tx_rx
@@ -584,13 +582,13 @@ Global Symbols
 <P><STRONG><a name="[46]"></a>pcap_config_write</STRONG> (Thumb, 246 bytes, Stack size 40 bytes, pcapint_main.o(i.pcap_config_write))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = pcap_config_write &rArr; pcap_spi_tx_rx &rArr; spi_master_tx_rx
 </UL>
-<BR>[Calls]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_delay_ms
+<BR>[Calls]<UL><LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_delay_ms
 <LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_spi_tx_rx
 </UL>
 <BR>[Called By]<UL><LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;config_reg_set
 </UL>
 
-<P><STRONG><a name="[51]"></a>pcap_dsp_write</STRONG> (Thumb, 106 bytes, Stack size 32 bytes, pcapint_main.o(i.pcap_dsp_write))
+<P><STRONG><a name="[50]"></a>pcap_dsp_write</STRONG> (Thumb, 106 bytes, Stack size 32 bytes, pcapint_main.o(i.pcap_dsp_write))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = pcap_dsp_write &rArr; pcap_spi_tx_rx &rArr; spi_master_tx_rx
 </UL>
 <BR>[Calls]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_spi_tx_rx
@@ -598,12 +596,12 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[54]"></a>pcap_measure</STRONG> (Thumb, 402 bytes, Stack size 80 bytes, pcapint_main.o(i.pcap_measure))
+<P><STRONG><a name="[53]"></a>pcap_measure</STRONG> (Thumb, 402 bytes, Stack size 80 bytes, pcapint_main.o(i.pcap_measure))
 <BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = pcap_measure &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; __aeabi_llsr
 </UL>
 <BR>[Calls]<UL><LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
 <LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f
-<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
+<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
 <LI><a href="#[2d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
 <LI><a href="#[28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
 <LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2uiz
@@ -615,7 +613,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[50]"></a>pcap_spi_set</STRONG> (Thumb, 20 bytes, Stack size 16 bytes, pcapint_main.o(i.pcap_spi_set))
+<P><STRONG><a name="[4f]"></a>pcap_spi_set</STRONG> (Thumb, 20 bytes, Stack size 16 bytes, pcapint_main.o(i.pcap_spi_set))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = pcap_spi_set &rArr; spi_master_init &rArr; nrf_gpio_cfg_input
 </UL>
 <BR>[Calls]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_master_init
@@ -628,12 +626,12 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_master_tx_rx
 </UL>
-<BR>[Called By]<UL><LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_reg
-<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_measure
-<LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_dsp_write
+<BR>[Called By]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_reg
+<LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_measure
+<LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_dsp_write
 <LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_config_write
-<LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_config
-<LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_commcheck
+<LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_config
+<LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_commcheck
 </UL>
 
 <P><STRONG><a name="[48]"></a>pow</STRONG> (Thumb, 2526 bytes, Stack size 128 bytes, pow.o(i.pow))
@@ -656,7 +654,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;data_extract
 </UL>
 
-<P><STRONG><a name="[56]"></a>read_reg</STRONG> (Thumb, 84 bytes, Stack size 48 bytes, pcapint_main.o(i.read_reg))
+<P><STRONG><a name="[55]"></a>read_reg</STRONG> (Thumb, 84 bytes, Stack size 48 bytes, pcapint_main.o(i.read_reg))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = read_reg &rArr; pcap_spi_tx_rx &rArr; spi_master_tx_rx
 </UL>
 <BR>[Calls]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_spi_tx_rx
@@ -675,7 +673,7 @@ Global Symbols
 <LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_gpio_cfg_output
 <LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_gpio_cfg_input
 </UL>
-<BR>[Called By]<UL><LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_spi_set
+<BR>[Called By]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcap_spi_set
 </UL>
 
 <P><STRONG><a name="[5a]"></a>spi_master_tx_rx</STRONG> (Thumb, 134 bytes, Stack size 40 bytes, spi_master.o(i.spi_master_tx_rx))

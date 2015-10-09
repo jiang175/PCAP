@@ -4,7 +4,7 @@
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
 C:\Users\Xiaofan\Desktop\Work\capinterface_tx_prg\arm\Capinter.uvproj
-Project File Date:  04/09/2015
+Project File Date:  07/29/2015
 
 <h2>Output:</h2>
 Rebuild target 'Target 1'
@@ -24,7 +24,7 @@ compiling PCAPint_main.c...
 ..\PCAP.c(295): warning:  #550-D: variable "w" was set but never used
                 bool w; 
 ..\PCAP.c(407): warning:  #1182-D: a declaration cannot have a label
-                        float time = ((float)pul_n*(float)((float)(CMEAS_CYTIME+1)*0.02*(float)c_avg)+30)/1000; //used to be 5
+                        float time = ((float)pul_n*(float)((float)(CMEAS_CYTIME+1)*0.02*(float)c_avg)+250)/1000; //used to be 5
 ..\PCAP.c(402): warning:  #546-D: transfer of control bypasses initialization of:
             variable "time" (declared at line 407)
                 switch(onoff)
@@ -90,7 +90,7 @@ compiling spi_master.c...
 creating preprocessor file for nrf_delay.c...
 compiling nrf_delay.c...
 linking...
-Program Size: Code=8904 RO-data=352 RW-data=4140 ZI-data=2116  
+Program Size: Code=8936 RO-data=352 RW-data=4140 ZI-data=2116  
 ".\Capinter.axf" - 0 Error(s), 33 Warning(s).
 
 *** Performing Cross-Module-Optimization:
@@ -104,7 +104,7 @@ compiling PCAPint_main.c...
 ..\PCAP.c(295): warning:  #550-D: variable "w" was set but never used
                 bool w; 
 ..\PCAP.c(407): warning:  #1182-D: a declaration cannot have a label
-                        float time = ((float)pul_n*(float)((float)(CMEAS_CYTIME+1)*0.02*(float)c_avg)+30)/1000; //used to be 5
+                        float time = ((float)pul_n*(float)((float)(CMEAS_CYTIME+1)*0.02*(float)c_avg)+250)/1000; //used to be 5
 ..\PCAP.c(402): warning:  #546-D: transfer of control bypasses initialization of:
             variable "time" (declared at line 407)
                 switch(onoff)
@@ -166,18 +166,18 @@ compiling system_nrf51422.c...
 compiling spi_master.c...
 compiling nrf_delay.c...
 linking...
-Program Size: Code=8904 RO-data=352 RW-data=4140 ZI-data=2116  
+Program Size: Code=8936 RO-data=352 RW-data=4140 ZI-data=2116  
 FromELF: creating hex file...
 ".\Capinter.axf" - 0 Error(s), 32 Warning(s).
 *** Completed Cross-Module-Optimization after 2 iteration(s).
 Load "C:\\Users\\Xiaofan\\Desktop\\Work\\capinterface_tx_prg\\arm\\Capinter.axf" 
-* JLink Info: Device "NRF51422_XXAA" selected (257 KB flash, 16 KB RAM).
+* JLink Info: Device "NRF51422_XXAA" selected.
 Set JLink Project File to "C:\Users\Xiaofan\Desktop\Work\capinterface_tx_prg\arm\JLinkSettings.ini"
-* JLink Info: Device "NRF51422_XXAA" selected (257 KB flash, 16 KB RAM).
+* JLink Info: Device "NRF51422_XXAA" selected.
  
 JLink info:
 ------------
-DLL: V4.92 , compiled Sep 30 2014 09:33:42
+DLL: V5.00j, compiled Jul 24 2015 19:41:38
 Firmware: J-Link Lite-Cortex-M V8 compiled Jul 17 2014 11:40:12
 Hardware: V8.00
 S/N : 518108346 
@@ -186,6 +186,14 @@ Feature(s) : GDB
 * JLink Info: Found SWD-DP with ID 0x0BB11477
 * JLink Info: Found Cortex-M0 r0p0, Little endian.
 * JLink Info: FPUnit: 4 code (BP) slots and 0 literal slots
+* JLink Info: CoreSight components:
+* JLink Info: ROMTbl 0 @ F0000000
+* JLink Info: ROMTbl 0 [0]: F00FF000, CID: B105100D, PID: 000BB471 ROM Table
+* JLink Info: ROMTbl 1 @ E00FF000
+* JLink Info: ROMTbl 1 [0]: FFF0F000, CID: B105E00D, PID: 000BB008 SCS
+* JLink Info: ROMTbl 1 [1]: FFF02000, CID: B105E00D, PID: 000BB00A DWT
+* JLink Info: ROMTbl 1 [2]: FFF03000, CID: B105E00D, PID: 000BB00B FPB
+* JLink Info: ROMTbl 0 [1]: 00002000, CID: B105900D, PID: 000BB9A3 ???
 ROMTableAddr = 0xE00FF003
  
 Target info:
@@ -203,3 +211,6 @@ Erase Done.
 Programming Done.
 Verify OK.
 Application running ...
+</pre>
+</body>
+</html>
