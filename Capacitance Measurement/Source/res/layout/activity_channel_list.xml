@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/abc"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:gravity="right"
+    android:orientation="vertical"
+     >
+
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
+        android:weightSum="1">
+
+        <Button
+            android:id="@+id/button_AddChannel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Master On" />
+
+        <Button
+            android:id="@+id/button_ClearChannels"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:text="Slave Off" />
+
+        <Button
+            android:id="@+id/button_clear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:choiceMode= "none"
+            android:text = "Delete Data"
+  />
+
+        <ToggleButton
+            android:layout_width="match_parent"
+            android:layout_height="69dp"
+            android:text="New ToggleButton"
+            android:id="@+id/toggleButton_temp"
+            android:layout_below="@+id/linearLayout1"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:checked="false"
+
+            android:layout_alignRight="@+id/editText_cavg"
+            android:layout_alignEnd="@+id/editText_cavg"
+            android:textOff="Temp OFF"
+            android:textOn="Temp ON"
+            />
+
+        <Button
+            android:id="@+id/button_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Data Output"
+/>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listView_channelList"
+        android:layout_width="770dp"
+        android:layout_height="372dp"
+        android:stackFromBottom="true"
+        android:transcriptMode="alwaysScroll"
+        android:choiceMode = "none"
+        android:layout_alignBottom="@+id/button_getc0"
+        android:layout_below="@+id/textView1"
+        android:layout_toRightOf="@+id/listView_devlist"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+    </ListView>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="# Time                  Status        c(1)              c(2)               c(3)             Res10    Res11  Temp"
+        android:textSize="18sp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_toRightOf="@+id/listView_devlist"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ListView
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView_devlist"
+        android:choiceMode="singleChoice"
+        android:listSelector =  "#FF9933"
+        android:state_activated="true"
+        android:layout_alignTop="@+id/listView_channelList"
+        android:layout_toRightOf="@+id/linearLayout1"
+        android:layout_toEndOf="@+id/linearLayout1" />
+
+    <Button
+        android:id="@+id/button_getc0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Set "
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/listView_devlist"
+        android:layout_toStartOf="@+id/listView_devlist"
+/>
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:layout_above="@+id/button_getc0"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/listView_devlist"
+        android:layout_toStartOf="@+id/listView_devlist"
+>
+    </EditText>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="C0:"
+        android:id="@+id/textView"
+        android:layout_above="@+id/editText1"
+        android:layout_toLeftOf="@+id/listView_devlist"
+        android:layout_alignParentLeft="true"
+        android:textSize="15sp"
+/>
+
+    <EditText
+        android:id="@+id/editText_delay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:layout_above="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/listView_devlist"
+        android:layout_toStartOf="@+id/listView_devlist"
+/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Delay:"
+        android:id="@+id/textView2"
+        android:layout_above="@+id/editText_delay"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/listView_devlist"
+        android:layout_toStartOf="@+id/listView_devlist"
+        android:textSize="15dp"
+/>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Device List"
+        android:textSize="20sp"
+        android:layout_alignTop="@+id/textView1"
+        android:layout_toRightOf="@+id/linearLayout1"
+        android:layout_toLeftOf="@+id/textView1"
+        android:layout_toStartOf="@+id/textView1" />
+
+    <EditText
+        android:id="@+id/editText_cavg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:layout_above="@+id/textView2"
+        android:layout_alignRight="@+id/textView2"
+        android:layout_alignEnd="@+id/textView2"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="C_AVRG:"
+        android:id="@+id/textView4"
+        android:textSize="15dp"
+        android:layout_above="@+id/editText_cavg"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/editText_cavg"
+        android:layout_alignEnd="@+id/editText_cavg"
+        />
+
+</RelativeLayout>
