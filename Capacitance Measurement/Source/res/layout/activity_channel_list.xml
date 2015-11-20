@@ -45,7 +45,7 @@
 
         <ToggleButton
             android:layout_width="match_parent"
-            android:layout_height="69dp"
+            android:layout_height="wrap_content"
             android:text="New ToggleButton"
             android:id="@+id/toggleButton_temp"
             android:layout_below="@+id/linearLayout1"
@@ -204,5 +204,51 @@
         android:layout_alignRight="@+id/editText_cavg"
         android:layout_alignEnd="@+id/editText_cavg"
         />
+
+    <EditText
+        android:id="@+id/editText_rdc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:layout_above="@+id/textView4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/listView_devlist"
+        android:layout_toStartOf="@+id/listView_devlist" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="RDC_SEL"
+        android:id="@+id/textView_rdc"
+        android:textSize="15dp"
+        android:layout_above="@+id/editText_rdc"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/editText_cy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:layout_above="@+id/textView_rdc"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/listView_devlist"
+        android:layout_toStartOf="@+id/listView_devlist" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="CY_TIME"
+        android:id="@+id/textView_cy"
+        android:textSize="15dp"
+        android:layout_above="@+id/editText_cy"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

@@ -69,6 +69,8 @@ public class ChannelList extends Activity {
     private static int delay = 1;//delay time
     private static int onoff = 0;//RTD on/off flag
     private static int c_avg = 1000;// C_AVG
+    private static int cytime = 4;
+    private static int rdc_sel = 6;
     private static Calendar c; // calendar
     private static int list_pos = 0; // position for deivce in dev list
 
@@ -130,7 +132,7 @@ public class ChannelList extends Activity {
                                 //check if all 4 data are received
                                 if (onoff == 1) { //display the data when RTD is enabled
                                     //display data once all 6 data is received
-                                    if ((data[devn][1] != 0) & (data[devn][2] != 0) & (data[devn][3] != 0) & (data[devn][6] != 0) & (data[devn][7] != 0)) {
+                                    if ((data[devn][1] != 0) & (data[devn][2] != 0) & (data[devn][3] != 0)& (data[devn][7] != 0)) {
                                         ListView listView_devlist = (ListView) findViewById(R.id.listView_devlist);
                                         String display = getDisplayText(devn, data[devn][1], data[devn][2], data[devn][3], data[devn][0], data[devn][6], data[devn][7], data[devn][5]);
                                         //write data to local txt file
@@ -314,11 +316,17 @@ public class ChannelList extends Activity {
         return c_avg;
     }
 
+    public static int checkcytime() { return cytime;}
+
+    public static int checkrdc() {return rdc_sel;}
+
     private void initButtons() {//initilize data on UI
         Log.v(TAG, "initButtons...");
         final EditText text_c0 = (EditText) findViewById(R.id.editText1);
         final EditText text_delay = (EditText) findViewById(R.id.editText_delay);
         final EditText text_cavg = (EditText) findViewById(R.id.editText_cavg);
+        final EditText text_cytime = (EditText) findViewById(R.id.editText_cy);
+        final EditText text_rdc = (EditText) findViewById(R.id.editText_rdc);
         //Register Add Channel Button handler
         Button button_addChannel = (Button) findViewById(R.id.button_AddChannel);
         //button_addChannel.setEnabled(false) 	;//mChannelServiceBound
@@ -378,11 +386,19 @@ public class ChannelList extends Activity {
                 if (!text_cavg.getText().toString().equals("")) {
                     c_avg = Integer.parseInt(text_cavg.getText().toString());
                 }
+                if (!text_cytime.getText().toString().equals("")) {
+                    cytime = Integer.parseInt(text_cytime.getText().toString());
+                }
+                if (!text_rdc.getText().toString().equals("")) {
+                    rdc_sel = Integer.parseInt(text_rdc.getText().toString());
+                }
             }
         });
         text_c0.setText("1200");
         text_delay.setText("1");
         text_cavg.setText("1000");
+        text_cytime.setText("4");
+        text_rdc.setText("6");
 
 
         Button button_del = (Button) findViewById(R.id.button_clear);

@@ -201,8 +201,8 @@ public class ChannelController {
                             mChannelInfo.broadcastData[3] = (byte)(ChannelList.checkoff());
                             mChannelInfo.broadcastData[4] = (byte) (ChannelList.checkcavg() & 0xFF);;
                             mChannelInfo.broadcastData[5] = (byte) ((ChannelList.checkcavg() >> 8) & 0xFF);
-                            mChannelInfo.broadcastData[6] = 0;
-                            mChannelInfo.broadcastData[7] = 0;
+                            mChannelInfo.broadcastData[6] = (byte)(ChannelList.checkcytime());
+                            mChannelInfo.broadcastData[7] = (byte)(ChannelList.checkrdc());
                             if (mIsOpen) {
                                 try {
                                     // Setting the data to be broadcast on the next channel period
