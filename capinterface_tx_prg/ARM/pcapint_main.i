@@ -9912,11 +9912,8 @@ static __inline void nrf_gpio_port_clear(nrf_gpio_port_select_t port, uint8_t cl
 
  
 enum {
-  
-  
-  
    
-  SVC_ANT_STACK_INIT = 0xC0, 
+  SVC_ANT_STACK_INIT = 0xC0,
    
   SVC_ANT_EVENT_GET,
    
@@ -9924,7 +9921,7 @@ enum {
   SVC_ANT_CHANNEL_UNASSIGN,
   SVC_ANT_CHANNEL_OPEN,
   SVC_ANT_CHANNEL_CLOSE,
-  SVC_ANT_RX_SCAN_MODE_START, 
+  SVC_ANT_RX_SCAN_MODE_START,
    
   SVC_ANT_TX_BROADCAST_MESSAGE,
   SVC_ANT_TX_ACKNOWLEDGED_MESSAGE,
@@ -9935,7 +9932,7 @@ enum {
   SVC_ANT_NETWORK_KEY_SET,
   SVC_ANT_CHANNEL_RADIO_FREQ_SET,
   SVC_ANT_CHANNEL_RADIO_FREQ_GET,
-  SVC_ANT_CHANNEL_RADIO_TX_POWER_SET, 
+  SVC_ANT_CHANNEL_RADIO_TX_POWER_SET,
   SVC_ANT_PROX_SEARCH_SET,
    
   SVC_ANT_CHANNEL_PERIOD_SET,
@@ -9945,8 +9942,8 @@ enum {
   SVC_ANT_SEARCH_WAVEFORM_SET,
   SVC_ANT_CHANNEL_RX_SEARCH_TIMEOUT_SET,
   SVC_ANT_SEARCH_CHANNEL_PRIORITY_SET,
-  SVC_ANT_ACTIVE_SEARCH_SHARING_CYCLES_SET, 
-  SVC_ANT_ACTIVE_SEARCH_SHARING_CYCLES_GET, 
+  SVC_ANT_ACTIVE_SEARCH_SHARING_CYCLES_SET,
+  SVC_ANT_ACTIVE_SEARCH_SHARING_CYCLES_GET,
   SVC_ANT_CHANNEL_LOW_PRIO_RX_SEARCH_TIMEOUT_SET,
   SVC_ANT_ADV_BURST_CONFIG_SET,
   SVC_ANT_ADV_BURST_CONFIG_GET,
@@ -9965,43 +9962,26 @@ enum {
   SVC_ANT_PENDING_TRANSMIT,
    
   SVC_ANT_INIT_CW_TEST_MODE,
-  SVC_ANT_CW_TEST_MODE, 
+  SVC_ANT_CW_TEST_MODE,
    
   SVC_ANT_VERSION,
    
   SVC_ANT_CAPABILITIES,
-  
-  
-  
    
   SVC_ANT_BURST_HANDLER_WAIT_FLAG_ENABLE,
   SVC_ANT_BURST_HANDLER_WAIT_FLAG_DISABLE,
-  
-  
-  
    
   SVC_ANT_SDU_MASK_SET,
   SVC_ANT_SDU_MASK_GET,
   SVC_ANT_SDU_MASK_CONFIG,
-  SVC_ANT_CRYPTO_CHANNEL_ENABLE, 
+  SVC_ANT_CRYPTO_CHANNEL_ENABLE,
   SVC_ANT_CRYPTO_KEY_SET,
   SVC_ANT_CRYPTO_INFO_SET,
   SVC_ANT_CRYPTO_INFO_GET,
-  
-  
-  
-   
   SVC_ANT_RFACTIVE_NOTIFICATION_CONFIG_SET,
   SVC_ANT_RFACTIVE_NOTIFICATION_CONFIG_GET,
-  
-  
-  
-   
-  SVC_ANT_COEX_CONFIG_SET, 
-  SVC_ANT_COEX_CONFIG_GET, 
-  
-  
-  
+  SVC_ANT_COEX_CONFIG_SET,
+  SVC_ANT_COEX_CONFIG_GET,
    
   SVC_ANT_RESERVED0,
   SVC_ANT_RESERVED1,
@@ -10012,12 +9992,11 @@ enum {
   SVC_ANT_EXTENDED2, 
 };
 
-
-
-
  
 
  
+ 
+
  
 
 
@@ -10064,6 +10043,7 @@ uint32_t __svc(SVC_ANT_CHANNEL_ASSIGN) sd_ant_channel_assign (uint8_t ucChannel,
 
 
 
+
  
 uint32_t __svc(SVC_ANT_CHANNEL_UNASSIGN) sd_ant_channel_unassign (uint8_t ucChannel);
 
@@ -10073,8 +10053,10 @@ uint32_t __svc(SVC_ANT_CHANNEL_UNASSIGN) sd_ant_channel_unassign (uint8_t ucChan
 
 
 
+
  
 uint32_t __svc(SVC_ANT_CHANNEL_OPEN) sd_ant_channel_open(uint8_t ucChannel);
+
 
 
 
@@ -10111,8 +10093,10 @@ uint32_t __svc(SVC_ANT_RX_SCAN_MODE_START) sd_ant_rx_scan_mode_start (uint8_t uc
 
 
 
+
  
 uint32_t __svc(SVC_ANT_TX_BROADCAST_MESSAGE) sd_ant_broadcast_message_tx (uint8_t ucChannel, uint8_t ucSize, uint8_t *aucMesg);
+
 
 
 
@@ -10151,8 +10135,10 @@ uint32_t __svc(SVC_ANT_TX_ACKNOWLEDGED_MESSAGE) sd_ant_acknowledge_message_tx (u
 
 
 
+
  
 uint32_t __svc(SVC_ANT_BURST_HANDLER_REQUEST) sd_ant_burst_handler_request(uint8_t ucChannel, uint16_t usSize, uint8_t *aucData, uint8_t ucBurstSegment);
+
 
 
 
@@ -10180,6 +10166,8 @@ uint32_t __svc(SVC_ANT_TRANSFER_STOP) sd_ant_transfer_stop (void);
 
 
 
+
+
  
 uint32_t __svc(SVC_ANT_NETWORK_KEY_SET) sd_ant_network_address_set (uint8_t ucNetwork, uint8_t *aucNetworkKey);
 
@@ -10192,6 +10180,8 @@ uint32_t __svc(SVC_ANT_NETWORK_KEY_SET) sd_ant_network_address_set (uint8_t ucNe
 
  
 uint32_t __svc(SVC_ANT_CHANNEL_RADIO_FREQ_SET) sd_ant_channel_radio_freq_set (uint8_t ucChannel, uint8_t ucFreq);
+
+
 
 
 
@@ -10219,10 +10209,13 @@ uint32_t __svc(SVC_ANT_CHANNEL_RADIO_TX_POWER_SET) sd_ant_channel_radio_tx_power
 
 
 
- 
-uint32_t __svc(SVC_ANT_PROX_SEARCH_SET) sd_ant_prox_search_set (uint8_t ucChannel, uint8_t ucProxThreshold);
+
 
  
+uint32_t __svc(SVC_ANT_PROX_SEARCH_SET) sd_ant_prox_search_set (uint8_t ucChannel, uint8_t ucProxThreshold, uint8_t ucCustomProxThreshold);
+
+ 
+
 
 
 
@@ -10240,8 +10233,10 @@ uint32_t __svc(SVC_ANT_CHANNEL_PERIOD_SET) sd_ant_channel_period_set (uint8_t uc
 
 
 
+
  
 uint32_t __svc(SVC_ANT_CHANNEL_PERIOD_GET) sd_ant_channel_period_get (uint8_t ucChannel, uint16_t *pusPeriod);
+
 
 
 
@@ -10263,8 +10258,10 @@ uint32_t __svc(SVC_ANT_CHANNEL_ID_SET) sd_ant_channel_id_set (uint8_t ucChannel,
 
 
 
+
  
 uint32_t __svc(SVC_ANT_CHANNEL_ID_GET) sd_ant_channel_id_get (uint8_t ucChannel, uint16_t *pusDeviceNumber, uint8_t *pucDeviceType, uint8_t *pucTransmitType);
+
 
 
 
@@ -10281,6 +10278,7 @@ uint32_t __svc(SVC_ANT_SEARCH_WAVEFORM_SET) sd_ant_search_waveform_set (uint8_t 
 
 
 
+
  
 uint32_t __svc(SVC_ANT_CHANNEL_RX_SEARCH_TIMEOUT_SET) sd_ant_channel_rx_search_timeout_set (uint8_t ucChannel, uint8_t ucTimeout);
 
@@ -10290,8 +10288,10 @@ uint32_t __svc(SVC_ANT_CHANNEL_RX_SEARCH_TIMEOUT_SET) sd_ant_channel_rx_search_t
 
 
 
+
  
 uint32_t __svc(SVC_ANT_SEARCH_CHANNEL_PRIORITY_SET) sd_ant_search_channel_priority_set (uint8_t ucChannel, uint8_t ucSearchPriority);
+
 
 
 
@@ -10309,8 +10309,10 @@ uint32_t __svc(SVC_ANT_ACTIVE_SEARCH_SHARING_CYCLES_SET) sd_ant_active_search_sh
 
 
 
+
  
 uint32_t __svc(SVC_ANT_ACTIVE_SEARCH_SHARING_CYCLES_GET) sd_ant_active_search_sharing_cycles_get (uint8_t ucChannel, uint8_t *pucCycles);
+
 
 
 
@@ -10384,7 +10386,6 @@ uint32_t __svc(SVC_ANT_LIB_CONFIG_SET) sd_ant_lib_config_set (uint8_t ucANTLibCo
 
 
 
-
  
 uint32_t __svc(SVC_ANT_LIB_CONFIG_CLEAR) sd_ant_lib_config_clear (uint8_t ucANTLibConfig);
 
@@ -10410,6 +10411,7 @@ uint32_t __svc(SVC_ANT_LIB_CONFIG_GET) sd_ant_lib_config_get (uint8_t *pucANTLib
 
 
 
+
  
 uint32_t __svc(SVC_ANT_ID_LIST_ADD) sd_ant_id_list_add (uint8_t ucChannel, uint8_t *aucDevId, uint8_t ucListIndex);
 
@@ -10421,8 +10423,10 @@ uint32_t __svc(SVC_ANT_ID_LIST_ADD) sd_ant_id_list_add (uint8_t ucChannel, uint8
 
 
 
+
  
 uint32_t __svc(SVC_ANT_ID_LIST_CONFIG) sd_ant_id_list_config (uint8_t ucChannel, uint8_t ucIDListSize, uint8_t ucIncExcFlag);
+
 
 
 
@@ -10479,8 +10483,10 @@ uint32_t __svc(SVC_ANT_CHANNEL_IN_PROGRESS) sd_ant_channel_in_progress (uint8_t 
 
 
 
+
  
 uint32_t __svc(SVC_ANT_CHANNEL_STATUS_GET) sd_ant_channel_status_get (uint8_t ucChannel, uint8_t *pucStatus);
+
 
 
 
@@ -10538,10 +10544,6 @@ uint32_t __svc(SVC_ANT_VERSION) sd_ant_version_get (uint8_t* aucVersion);
  
 uint32_t __svc(SVC_ANT_CAPABILITIES) sd_ant_capabilities_get (uint8_t* aucCapabilities);
 
-
-
-
-
  
 
 
@@ -10566,10 +10568,6 @@ uint32_t __svc(SVC_ANT_BURST_HANDLER_WAIT_FLAG_ENABLE) sd_ant_burst_handler_wait
 
  
 uint32_t __svc(SVC_ANT_BURST_HANDLER_WAIT_FLAG_DISABLE) sd_ant_burst_handler_wait_flag_disable (void);
-
-
-
-
 
  
 
@@ -10602,10 +10600,8 @@ uint32_t __svc(SVC_ANT_SDU_MASK_GET) sd_ant_sdu_mask_get (uint8_t ucMask, uint8_
 
 
 
-
  
 uint32_t __svc(SVC_ANT_SDU_MASK_CONFIG) sd_ant_sdu_mask_config (uint8_t ucChannel, uint8_t ucMaskConfig);
-
 
 
 
@@ -10659,12 +10655,6 @@ uint32_t __svc(SVC_ANT_CRYPTO_INFO_SET) sd_ant_crypto_info_set (uint8_t ucType, 
  
 uint32_t __svc(SVC_ANT_CRYPTO_INFO_GET) sd_ant_crypto_info_get (uint8_t ucType, uint8_t *aucInfo);
 
-
-
-
-
- 
-
  
 
 
@@ -10687,12 +10677,6 @@ uint32_t __svc(SVC_ANT_RFACTIVE_NOTIFICATION_CONFIG_SET) sd_ant_rfactive_notific
 
  
 uint32_t __svc(SVC_ANT_RFACTIVE_NOTIFICATION_CONFIG_GET) sd_ant_rfactive_notification_config_get (uint8_t *pucMode, uint16_t *pusTimeThreshold);
-
-
-
-
-
- 
 
  
 
@@ -10739,10 +10723,6 @@ uint32_t __svc(SVC_ANT_COEX_CONFIG_SET) sd_ant_coex_config_set (uint8_t ucChanne
 
  
 uint32_t __svc(SVC_ANT_COEX_CONFIG_GET) sd_ant_coex_config_get (uint8_t ucChannel, uint8_t *aucCoexConfig, uint8_t *aucAdvCoexConfig);
-
-
-
-
 
 
 
@@ -10847,7 +10827,7 @@ uint32_t __svc(SVC_ANT_EXTENDED0) sd_ant_extended0 (uint8_t ucExtID, void *pvArg
 
  
 
-#line 59 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
+#line 60 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
  
 
 
@@ -10865,85 +10845,21 @@ uint32_t __svc(SVC_ANT_EXTENDED0) sd_ant_extended0 (uint8_t ucExtID, void *pvArg
 
  
 
-#line 82 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
+#line 83 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
  
 
 
 
  
 
-#line 94 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
+#line 95 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
  
 
 
 
  
 
-#line 106 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
-
-
-
-
- 
-
-
-
- 
-
-
-
-
-
-
- 
-
-
-
- 
-
-#line 133 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
- 
-
-
-
- 
-
-#line 145 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
- 
-
-
-
- 
-
-#line 159 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
- 
-
-
-
- 
-
-#line 173 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
- 
-
-
-
- 
-
-
- 
-
-
-
-
-
- 
-
-#line 194 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
- 
-
-
-
- 
+#line 107 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
 
 
 
@@ -10965,51 +10881,33 @@ uint32_t __svc(SVC_ANT_EXTENDED0) sd_ant_extended0 (uint8_t ucExtID, void *pvArg
 
  
 
-
-
-
-
+#line 134 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
  
 
 
 
  
 
-
-
-
-
-
-
-
-
-
-
+#line 146 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
  
 
 
 
  
 
-#line 253 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
+#line 160 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
  
 
 
 
  
 
-#line 269 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
- 
-
-
-
-
+#line 174 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
  
 
 
 
  
-
 
 
  
@@ -11018,29 +10916,14 @@ uint32_t __svc(SVC_ANT_EXTENDED0) sd_ant_extended0 (uint8_t ucExtID, void *pvArg
 
 
 
+ 
 
-
-
-
-
-
-
+#line 195 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
  
 
 
 
  
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -11074,36 +10957,6 @@ uint32_t __svc(SVC_ANT_EXTENDED0) sd_ant_extended0 (uint8_t ucExtID, void *pvArg
 
 
 
- 
-
-
-
-
-
-
- 
-
-#line 365 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 394 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
-
-
-
-
- 
 
 
 
@@ -11119,32 +10972,30 @@ uint32_t __svc(SVC_ANT_EXTENDED0) sd_ant_extended0 (uint8_t ucExtID, void *pvArg
 
 
 
+ 
 
-#line 416 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
-
-
-
-
+#line 257 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
+ 
 
 
 
+ 
 
-
-
-
-
-
-#line 438 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
+#line 273 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
+ 
 
 
 
 
+ 
 
 
 
+ 
 
 
 
+ 
 
 
 
@@ -11152,7 +11003,94 @@ uint32_t __svc(SVC_ANT_EXTENDED0) sd_ant_extended0 (uint8_t ucExtID, void *pvArg
 
 
 
-#line 462 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
+
+
+
+
+
+ 
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+#line 369 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 398 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
+
+
+
+
+ 
+
+
+
+
 
 
 
@@ -11165,7 +11103,52 @@ uint32_t __svc(SVC_ANT_EXTENDED0) sd_ant_extended0 (uint8_t ucExtID, void *pvArg
 
 
 
-#line 496 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
+#line 420 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 442 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 466 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
+
+
+
+
+
+
+
+ 
+
+
+
+
+#line 500 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
 
 #line 530 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
  
@@ -11182,20 +11165,27 @@ uint32_t __svc(SVC_ANT_EXTENDED0) sd_ant_extended0 (uint8_t ucExtID, void *pvArg
 
 
 
+
+
+
+
+
+
+
+ 
+
+
+
+ 
+
+
  
 
 
 
  
 
-
- 
-
-
-
- 
-
-#line 605 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
+#line 612 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
  
 
 
@@ -11258,7 +11248,7 @@ typedef union
  
 
  
-#line 681 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
+#line 688 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
  
 
 
@@ -11275,7 +11265,7 @@ typedef union
 
 
  
- 
+
 
 
 
@@ -11385,7 +11375,20 @@ typedef union
  
 
 
+
  
+
+
+ 
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11405,7 +11408,10 @@ typedef union
  
 enum NRF_SOC_SVCS
 {
-  SD_MUTEX_NEW = 0x20,
+  SD_FLASH_PAGE_ERASE = (0x20),
+  SD_FLASH_WRITE,
+  SD_FLASH_PROTECT,
+  SD_MUTEX_NEW = (0x23),
   SD_MUTEX_ACQUIRE,
   SD_MUTEX_RELEASE,
   SD_NVIC_ENABLEIRQ,
@@ -11448,14 +11454,11 @@ enum NRF_SOC_SVCS
   SD_PPI_GROUP_GET,
   SD_RADIO_NOTIFICATION_CFG_SET,
   SD_ECB_BLOCK_ENCRYPT,
-  SD_RESERVED1,
-  SD_RESERVED2,
-  SD_RESERVED3,
+  SD_RADIO_SESSION_OPEN,
+  SD_RADIO_SESSION_CLOSE,
+  SD_RADIO_REQUEST,
   SD_EVT_GET,
   SD_TEMP_GET,
-  SD_FLASH_ERASE_PAGE,
-  SD_FLASH_WRITE,
-  SD_FLASH_PROTECT,
   SVC_SOC_LAST
 };
 
@@ -11486,7 +11489,7 @@ enum NRF_POWER_THRESHOLDS
 {
   NRF_POWER_THRESHOLD_V21,   
   NRF_POWER_THRESHOLD_V23,   
-  NRF_POWER_THRESHOLD_V25,    
+  NRF_POWER_THRESHOLD_V25,   
   NRF_POWER_THRESHOLD_V27    
 };
 
@@ -11524,15 +11527,15 @@ enum NRF_RADIO_NOTIFICATION_TYPES
  
 enum NRF_SOC_EVTS
 {
-  NRF_EVT_HFCLKSTARTED,                        
-  NRF_EVT_POWER_FAILURE_WARNING,               
-  NRF_EVT_FLASH_OPERATION_SUCCESS,             
-  NRF_EVT_FLASH_OPERATION_ERROR,               
-  NRF_EVT_RESERVED1,
-  NRF_EVT_RESERVED2,
-  NRF_EVT_RESERVED3,
-  NRF_EVT_RESERVED4,
-  NRF_EVT_RESERVED5,
+  NRF_EVT_HFCLKSTARTED,                          
+  NRF_EVT_POWER_FAILURE_WARNING,                 
+  NRF_EVT_FLASH_OPERATION_SUCCESS,               
+  NRF_EVT_FLASH_OPERATION_ERROR,                 
+  NRF_EVT_RADIO_BLOCKED,                         
+  NRF_EVT_RADIO_CANCELED,                        
+  NRF_EVT_RADIO_SIGNAL_CALLBACK_INVALID_RETURN,  
+  NRF_EVT_RADIO_SESSION_IDLE,                    
+  NRF_EVT_RADIO_SESSION_CLOSED,                  
   NRF_EVT_NUMBER_OF_EVTS
 };
 
@@ -11564,13 +11567,116 @@ typedef uint8_t nrf_radio_notification_distance_t;
  
 typedef uint8_t nrf_radio_notification_type_t;
 
+ 
+enum NRF_RADIO_CALLBACK_SIGNAL_TYPE
+{
+  NRF_RADIO_CALLBACK_SIGNAL_TYPE_START,             
+  NRF_RADIO_CALLBACK_SIGNAL_TYPE_TIMER0,             
+  NRF_RADIO_CALLBACK_SIGNAL_TYPE_RADIO,              
+  NRF_RADIO_CALLBACK_SIGNAL_TYPE_EXTEND_FAILED,      
+  NRF_RADIO_CALLBACK_SIGNAL_TYPE_EXTEND_SUCCEEDED    
+};
+
+
+
+
+
+ 
+enum NRF_RADIO_SIGNAL_CALLBACK_ACTION
+{
+  NRF_RADIO_SIGNAL_CALLBACK_ACTION_NONE,             
+  NRF_RADIO_SIGNAL_CALLBACK_ACTION_EXTEND,           
+  NRF_RADIO_SIGNAL_CALLBACK_ACTION_END,              
+  NRF_RADIO_SIGNAL_CALLBACK_ACTION_REQUEST_AND_END   
+};
+
+ 
+enum NRF_RADIO_HFCLK_CFG
+{
+  NRF_RADIO_HFCLK_CFG_DEFAULT,                       
+  NRF_RADIO_HFCLK_CFG_FORCE_XTAL,                    
+};
+
+ 
+enum NRF_RADIO_PRIORITY
+{
+  NRF_RADIO_PRIORITY_HIGH,                           
+  NRF_RADIO_PRIORITY_NORMAL,                         
+};
+
+ 
+enum NRF_RADIO_REQUEST_TYPE
+{
+  NRF_RADIO_REQ_TYPE_EARLIEST,                       
+  NRF_RADIO_REQ_TYPE_NORMAL                          
+};
 
  
 typedef struct
 {
-  uint8_t key[(16)];                 
-  uint8_t cleartext[(16)];     
-  uint8_t ciphertext[((16))];   
+  uint8_t       hfclk;                               
+  uint8_t       priority;                            
+  uint32_t      length_us;                           
+  uint32_t      timeout_us;                          
+} nrf_radio_request_earliest_t;
+
+ 
+typedef struct
+{
+  uint8_t       hfclk;                               
+  uint8_t       priority;                            
+  uint32_t      distance_us;                         
+  uint32_t      length_us;                           
+} nrf_radio_request_normal_t;
+
+ 
+typedef struct
+{
+  uint8_t                         request_type;      
+  union
+  {
+    nrf_radio_request_earliest_t  earliest;          
+    nrf_radio_request_normal_t    normal;            
+  } params;
+} nrf_radio_request_t;
+
+ 
+typedef struct
+{
+  uint8_t               callback_action;             
+  union
+  {
+    struct
+    {
+      nrf_radio_request_t * p_next;                  
+    } request;                                       
+    struct
+    {
+      uint32_t              length_us;               
+    } extend;                                        
+  } params;
+} nrf_radio_signal_callback_return_param_t;
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+typedef nrf_radio_signal_callback_return_param_t * (*nrf_radio_signal_callback_t) (uint8_t signal_type);
+
+ 
+typedef struct
+{
+  uint8_t key[(16)];                   
+  uint8_t cleartext[(16)];       
+  uint8_t ciphertext[((16))];     
 } nrf_ecb_hal_data_t;
 
  
@@ -12105,7 +12211,7 @@ uint32_t __svc(SD_FLASH_WRITE) sd_flash_write(uint32_t * const p_dst, uint32_t c
 
 
  
-uint32_t __svc(SD_FLASH_ERASE_PAGE) sd_flash_page_erase(uint32_t page_number);
+uint32_t __svc(SD_FLASH_PAGE_ERASE) sd_flash_page_erase(uint32_t page_number);
 
 
 
@@ -12123,9 +12229,74 @@ uint32_t __svc(SD_FLASH_ERASE_PAGE) sd_flash_page_erase(uint32_t page_number);
 uint32_t __svc(SD_FLASH_PROTECT) sd_flash_protect(uint32_t protenset0, uint32_t protenset1);
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ uint32_t __svc(SD_RADIO_SESSION_OPEN) sd_radio_session_open(nrf_radio_signal_callback_t p_radio_signal_callback);
+
+
+
+
+
+
+
+
+
+
+
+ 
+ uint32_t __svc(SD_RADIO_SESSION_CLOSE) sd_radio_session_close(void);
+
  
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ uint32_t __svc(SD_RADIO_REQUEST) sd_radio_request(nrf_radio_request_t * p_request );
+
+ 
 
 
 
@@ -12205,10 +12376,10 @@ uint32_t __svc(SD_FLASH_PROTECT) sd_flash_protect(uint32_t protenset0, uint32_t 
  
 enum NRF_SD_SVCS
 {
-  SD_SOFTDEVICE_ENABLE = 0x10,  
+  SD_SOFTDEVICE_ENABLE = (0x10),  
   SD_SOFTDEVICE_DISABLE,                
   SD_SOFTDEVICE_IS_ENABLED,             
-  SD_SOFTDEVICE_FORWARD_TO_APPLICATION, 
+  SD_SOFTDEVICE_VECTOR_TABLE_BASE_SET,  
   SVC_SDM_LAST                          
 };
 
@@ -12230,6 +12401,11 @@ enum NRF_CLOCK_LFCLKSRCS
   NRF_CLOCK_LFCLKSRC_RC_250_PPM_2000MS_CALIBRATION,        
   NRF_CLOCK_LFCLKSRC_RC_250_PPM_4000MS_CALIBRATION,        
   NRF_CLOCK_LFCLKSRC_RC_250_PPM_8000MS_CALIBRATION,        
+  NRF_CLOCK_LFCLKSRC_RC_250_PPM_TEMP_1000MS_CALIBRATION,   
+  NRF_CLOCK_LFCLKSRC_RC_250_PPM_TEMP_2000MS_CALIBRATION,   
+  NRF_CLOCK_LFCLKSRC_RC_250_PPM_TEMP_4000MS_CALIBRATION,   
+  NRF_CLOCK_LFCLKSRC_RC_250_PPM_TEMP_8000MS_CALIBRATION,   
+  NRF_CLOCK_LFCLKSRC_RC_250_PPM_TEMP_16000MS_CALIBRATION,  
 };
 
  
@@ -12318,9 +12494,8 @@ uint32_t __svc(SD_SOFTDEVICE_IS_ENABLED) sd_softdevice_is_enabled(uint8_t * p_so
 
 
 
-
  
-uint32_t __svc(SD_SOFTDEVICE_FORWARD_TO_APPLICATION) sd_softdevice_forward_to_application(void); 
+uint32_t __svc(SD_SOFTDEVICE_VECTOR_TABLE_BASE_SET) sd_softdevice_vector_table_base_set(uint32_t address);
 
  
 
@@ -14517,7 +14692,7 @@ __declspec(__nothrow) long double truncl(long double );
 
  
 
-#line 402 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
+#line 406 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
 
 
 
@@ -14528,7 +14703,7 @@ __declspec(__nothrow) long double truncl(long double );
 
  
 
-#line 684 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
+#line 691 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s210\\ant_parameters.h"
 
 
 

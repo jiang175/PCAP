@@ -76,9 +76,7 @@
         android:choiceMode = "none"
         android:layout_alignBottom="@+id/button_getc0"
         android:layout_below="@+id/textView1"
-        android:layout_toRightOf="@+id/listView_devlist"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
+        android:layout_toRightOf="@+id/listView_devlist">
     </ListView>
 
     <TextView
@@ -250,5 +248,98 @@
         android:layout_above="@+id/editText_cy"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <ExpandableListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/expandableListView"
+        android:layout_toEndOf="@+id/listView_channelList"
+        android:layout_toRightOf="@+id/listView_channelList"
+        android:layout_above="@+id/editText_rdc" />
+
+    <Spinner
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:layout_above="@+id/editText_cavg"
+        android:layout_toRightOf="@+id/listView_channelList"
+        android:layout_alignTop="@+id/editText_rdc" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/editText_x"
+        android:layout_below="@+id/editText_cavg"
+        android:layout_alignLeft="@+id/spinner"
+        android:layout_alignStart="@+id/spinner" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="x"
+        android:id="@+id/textView_x"
+        android:layout_above="@+id/editText_x"
+        android:layout_toRightOf="@+id/listView_channelList"
+        android:layout_below="@+id/spinner"
+        android:layout_alignRight="@+id/textView1"
+        android:layout_alignEnd="@+id/textView1"
+        android:textSize="15sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="y"
+        android:id="@+id/textView_y"
+        android:layout_below="@+id/editText_x"
+        android:layout_alignLeft="@+id/editText_x"
+        android:layout_alignStart="@+id/editText_x"
+        android:layout_above="@+id/editText_y"
+        android:layout_alignRight="@+id/editText_x"
+        android:layout_alignEnd="@+id/editText_x"
+        android:textSize="15sp"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/editText_y"
+        android:layout_below="@+id/textView"
+        android:layout_alignLeft="@+id/textView_y"
+        android:layout_alignStart="@+id/textView_y" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set"
+        android:id="@+id/button_set"
+        android:layout_below="@+id/editText_y"
+        android:layout_alignLeft="@+id/editText_y"
+        android:layout_alignStart="@+id/editText_y"
+        android:layout_alignRight="@+id/spinner"
+        android:layout_alignEnd="@+id/spinner" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner_c"
+        android:layout_alignTop="@+id/spinner"
+        android:layout_toRightOf="@+id/spinner"
+        android:layout_alignBottom="@+id/spinner"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ToggleButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New ToggleButton"
+        android:id="@+id/toggleButton_program"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/button_set"
+        android:layout_toEndOf="@+id/button_set" />
 
 </RelativeLayout>

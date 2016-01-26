@@ -15,6 +15,7 @@
  */
 package com.dsi.ant.capacitance.measurement;
 
+import android.os.Handler;
 import android.os.RemoteException;
 import android.util.Log;
 
@@ -55,6 +56,10 @@ public class ChannelController {
     private boolean mBackgroundScanInProgress = false;
     private boolean mBackgroundScanIsConfigured = false;
     private int counter = 1;
+    private int counter_c = 1;
+    private int x = 1;
+    private int y = 1;
+
 
 
     static public abstract class ChannelBroadcastListener {
@@ -193,16 +198,35 @@ public class ChannelController {
                     // Switching on event code to handle the different types of channel events
                     switch (eventMessage.getEventCode()) {
                         case TX:
+
                             // Use old info as this is what remote device has just received
-                            mChannelBroadcastListener.onBroadcastChanged(mChannelInfo);
-                            mChannelInfo.broadcastData[0] = (byte)(counter) ;
-                            mChannelInfo.broadcastData[1] = 9;
-                            mChannelInfo.broadcastData[2] = (byte)(ChannelList.checkdelay());
-                            mChannelInfo.broadcastData[3] = (byte)(ChannelList.checkoff());
-                            mChannelInfo.broadcastData[4] = (byte) (ChannelList.checkcavg() & 0xFF);;
-                            mChannelInfo.broadcastData[5] = (byte) ((ChannelList.checkcavg() >> 8) & 0xFF);
-                            mChannelInfo.broadcastData[6] = (byte)(ChannelList.checkcytime());
-                            mChannelInfo.broadcastData[7] = (byte)(ChannelList.checkrdc());
+                            if(ChannelList.checkoff() == 2) {
+                                x = (int)(ChannelList.checkab(counter,2*counter_c - 2)*10000);
+                                y = (int)(ChannelList.checkab(counter,2*counter_c - 1)*10);
+                                mChannelBroadcastListener.onBroadcastChanged(mChannelInfo);
+                                mChannelInfo.broadcastData[0] = (byte) (counter);
+                                mChannelInfo.broadcastData[1] = 9;
+                                mChannelInfo.broadcastData[2] = (byte) (ChannelList.checkoff()+ counter_c - 1);
+                                mChannelInfo.broadcastData[3] = (byte) ((x >> 16) & 0xFF);
+                                mChannelInfo.broadcastData[4] = (byte) ((x >> 8) & 0xFF);
+                                mChannelInfo.broadcastData[5] = (byte) (x  & 0xFF);
+                                mChannelInfo.broadcastData[6] = (byte) ((y >> 8) & 0xFF);
+                                mChannelInfo.broadcastData[7] = (byte) (y  & 0xFF);
+                            }
+                            else{
+                                mChannelBroadcastListener.onBroadcastChanged(mChannelInfo);
+                                mChannelInfo.broadcastData[0] = (byte) (counter);
+                                mChannelInfo.broadcastData[1] = 9;
+                                mChannelInfo.broadcastData[2] = (byte) (ChannelList.checkoff());
+                                mChannelInfo.broadcastData[3] = (byte) (ChannelList.checkdelay());
+                                mChannelInfo.broadcastData[4] = (byte) (ChannelList.checkcavg() & 0xFF);
+                                mChannelInfo.broadcastData[5] = (byte) ((ChannelList.checkcavg() >> 8) & 0xFF);
+                                mChannelInfo.broadcastData[6] = (byte) (ChannelList.checkcytime());
+                                mChannelInfo.broadcastData[7] = (byte) (ChannelList.checkrdc());
+                                //counter ++;
+                            }
+                            int i =  (mChannelInfo.broadcastData[5] & 0xFF) | ((mChannelInfo.broadcastData[4] & 0xFF) << 8) | ((mChannelInfo.broadcastData[3] & 0x0F) << 16);
+                            Log.d(TAG,counter  + "   TEST:  "+i +"    A:"+x+"B"+y+"counter"+counter+"        counter"+counter_c);
                             if (mIsOpen) {
                                 try {
                                     // Setting the data to be broadcast on the next channel period
@@ -211,8 +235,15 @@ public class ChannelController {
                                     channelError(e);
                                 }
                             }
-                            counter ++;
-                            if(counter == 11 ){counter = 1;}
+                            counter++;
+                            if(counter == 11 ){
+                                counter = 1;
+                                counter_c++;
+                            }
+                            if(counter_c == 4) {
+                                counter_c = 1;
+                            }
+
                             break;
                         case RX_SEARCH_TIMEOUT:
                             // TODO May want to keep searching
