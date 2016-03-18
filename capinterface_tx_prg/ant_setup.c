@@ -64,8 +64,9 @@ bool ant_channel_tx_broadcast_setup( void ) {
 	}
 	
 	// set tx power
-	//err_code = sd_ant_channel_radio_tx_power_set( USER_ANTCHANNEL, // channel
-	//																							USER_TX_POWER ); // TX power
+	//	err_code = sd_ant_channel_radio_tx_power_set( CHANNEL_0, // channel
+			//																					USER_TX_POWER,0); // TX power
+
 	if( err_code != NRF_SUCCESS ) {
 		return true; // error
 	}

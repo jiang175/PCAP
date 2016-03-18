@@ -18,7 +18,7 @@ This file provides an easy location to change ANT settings.
 #define ANT_EVENT_MSG_BUFFER_MIN_SIZE   (32)                  ///< Minimum size of ANT event message buffer
 
 
-#define USER_CHANNEL_PD			(819)	// Used for INITIAL channel decimation
+#define USER_CHANNEL_PD			(819)	// 60 hz Used for INITIAL channel decimation
 #define USER_RX_TIMEOUT			(10)		// 2.5 sec per LSB
 #define USER_TX_POWER				(3)			// 0, 1, 2, or 3 from lowest to highest
 

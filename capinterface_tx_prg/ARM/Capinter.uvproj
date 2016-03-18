@@ -360,9 +360,9 @@
             <useXO>0</useXO>
             <VariousControls>
               <MiscControls>--c99</MiscControls>
-              <Define>NRF51 SETUPA BOARD_NRF6310</Define>
+              <Define>NRF51 SETUPA BOARD_NRF6310 BLE_STACK_SUPPORT_REQD DEBUG_NRF ANT_STACK_SUPPORT_REQD</Define>
               <Undefine></Undefine>
-              <IncludePath>C:\Keil\ARM\Device\Nordic\nrf51422\Include\s210;C:\Keil\ARM\Device\Nordic\nrf51422\Include\sd_common;C:\Keil\ARM\Device\Nordic\nrf51422\Include\app_common;..\nrf51422\Board\nrf6310\spi_master_example;C:\Keil\ARM\Device\Nordic\nrf51422\Include</IncludePath>
+              <IncludePath>C:\Keil\ARM\Device\Nordic\nrf51422\Include\s210;C:\Keil\ARM\Device\Nordic\nrf51422\Include\sd_common;C:\Keil\ARM\Device\Nordic\nrf51422\Include\app_common;..\nrf51422\Board\nrf6310\spi_master_example;C:\Keil\ARM\Device\Nordic\nrf51422\Include;..\..\capinterface_tx_prg;C:\Keil\ARM\Device\Nordic\nrf51422\Source\app_common;C:\Keil\ARM\Device\Nordic\nrf51422\Source\sd_common;C:\Keil\ARM\Device\Nordic\nrf51422\Include\s310;C:\Keil\ARM\Device\Nordic\nrf51422\Source\nrf_assert</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>

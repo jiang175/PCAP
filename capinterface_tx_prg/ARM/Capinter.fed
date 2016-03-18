@@ -1,14 +1,23 @@
-;#<FEEDBACK># ARM Linker, 5.03 [Build 76]: Last Updated: Wed Jan 20 13:52:16 2016
+;#<FEEDBACK># ARM Linker, 5.03 [Build 76]: Last Updated: Fri Mar 18 12:03:09 2016
 ;VERSION 0.2
 ;FILE arm_startup_nrf51.o
 ;FILE nrf_delay.o
 __asm___11_nrf_delay_c_532987f3____REV16 <= USED 0
 __asm___11_nrf_delay_c_532987f3____REVSH <= USED 0
+__asm___11_nrf_delay_c_532987f3__nrf_delay_us <= USED 0
+nrf_delay_ms <= USED 0
 ;FILE pcapint_main.o
 PROTOCOL_EVENT_IRQHandler <= USED 0
-__asm___14_PCAPint_main_c_9334d528____REV16 <= USED 0
-__asm___14_PCAPint_main_c_9334d528____REVSH <= USED 0
-__asm___14_PCAPint_main_c_9334d528__nrf_delay_us <= USED 0
+__asm___14_PCAPint_main_c_1dab5049____REV16 <= USED 0
+__asm___14_PCAPint_main_c_1dab5049____REVSH <= USED 0
+__asm___14_PCAPint_main_c_1dab5049__nrf_delay_us <= USED 0
+pcap_commcheck <= USED 0
+pstorage_access_status_get <= USED 0
+pstorage_clear <= USED 0
+softdevice_ant_evt_handler_set <= USED 0
+softdevice_assert_callback <= USED 0
+softdevice_ble_evt_handler_set <= USED 0
+softdevice_handler_sd_disable <= USED 0
 ;FILE spi_master.o
 __asm___12_spi_master_c_6b526d4d____REV16 <= USED 0
 __asm___12_spi_master_c_6b526d4d____REVSH <= USED 0

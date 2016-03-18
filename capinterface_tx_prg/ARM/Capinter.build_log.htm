@@ -3,85 +3,87 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
-C:\Users\Xiaofan\Desktop\Work\freeze-network\capinterface_tx_prg\arm\Capinter.uvproj
-Project File Date:  07/29/2015
+C:\Users\Xiaofan\Dropbox\Academic\Works\test\2-byte\capinterface_tx_prg\arm\Capinter.uvproj
+Project File Date:  01/10/2016
 
 <h2>Output:</h2>
 Rebuild target 'Target 1'
 Clean started - Project: 'Capinter'
    deleting intermediate output files for target 'Target 1'
 creating preprocessor file for PCAPint_main.c...
-..\ant_setup.c(86): warning:  #1-D: last line of file ends without a newline
+..\ant_setup.c(87): warning:  #1-D: last line of file ends without a newline
   }
 ..\PCAPint_main.c: 1 warning, 0 errors
 compiling PCAPint_main.c...
-..\ant_setup.c(86): warning:  #1-D: last line of file ends without a newline
+..\ant_setup.c(87): warning:  #1-D: last line of file ends without a newline
   }
 ..\ant_setup.c(26): warning:  #177-D: variable "ttype" was declared but never referenced
         uint8_t ttype;
-..\PCAP.c(269): warning:  #111-D: statement is unreachable
+..\PCAP.c(285): warning:  #111-D: statement is unreachable
                                 memset(tx_data, 0, 8);
-..\PCAP.c(295): warning:  #550-D: variable "w" was set but never used
+..\PCAP.c(311): warning:  #550-D: variable "w" was set but never used
                 bool w; 
-..\PCAP.c(407): warning:  #1182-D: a declaration cannot have a label
-                        float time = ((float)pul_n*(float)((float)(CMEAS_CYTIME+1)*0.02*(float)c_avg)+250)/1000; //used to be 5
-..\PCAP.c(402): warning:  #546-D: transfer of control bypasses initialization of:
-            variable "time" (declared at line 407)
+..\PCAP.c(423): warning:  #1182-D: a declaration cannot have a label
+                        float time = ((float)pul_n*(float)((float)(cy_time+1)*0.02*(float)c_avg)+250)/1000; //used to be 5
+..\PCAP.c(418): warning:  #546-D: transfer of control bypasses initialization of:
+            variable "time" (declared at line 423)
                 switch(onoff)
                 ^
-..\PCAPint_main.c(193): warning:  #550-D: variable "ret0" was set but never used
+..\PCAPint_main.c(141): warning:  #550-D: variable "retval" was set but never used
+      uint32_t retval;
+..\PCAPint_main.c(330): warning:  #550-D: variable "ret0" was set but never used
         bool ret0, ret1, ret2, ret3; // error checkers
-..\PCAPint_main.c(193): warning:  #177-D: variable "ret1" was declared but never referenced
+..\PCAPint_main.c(330): warning:  #177-D: variable "ret1" was declared but never referenced
         bool ret0, ret1, ret2, ret3; // error checkers
-..\PCAPint_main.c(193): warning:  #550-D: variable "ret2" was set but never used
+..\PCAPint_main.c(330): warning:  #550-D: variable "ret2" was set but never used
         bool ret0, ret1, ret2, ret3; // error checkers
-..\PCAPint_main.c(193): warning:  #550-D: variable "ret3" was set but never used
+..\PCAPint_main.c(330): warning:  #550-D: variable "ret3" was set but never used
         bool ret0, ret1, ret2, ret3; // error checkers
-..\PCAPint_main.c(194): warning:  #177-D: variable "sw" was declared but never referenced
+..\PCAPint_main.c(331): warning:  #177-D: variable "sw" was declared but never referenced
         uint32_t sw = 1, sw2 = 1, sw3 =0, stat; 
-..\PCAPint_main.c(194): warning:  #550-D: variable "sw2" was set but never used
+..\PCAPint_main.c(331): warning:  #550-D: variable "sw2" was set but never used
         uint32_t sw = 1, sw2 = 1, sw3 =0, stat; 
-..\PCAPint_main.c(194): warning:  #550-D: variable "sw3" was set but never used
+..\PCAPint_main.c(331): warning:  #550-D: variable "sw3" was set but never used
         uint32_t sw = 1, sw2 = 1, sw3 =0, stat; 
-..\PCAPint_main.c(195): warning:  #550-D: variable "CYC_ACTIVE" was set but never used
+..\PCAPint_main.c(332): warning:  #550-D: variable "CYC_ACTIVE" was set but never used
         uint8_t CYC_ACTIVE, T_END_FLAG, RUNBIT, COMBI_ERR, CAP_ERR, CAP_ERR_PC, TEMP_ERR; // Status register error checkers
-..\PCAPint_main.c(195): warning:  #550-D: variable "T_END_FLAG" was set but never used
+..\PCAPint_main.c(332): warning:  #550-D: variable "T_END_FLAG" was set but never used
         uint8_t CYC_ACTIVE, T_END_FLAG, RUNBIT, COMBI_ERR, CAP_ERR, CAP_ERR_PC, TEMP_ERR; // Status register error checkers
-..\PCAPint_main.c(195): warning:  #550-D: variable "RUNBIT" was set but never used
+..\PCAPint_main.c(332): warning:  #550-D: variable "RUNBIT" was set but never used
         uint8_t CYC_ACTIVE, T_END_FLAG, RUNBIT, COMBI_ERR, CAP_ERR, CAP_ERR_PC, TEMP_ERR; // Status register error checkers
-..\PCAPint_main.c(195): warning:  #550-D: variable "COMBI_ERR" was set but never used
+..\PCAPint_main.c(332): warning:  #550-D: variable "COMBI_ERR" was set but never used
         uint8_t CYC_ACTIVE, T_END_FLAG, RUNBIT, COMBI_ERR, CAP_ERR, CAP_ERR_PC, TEMP_ERR; // Status register error checkers
-..\PCAPint_main.c(195): warning:  #550-D: variable "CAP_ERR" was set but never used
+..\PCAPint_main.c(332): warning:  #550-D: variable "CAP_ERR" was set but never used
         uint8_t CYC_ACTIVE, T_END_FLAG, RUNBIT, COMBI_ERR, CAP_ERR, CAP_ERR_PC, TEMP_ERR; // Status register error checkers
-..\PCAPint_main.c(195): warning:  #550-D: variable "CAP_ERR_PC" was set but never used
+..\PCAPint_main.c(332): warning:  #550-D: variable "CAP_ERR_PC" was set but never used
         uint8_t CYC_ACTIVE, T_END_FLAG, RUNBIT, COMBI_ERR, CAP_ERR, CAP_ERR_PC, TEMP_ERR; // Status register error checkers
-..\PCAPint_main.c(195): warning:  #550-D: variable "TEMP_ERR" was set but never used
+..\PCAPint_main.c(332): warning:  #550-D: variable "TEMP_ERR" was set but never used
         uint8_t CYC_ACTIVE, T_END_FLAG, RUNBIT, COMBI_ERR, CAP_ERR, CAP_ERR_PC, TEMP_ERR; // Status register error checkers
-..\PCAPint_main.c(197): warning:  #177-D: variable "x" was declared but never referenced
+..\PCAPint_main.c(334): warning:  #177-D: variable "x" was declared but never referenced
         uint8_t x, n;
-..\PCAPint_main.c(202): warning:  #177-D: variable "capref_s" was declared but never referenced
+..\PCAPint_main.c(339): warning:  #177-D: variable "capref_s" was declared but never referenced
     char capref_s[16]; // String displays for LCD
-..\PCAPint_main.c(203): warning:  #177-D: variable "cap1_s" was declared but never referenced
+..\PCAPint_main.c(340): warning:  #177-D: variable "cap1_s" was declared but never referenced
     char cap1_s[7][16]; 
-..\PCAPint_main.c(204): warning:  #177-D: variable "cap1" was declared but never referenced
+..\PCAPint_main.c(341): warning:  #177-D: variable "cap1" was declared but never referenced
     float cap1, cap2, cap3, cap4, cap5, cap6, cap7, capref;
-..\PCAPint_main.c(204): warning:  #177-D: variable "cap2" was declared but never referenced
+..\PCAPint_main.c(341): warning:  #177-D: variable "cap2" was declared but never referenced
     float cap1, cap2, cap3, cap4, cap5, cap6, cap7, capref;
-..\PCAPint_main.c(204): warning:  #177-D: variable "cap3" was declared but never referenced
+..\PCAPint_main.c(341): warning:  #177-D: variable "cap3" was declared but never referenced
     float cap1, cap2, cap3, cap4, cap5, cap6, cap7, capref;
-..\PCAPint_main.c(204): warning:  #177-D: variable "cap4" was declared but never referenced
+..\PCAPint_main.c(341): warning:  #177-D: variable "cap4" was declared but never referenced
     float cap1, cap2, cap3, cap4, cap5, cap6, cap7, capref;
-..\PCAPint_main.c(204): warning:  #177-D: variable "cap5" was declared but never referenced
+..\PCAPint_main.c(341): warning:  #177-D: variable "cap5" was declared but never referenced
     float cap1, cap2, cap3, cap4, cap5, cap6, cap7, capref;
-..\PCAPint_main.c(204): warning:  #177-D: variable "cap6" was declared but never referenced
+..\PCAPint_main.c(341): warning:  #177-D: variable "cap6" was declared but never referenced
     float cap1, cap2, cap3, cap4, cap5, cap6, cap7, capref;
-..\PCAPint_main.c(204): warning:  #177-D: variable "cap7" was declared but never referenced
+..\PCAPint_main.c(341): warning:  #177-D: variable "cap7" was declared but never referenced
     float cap1, cap2, cap3, cap4, cap5, cap6, cap7, capref;
-..\PCAPint_main.c(204): warning:  #550-D: variable "capref" was set but never used
+..\PCAPint_main.c(341): warning:  #177-D: variable "capref" was declared but never referenced
     float cap1, cap2, cap3, cap4, cap5, cap6, cap7, capref;
-..\PCAPint_main.c(205): warning:  #550-D: variable "check" was set but never used
-        int check = 0;
-..\PCAPint_main.c: 32 warnings, 0 errors
+..\PCAPint_main.c(72): warning:  #550-D: variable "ps_flag" was set but never used
+  static uint8_t ps_flag = 0;
+..\PCAPint_main.c: 33 warnings, 0 errors
 assembling arm_startup_nrf51.s...
 creating preprocessor file for system_nrf51422.c...
 compiling system_nrf51422.c...
@@ -90,95 +92,97 @@ compiling spi_master.c...
 creating preprocessor file for nrf_delay.c...
 compiling nrf_delay.c...
 linking...
-Program Size: Code=8936 RO-data=352 RW-data=4140 ZI-data=2116  
-".\Capinter.axf" - 0 Error(s), 33 Warning(s).
+Program Size: Code=14244 RO-data=428 RW-data=4228 ZI-data=2884  
+".\Capinter.axf" - 0 Error(s), 34 Warning(s).
 
 *** Performing Cross-Module-Optimization:
 compiling PCAPint_main.c...
-..\ant_setup.c(86): warning:  #1-D: last line of file ends without a newline
+..\ant_setup.c(87): warning:  #1-D: last line of file ends without a newline
   }
 ..\ant_setup.c(26): warning:  #177-D: variable "ttype" was declared but never referenced
         uint8_t ttype;
-..\PCAP.c(269): warning:  #111-D: statement is unreachable
+..\PCAP.c(285): warning:  #111-D: statement is unreachable
                                 memset(tx_data, 0, 8);
-..\PCAP.c(295): warning:  #550-D: variable "w" was set but never used
+..\PCAP.c(311): warning:  #550-D: variable "w" was set but never used
                 bool w; 
-..\PCAP.c(407): warning:  #1182-D: a declaration cannot have a label
-                        float time = ((float)pul_n*(float)((float)(CMEAS_CYTIME+1)*0.02*(float)c_avg)+250)/1000; //used to be 5
-..\PCAP.c(402): warning:  #546-D: transfer of control bypasses initialization of:
-            variable "time" (declared at line 407)
+..\PCAP.c(423): warning:  #1182-D: a declaration cannot have a label
+                        float time = ((float)pul_n*(float)((float)(cy_time+1)*0.02*(float)c_avg)+250)/1000; //used to be 5
+..\PCAP.c(418): warning:  #546-D: transfer of control bypasses initialization of:
+            variable "time" (declared at line 423)
                 switch(onoff)
                 ^
-..\PCAPint_main.c(193): warning:  #550-D: variable "ret0" was set but never used
+..\PCAPint_main.c(141): warning:  #550-D: variable "retval" was set but never used
+      uint32_t retval;
+..\PCAPint_main.c(330): warning:  #550-D: variable "ret0" was set but never used
         bool ret0, ret1, ret2, ret3; // error checkers
-..\PCAPint_main.c(193): warning:  #177-D: variable "ret1" was declared but never referenced
+..\PCAPint_main.c(330): warning:  #177-D: variable "ret1" was declared but never referenced
         bool ret0, ret1, ret2, ret3; // error checkers
-..\PCAPint_main.c(193): warning:  #550-D: variable "ret2" was set but never used
+..\PCAPint_main.c(330): warning:  #550-D: variable "ret2" was set but never used
         bool ret0, ret1, ret2, ret3; // error checkers
-..\PCAPint_main.c(193): warning:  #550-D: variable "ret3" was set but never used
+..\PCAPint_main.c(330): warning:  #550-D: variable "ret3" was set but never used
         bool ret0, ret1, ret2, ret3; // error checkers
-..\PCAPint_main.c(194): warning:  #177-D: variable "sw" was declared but never referenced
+..\PCAPint_main.c(331): warning:  #177-D: variable "sw" was declared but never referenced
         uint32_t sw = 1, sw2 = 1, sw3 =0, stat; 
-..\PCAPint_main.c(194): warning:  #550-D: variable "sw2" was set but never used
+..\PCAPint_main.c(331): warning:  #550-D: variable "sw2" was set but never used
         uint32_t sw = 1, sw2 = 1, sw3 =0, stat; 
-..\PCAPint_main.c(194): warning:  #550-D: variable "sw3" was set but never used
+..\PCAPint_main.c(331): warning:  #550-D: variable "sw3" was set but never used
         uint32_t sw = 1, sw2 = 1, sw3 =0, stat; 
-..\PCAPint_main.c(195): warning:  #550-D: variable "CYC_ACTIVE" was set but never used
+..\PCAPint_main.c(332): warning:  #550-D: variable "CYC_ACTIVE" was set but never used
         uint8_t CYC_ACTIVE, T_END_FLAG, RUNBIT, COMBI_ERR, CAP_ERR, CAP_ERR_PC, TEMP_ERR; // Status register error checkers
-..\PCAPint_main.c(195): warning:  #550-D: variable "T_END_FLAG" was set but never used
+..\PCAPint_main.c(332): warning:  #550-D: variable "T_END_FLAG" was set but never used
         uint8_t CYC_ACTIVE, T_END_FLAG, RUNBIT, COMBI_ERR, CAP_ERR, CAP_ERR_PC, TEMP_ERR; // Status register error checkers
-..\PCAPint_main.c(195): warning:  #550-D: variable "RUNBIT" was set but never used
+..\PCAPint_main.c(332): warning:  #550-D: variable "RUNBIT" was set but never used
         uint8_t CYC_ACTIVE, T_END_FLAG, RUNBIT, COMBI_ERR, CAP_ERR, CAP_ERR_PC, TEMP_ERR; // Status register error checkers
-..\PCAPint_main.c(195): warning:  #550-D: variable "COMBI_ERR" was set but never used
+..\PCAPint_main.c(332): warning:  #550-D: variable "COMBI_ERR" was set but never used
         uint8_t CYC_ACTIVE, T_END_FLAG, RUNBIT, COMBI_ERR, CAP_ERR, CAP_ERR_PC, TEMP_ERR; // Status register error checkers
-..\PCAPint_main.c(195): warning:  #550-D: variable "CAP_ERR" was set but never used
+..\PCAPint_main.c(332): warning:  #550-D: variable "CAP_ERR" was set but never used
         uint8_t CYC_ACTIVE, T_END_FLAG, RUNBIT, COMBI_ERR, CAP_ERR, CAP_ERR_PC, TEMP_ERR; // Status register error checkers
-..\PCAPint_main.c(195): warning:  #550-D: variable "CAP_ERR_PC" was set but never used
+..\PCAPint_main.c(332): warning:  #550-D: variable "CAP_ERR_PC" was set but never used
         uint8_t CYC_ACTIVE, T_END_FLAG, RUNBIT, COMBI_ERR, CAP_ERR, CAP_ERR_PC, TEMP_ERR; // Status register error checkers
-..\PCAPint_main.c(195): warning:  #550-D: variable "TEMP_ERR" was set but never used
+..\PCAPint_main.c(332): warning:  #550-D: variable "TEMP_ERR" was set but never used
         uint8_t CYC_ACTIVE, T_END_FLAG, RUNBIT, COMBI_ERR, CAP_ERR, CAP_ERR_PC, TEMP_ERR; // Status register error checkers
-..\PCAPint_main.c(197): warning:  #177-D: variable "x" was declared but never referenced
+..\PCAPint_main.c(334): warning:  #177-D: variable "x" was declared but never referenced
         uint8_t x, n;
-..\PCAPint_main.c(202): warning:  #177-D: variable "capref_s" was declared but never referenced
+..\PCAPint_main.c(339): warning:  #177-D: variable "capref_s" was declared but never referenced
     char capref_s[16]; // String displays for LCD
-..\PCAPint_main.c(203): warning:  #177-D: variable "cap1_s" was declared but never referenced
+..\PCAPint_main.c(340): warning:  #177-D: variable "cap1_s" was declared but never referenced
     char cap1_s[7][16]; 
-..\PCAPint_main.c(204): warning:  #177-D: variable "cap1" was declared but never referenced
+..\PCAPint_main.c(341): warning:  #177-D: variable "cap1" was declared but never referenced
     float cap1, cap2, cap3, cap4, cap5, cap6, cap7, capref;
-..\PCAPint_main.c(204): warning:  #177-D: variable "cap2" was declared but never referenced
+..\PCAPint_main.c(341): warning:  #177-D: variable "cap2" was declared but never referenced
     float cap1, cap2, cap3, cap4, cap5, cap6, cap7, capref;
-..\PCAPint_main.c(204): warning:  #177-D: variable "cap3" was declared but never referenced
+..\PCAPint_main.c(341): warning:  #177-D: variable "cap3" was declared but never referenced
     float cap1, cap2, cap3, cap4, cap5, cap6, cap7, capref;
-..\PCAPint_main.c(204): warning:  #177-D: variable "cap4" was declared but never referenced
+..\PCAPint_main.c(341): warning:  #177-D: variable "cap4" was declared but never referenced
     float cap1, cap2, cap3, cap4, cap5, cap6, cap7, capref;
-..\PCAPint_main.c(204): warning:  #177-D: variable "cap5" was declared but never referenced
+..\PCAPint_main.c(341): warning:  #177-D: variable "cap5" was declared but never referenced
     float cap1, cap2, cap3, cap4, cap5, cap6, cap7, capref;
-..\PCAPint_main.c(204): warning:  #177-D: variable "cap6" was declared but never referenced
+..\PCAPint_main.c(341): warning:  #177-D: variable "cap6" was declared but never referenced
     float cap1, cap2, cap3, cap4, cap5, cap6, cap7, capref;
-..\PCAPint_main.c(204): warning:  #177-D: variable "cap7" was declared but never referenced
+..\PCAPint_main.c(341): warning:  #177-D: variable "cap7" was declared but never referenced
     float cap1, cap2, cap3, cap4, cap5, cap6, cap7, capref;
-..\PCAPint_main.c(204): warning:  #550-D: variable "capref" was set but never used
+..\PCAPint_main.c(341): warning:  #177-D: variable "capref" was declared but never referenced
     float cap1, cap2, cap3, cap4, cap5, cap6, cap7, capref;
-..\PCAPint_main.c(205): warning:  #550-D: variable "check" was set but never used
-        int check = 0;
-..\PCAPint_main.c: 32 warnings, 0 errors
+..\PCAPint_main.c(72): warning:  #550-D: variable "ps_flag" was set but never used
+  static uint8_t ps_flag = 0;
+..\PCAPint_main.c: 33 warnings, 0 errors
 compiling system_nrf51422.c...
 compiling spi_master.c...
 compiling nrf_delay.c...
 linking...
-Program Size: Code=8936 RO-data=352 RW-data=4140 ZI-data=2116  
+Program Size: Code=14244 RO-data=428 RW-data=4228 ZI-data=2884  
 FromELF: creating hex file...
-".\Capinter.axf" - 0 Error(s), 32 Warning(s).
+".\Capinter.axf" - 0 Error(s), 33 Warning(s).
 *** Completed Cross-Module-Optimization after 2 iteration(s).
-Load "C:\\Users\\Xiaofan\\Desktop\\Work\\freeze-network\\capinterface_tx_prg\\arm\\Capinter.axf" 
+Load "C:\\Users\\Xiaofan\\Dropbox\\Academic\\Works\\test\\2-byte\\capinterface_tx_prg\\arm\\Capinter.axf" 
 * JLink Info: Device "NRF51422_XXAA" selected.
-Set JLink Project File to "C:\Users\Xiaofan\Desktop\Work\freeze-network\capinterface_tx_prg\arm\JLinkSettings.ini"
+Set JLink Project File to "C:\Users\Xiaofan\Dropbox\Academic\Works\test\2-byte\capinterface_tx_prg\arm\JLinkSettings.ini"
 * JLink Info: Device "NRF51422_XXAA" selected.
  
 JLink info:
 ------------
-DLL: V5.00j, compiled Jul 24 2015 19:41:38
-Firmware: J-Link Lite-Cortex-M V8 compiled Jul 17 2014 11:40:12
+DLL: V5.10d, compiled Dec  9 2015 12:49:14
+Firmware: J-Link Lite-Cortex-M V8 compiled Aug 20 2015 17:57:19
 Hardware: V8.00
 S/N : 518108346 
 Feature(s) : GDB 
@@ -208,88 +212,9 @@ Watchpoints:          2
 JTAG speed: 2000 kHz
  
 Erase Done.
-Programming Failed!
-Error: Flash Download failed  -  "Cortex-M0"
-Load "C:\\Users\\Xiaofan\\Desktop\\Work\\freeze-network\\capinterface_tx_prg\\arm\\Capinter.axf" 
-* JLink Info: Device "NRF51422_XXAA" selected.
-Set JLink Project File to "C:\Users\Xiaofan\Desktop\Work\freeze-network\capinterface_tx_prg\arm\JLinkSettings.ini"
-* JLink Info: Device "NRF51422_XXAA" selected.
- 
-JLink info:
-------------
-DLL: V5.00j, compiled Jul 24 2015 19:41:38
-Firmware: J-Link Lite-Cortex-M V8 compiled Jul 17 2014 11:40:12
-Hardware: V8.00
-S/N : 518108346 
-Feature(s) : GDB 
- 
-* JLink Info: Found SWD-DP with ID 0x0BB11477
-* JLink Info: Found Cortex-M0 r0p0, Little endian.
-* JLink Info: FPUnit: 4 code (BP) slots and 0 literal slots
-* JLink Info: CoreSight components:
-* JLink Info: ROMTbl 0 @ F0000000
-* JLink Info: ROMTbl 0 [0]: F00FF000, CID: B105100D, PID: 000BB471 ROM Table
-* JLink Info: ROMTbl 1 @ E00FF000
-* JLink Info: ROMTbl 1 [0]: FFF0F000, CID: B105E00D, PID: 000BB008 SCS
-* JLink Info: ROMTbl 1 [1]: FFF02000, CID: B105E00D, PID: 000BB00A DWT
-* JLink Info: ROMTbl 1 [2]: FFF03000, CID: B105E00D, PID: 000BB00B FPB
-* JLink Info: ROMTbl 0 [1]: 00002000, CID: B105900D, PID: 000BB9A3 ???
-ROMTableAddr = 0xE00FF003
- 
-Target info:
-------------
-Device: nRF51422_xxAA
-VTarget = 2.193V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 1, TRES: 1, TRST: 1
-Hardware-Breakpoints: 4
-Software-Breakpoints: 8192
-Watchpoints:          2
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Failed!
-Error: Flash Download failed  -  "Cortex-M0"
-Load "C:\\Users\\Xiaofan\\Desktop\\Work\\freeze-network\\capinterface_tx_prg\\arm\\Capinter.axf" 
-* JLink Info: Device "NRF51422_XXAA" selected.
-Set JLink Project File to "C:\Users\Xiaofan\Desktop\Work\freeze-network\capinterface_tx_prg\arm\JLinkSettings.ini"
-* JLink Info: Device "NRF51422_XXAA" selected.
- 
-JLink info:
-------------
-DLL: V5.00j, compiled Jul 24 2015 19:41:38
-Firmware: J-Link Lite-Cortex-M V8 compiled Jul 17 2014 11:40:12
-Hardware: V8.00
-S/N : 518108346 
-Feature(s) : GDB 
- 
-* JLink Info: Found SWD-DP with ID 0x0BB11477
-* JLink Info: Found Cortex-M0 r0p0, Little endian.
-* JLink Info: FPUnit: 4 code (BP) slots and 0 literal slots
-* JLink Info: CoreSight components:
-* JLink Info: ROMTbl 0 @ F0000000
-* JLink Info: ROMTbl 0 [0]: F00FF000, CID: B105100D, PID: 000BB471 ROM Table
-* JLink Info: ROMTbl 1 @ E00FF000
-* JLink Info: ROMTbl 1 [0]: FFF0F000, CID: B105E00D, PID: 000BB008 SCS
-* JLink Info: ROMTbl 1 [1]: FFF02000, CID: B105E00D, PID: 000BB00A DWT
-* JLink Info: ROMTbl 1 [2]: FFF03000, CID: B105E00D, PID: 000BB00B FPB
-* JLink Info: ROMTbl 0 [1]: 00002000, CID: B105900D, PID: 000BB9A3 ???
-ROMTableAddr = 0xE00FF003
- 
-Target info:
-------------
-Device: nRF51422_xxAA
-VTarget = 2.193V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 1, TRES: 1, TRST: 1
-Hardware-Breakpoints: 4
-Software-Breakpoints: 8192
-Watchpoints:          2
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Failed!
-Error: Flash Download failed  -  "Cortex-M0"
+Programming Done.
+Verify OK.
+Application running ...
 </pre>
 </body>
 </html>

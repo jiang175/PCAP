@@ -12569,9 +12569,15 @@ void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p
  
 #line 36 "..\\PCAPint_main.c"
 #line 37 "..\\PCAPint_main.c"
+#line 1 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\app_common\\pstorage.h"
 
 
-#line 1 "..\\ant_config.h"
+
+
+
+
+
+
 
 
  
@@ -12584,7 +12590,36 @@ void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p
 
 
 
-#line 19 "..\\ant_config.h"
+
+
+ 
+
+
+
+
+#line 1 "..\\..\\capinterface_tx_prg\\pstorage_platform.h"
+
+
+
+
+
+
+
+
+
+
+ 
+
+  
+
+
+
+
+ 
+
+
+
+#line 23 "..\\..\\capinterface_tx_prg\\pstorage_platform.h"
 
 
 
@@ -12601,10 +12636,1040 @@ void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p
 
 
 
-#line 40 "..\\PCAPint_main.c"
-#line 1 "..\\ant_setup.c"
-#line 2 "..\\ant_setup.c"
-#line 3 "..\\ant_setup.c"
+
+
+
+
+
+
+ 
+typedef uint32_t pstorage_block_t;
+
+typedef struct
+{
+    uint32_t            module_id;       
+    pstorage_block_t    block_id;        
+} pstorage_handle_t;
+
+typedef uint16_t pstorage_size_t;       
+
+ 
+void pstorage_sys_event_handler (uint32_t sys_evt);
+
+
+
+ 
+ 
+#line 29 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\app_common\\pstorage.h"
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+typedef void (*pstorage_ntf_cb_t)(pstorage_handle_t *  p_handle,
+                                  uint8_t              op_code,
+                                  uint32_t             result,
+                                  uint8_t *            p_data,
+                                  uint32_t             data_len);
+
+
+typedef struct
+{
+    pstorage_ntf_cb_t cb;              
+    pstorage_size_t   block_size;     
+
+
+
+
+ 
+    pstorage_size_t   block_count;     
+} pstorage_module_param_t;
+
+ 
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+uint32_t pstorage_init(void);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t pstorage_register(pstorage_module_param_t * p_module_param,
+                           pstorage_handle_t *       p_block_id);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t pstorage_block_identifier_get(pstorage_handle_t * p_base_id,
+                                       pstorage_size_t     block_num,
+                                       pstorage_handle_t * p_block_id);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t pstorage_store(pstorage_handle_t * p_dest,
+                        uint8_t *           p_src,
+                        pstorage_size_t     size,
+                        pstorage_size_t     offset);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t pstorage_update(pstorage_handle_t * p_dest,
+                         uint8_t *           p_src,
+                         pstorage_size_t     size,
+                         pstorage_size_t     offset);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t pstorage_load(uint8_t *           p_dest,
+                       pstorage_handle_t * p_src,
+                       pstorage_size_t     size,
+                       pstorage_size_t     offset);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t pstorage_clear(pstorage_handle_t * p_base_id, pstorage_size_t size);
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t pstorage_access_status_get(uint32_t * p_count);
+
+#line 368 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\app_common\\pstorage.h"
+
+ 
+ 
+
+
+
+#line 38 "..\\PCAPint_main.c"
+#line 1 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\app_common\\pstorage.c"
+
+
+
+
+
+
+
+
+
+
+ 
+
+#line 14 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\app_common\\pstorage.c"
+#line 1 "C:\\Keil\\ARM\\ARMCC\\bin\\..\\include\\stdlib.h"
+ 
+ 
+ 
+
+
+
+
+ 
+ 
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+ 
+
+
+
+
+
+
+
+
+#line 46 "C:\\Keil\\ARM\\ARMCC\\bin\\..\\include\\stdlib.h"
+
+
+  
+  typedef unsigned int size_t;
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    typedef unsigned short wchar_t;  
+#line 75 "C:\\Keil\\ARM\\ARMCC\\bin\\..\\include\\stdlib.h"
+
+typedef struct div_t { int quot, rem; } div_t;
+    
+typedef struct ldiv_t { long int quot, rem; } ldiv_t;
+    
+
+typedef struct lldiv_t { __int64 quot, rem; } lldiv_t;
+    
+
+
+#line 96 "C:\\Keil\\ARM\\ARMCC\\bin\\..\\include\\stdlib.h"
+   
+
+
+
+ 
+
+   
+
+
+
+
+ 
+#line 115 "C:\\Keil\\ARM\\ARMCC\\bin\\..\\include\\stdlib.h"
+   
+
+
+ 
+extern __declspec(__nothrow) int __aeabi_MB_CUR_MAX(void);
+
+   
+
+
+
+
+ 
+
+   
+
+
+
+
+ 
+
+
+
+
+extern __declspec(__nothrow) double atof(const char *  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+ 
+extern __declspec(__nothrow) int atoi(const char *  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+ 
+extern __declspec(__nothrow) long int atol(const char *  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+ 
+
+extern __declspec(__nothrow) __int64 atoll(const char *  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+ 
+
+
+extern __declspec(__nothrow) double strtod(const char * __restrict  , char ** __restrict  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+extern __declspec(__nothrow) float strtof(const char * __restrict  , char ** __restrict  ) __attribute__((__nonnull__(1)));
+extern __declspec(__nothrow) long double strtold(const char * __restrict  , char ** __restrict  ) __attribute__((__nonnull__(1)));
+   
+
+ 
+
+extern __declspec(__nothrow) long int strtol(const char * __restrict  ,
+                        char ** __restrict  , int  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) unsigned long int strtoul(const char * __restrict  ,
+                                       char ** __restrict  , int  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+ 
+extern __declspec(__nothrow) __int64 strtoll(const char * __restrict  ,
+                               char ** __restrict  , int  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+
+ 
+extern __declspec(__nothrow) unsigned __int64 strtoull(const char * __restrict  ,
+                                         char ** __restrict  , int  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+ 
+
+extern __declspec(__nothrow) int rand(void);
+   
+
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) void srand(unsigned int  );
+   
+
+
+
+
+
+
+ 
+
+struct _rand_state { int __x[57]; };
+extern __declspec(__nothrow) int _rand_r(struct _rand_state *);
+extern __declspec(__nothrow) void _srand_r(struct _rand_state *, unsigned int);
+struct _ANSI_rand_state { int __x[1]; };
+extern __declspec(__nothrow) int _ANSI_rand_r(struct _ANSI_rand_state *);
+extern __declspec(__nothrow) void _ANSI_srand_r(struct _ANSI_rand_state *, unsigned int);
+   
+
+
+ 
+
+extern __declspec(__nothrow) void *calloc(size_t  , size_t  );
+   
+
+
+
+ 
+extern __declspec(__nothrow) void free(void *  );
+   
+
+
+
+
+
+ 
+extern __declspec(__nothrow) void *malloc(size_t  );
+   
+
+
+
+ 
+extern __declspec(__nothrow) void *realloc(void *  , size_t  );
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+extern __declspec(__nothrow) int posix_memalign(void **  , size_t  , size_t  );
+   
+
+
+
+
+
+
+
+
+
+ 
+
+typedef int (*__heapprt)(void *, char const *, ...);
+extern __declspec(__nothrow) void __heapstats(int (*  )(void *  ,
+                                           char const *  , ...),
+                        void *  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) int __heapvalid(int (*  )(void *  ,
+                                           char const *  , ...),
+                       void *  , int  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) __declspec(__noreturn) void abort(void);
+   
+
+
+
+
+
+
+
+ 
+
+extern __declspec(__nothrow) int atexit(void (*  )(void)) __attribute__((__nonnull__(1)));
+   
+
+
+
+
+ 
+#line 415 "C:\\Keil\\ARM\\ARMCC\\bin\\..\\include\\stdlib.h"
+
+
+extern __declspec(__nothrow) __declspec(__noreturn) void exit(int  );
+   
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+extern __declspec(__nothrow) __declspec(__noreturn) void _Exit(int  );
+   
+
+
+
+
+
+
+
+      
+
+extern __declspec(__nothrow) char *getenv(const char *  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+
+
+
+
+
+
+ 
+
+extern __declspec(__nothrow) int  system(const char *  );
+   
+
+
+
+
+
+
+
+
+
+ 
+
+extern  void *bsearch(const void *  , const void *  ,
+              size_t  , size_t  ,
+              int (*  )(const void *, const void *)) __attribute__((__nonnull__(1,2,5)));
+   
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+#line 503 "C:\\Keil\\ARM\\ARMCC\\bin\\..\\include\\stdlib.h"
+
+
+extern  void qsort(void *  , size_t  , size_t  ,
+           int (*  )(const void *, const void *)) __attribute__((__nonnull__(1,4)));
+   
+
+
+
+
+
+
+
+
+
+ 
+
+#line 532 "C:\\Keil\\ARM\\ARMCC\\bin\\..\\include\\stdlib.h"
+
+extern __declspec(__nothrow) __pure int abs(int  );
+   
+
+
+
+ 
+
+extern __declspec(__nothrow) __pure div_t div(int  , int  );
+   
+
+
+
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) __pure long int labs(long int  );
+   
+
+
+
+ 
+
+
+
+
+extern __declspec(__nothrow) __pure ldiv_t ldiv(long int  , long int  );
+   
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+extern __declspec(__nothrow) __pure __int64 llabs(__int64  );
+   
+
+
+
+ 
+
+
+
+
+extern __declspec(__nothrow) __pure lldiv_t lldiv(__int64  , __int64  );
+   
+
+
+
+
+
+
+
+
+
+
+
+ 
+#line 613 "C:\\Keil\\ARM\\ARMCC\\bin\\..\\include\\stdlib.h"
+
+
+
+ 
+typedef struct __sdiv32by16 { int quot, rem; } __sdiv32by16;
+typedef struct __udiv32by16 { unsigned int quot, rem; } __udiv32by16;
+    
+typedef struct __sdiv64by32 { int rem, quot; } __sdiv64by32;
+
+__value_in_regs extern __declspec(__nothrow) __pure __sdiv32by16 __rt_sdiv32by16(
+     int  ,
+     short int  );
+   
+
+ 
+__value_in_regs extern __declspec(__nothrow) __pure __udiv32by16 __rt_udiv32by16(
+     unsigned int  ,
+     unsigned short  );
+   
+
+ 
+__value_in_regs extern __declspec(__nothrow) __pure __sdiv64by32 __rt_sdiv64by32(
+     int  , unsigned int  ,
+     int  );
+   
+
+ 
+
+
+
+ 
+extern __declspec(__nothrow) unsigned int __fp_status(unsigned int  , unsigned int  );
+   
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) int mblen(const char *  , size_t  );
+   
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) int mbtowc(wchar_t * __restrict  ,
+                   const char * __restrict  , size_t  );
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) int wctomb(char *  , wchar_t  );
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+extern __declspec(__nothrow) size_t mbstowcs(wchar_t * __restrict  ,
+                      const char * __restrict  , size_t  ) __attribute__((__nonnull__(2)));
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) size_t wcstombs(char * __restrict  ,
+                      const wchar_t * __restrict  , size_t  ) __attribute__((__nonnull__(2)));
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+extern __declspec(__nothrow) void __use_realtime_heap(void);
+extern __declspec(__nothrow) void __use_realtime_division(void);
+extern __declspec(__nothrow) void __use_two_region_memory(void);
+extern __declspec(__nothrow) void __use_no_heap(void);
+extern __declspec(__nothrow) void __use_no_heap_region(void);
+
+extern __declspec(__nothrow) char const *__C_library_version_string(void);
+extern __declspec(__nothrow) int __C_library_version_number(void);
+
+
+
+
+
+
+
+
+
+
+
+#line 867 "C:\\Keil\\ARM\\ARMCC\\bin\\..\\include\\stdlib.h"
+
+
+ 
+
+#line 15 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\app_common\\pstorage.c"
+#line 16 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\app_common\\pstorage.c"
 #line 1 "C:\\Keil\\ARM\\ARMCC\\bin\\..\\include\\string.h"
  
  
@@ -13027,6 +14092,4710 @@ extern __declspec(__nothrow) void _membitmovewb(void *  , const void *  , int  ,
 
  
 
+#line 17 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\app_common\\pstorage.c"
+#line 1 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nordic_common.h"
+
+
+
+
+
+
+
+
+
+  
+
+
+
+ 
+
+
+
+
+ 
+
+
+
+ 
+
+
+ 
+
+
+ 
+    
+
+ 
+    
+
+
+#line 68 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nordic_common.h"
+
+
+
+
+#line 18 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\app_common\\pstorage.c"
+#line 19 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\app_common\\pstorage.c"
+#line 1 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf_assert.h"
+
+
+
+
+
+
+
+ 
+
+
+
+ 
+
+
+
+
+#line 18 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf_assert.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+void assert_nrf_callback(uint16_t line_num, const uint8_t *file_name);
+
+    
+    
+
+
+
+ 
+#line 57 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\nrf_assert.h"
+
+#line 20 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\app_common\\pstorage.c"
+#line 21 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\app_common\\pstorage.c"
+#line 22 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\app_common\\pstorage.c"
+#line 1 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\app_common\\app_util.h"
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+#line 26 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\app_common\\app_util.h"
+#line 27 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\app_common\\app_util.h"
+#line 28 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\app_common\\app_util.h"
+#line 29 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\app_common\\app_util.h"
+
+ 
+typedef enum
+{
+    APP_IRQ_PRIORITY_HIGH = 1,
+    APP_IRQ_PRIORITY_LOW  = 3
+} app_irq_priority_t;
+
+enum
+{
+    UNIT_0_625_MS = 625,                                 
+    UNIT_1_25_MS  = 1250,                                
+    UNIT_10_MS    = 10000                                
+};
+
+
+
+ 
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+ 
+typedef uint8_t uint16_le_t[2];
+
+ 
+typedef uint8_t uint32_le_t[4];
+
+ 
+typedef struct
+{
+    uint16_t  size;                  
+    uint8_t * p_data;                
+} uint8_array_t;
+
+
+
+
+
+
+ 
+#line 104 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\app_common\\app_util.h"
+    
+
+
+
+
+
+ 
+#line 123 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\app_common\\app_util.h"
+    
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+ 
+static __inline uint8_t uint16_encode(uint16_t value, uint8_t * p_encoded_data)
+{
+    p_encoded_data[0] = (uint8_t) ((value & 0x00FF) >> 0);
+    p_encoded_data[1] = (uint8_t) ((value & 0xFF00) >> 8);
+    return sizeof(uint16_t);
+}
+    
+
+
+
+
+
+
+ 
+static __inline uint8_t uint32_encode(uint32_t value, uint8_t * p_encoded_data)
+{
+    p_encoded_data[0] = (uint8_t) ((value & 0x000000FF) >> 0);
+    p_encoded_data[1] = (uint8_t) ((value & 0x0000FF00) >> 8);
+    p_encoded_data[2] = (uint8_t) ((value & 0x00FF0000) >> 16);
+    p_encoded_data[3] = (uint8_t) ((value & 0xFF000000) >> 24);
+    return sizeof(uint32_t);
+}
+
+
+
+
+
+
+ 
+static __inline uint16_t uint16_decode(const uint8_t * p_encoded_data)
+{
+        return ( (((uint16_t)((uint8_t *)p_encoded_data)[0])) | 
+                 (((uint16_t)((uint8_t *)p_encoded_data)[1]) << 8 ));
+}
+
+
+
+
+
+
+ 
+static __inline uint32_t uint32_decode(const uint8_t * p_encoded_data)
+{
+    return ( (((uint32_t)((uint8_t *)p_encoded_data)[0]) << 0)  |
+             (((uint32_t)((uint8_t *)p_encoded_data)[1]) << 8)  |
+             (((uint32_t)((uint8_t *)p_encoded_data)[2]) << 16) |
+             (((uint32_t)((uint8_t *)p_encoded_data)[3]) << 24 ));
+}
+
+    
+
+
+
+
+
+
+ 
+static __inline uint8_t current_int_priority_get(void)
+{
+    uint32_t isr_vector_num = (((SCB_Type *) ((0xE000E000UL) + 0x0D00UL) )->ICSR & (0x1FFUL << 0));
+    if (isr_vector_num > 0)
+    {
+        int32_t irq_type = ((int32_t)isr_vector_num - 16);
+        return (NVIC_GetPriority((IRQn_Type)irq_type) & 0xFF);
+    }
+    else
+    {
+        return 4;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+static __inline uint8_t battery_level_in_percent(const uint16_t mvolts)
+{
+    uint8_t battery_level;
+
+    if (mvolts >= 3000)
+    {
+        battery_level = 100;
+    }
+    else if (mvolts > 2900)
+    {
+        battery_level = 100 - ((3000 - mvolts) * 58) / 100;
+    }
+    else if (mvolts > 2740)
+    {
+        battery_level = 42 - ((2900 - mvolts) * 24) / 160;
+    }
+    else if (mvolts > 2440)
+    {
+        battery_level = 18 - ((2740 - mvolts) * 12) / 300;
+    }
+    else if (mvolts > 2100)
+    {
+        battery_level = 6 - ((2440 - mvolts) * 6) / 340;
+    }
+    else
+    {
+        battery_level = 0;
+    }
+
+    return battery_level;
+}
+
+
+
+
+
+
+ 
+static __inline _Bool is_word_aligned(void * p)
+{
+    return (((uint32_t)p & 0x00000003) == 0);
+}
+
+
+
+ 
+#line 23 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\app_common\\pstorage.c"
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+ 
+#line 56 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\app_common\\pstorage.c"
+
+
+
+
+ 
+#line 67 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\app_common\\pstorage.c"
+
+
+
+ 
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+#line 117 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\app_common\\pstorage.c"
+
+ 
+
+
+
+
+
+
+ 
+#line 134 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\app_common\\pstorage.c"
+
+ 
+
+
+
+ 
+typedef enum
+{
+    STATE_INIT,                   
+    STATE_DATA_TO_SWAP_WRITE,     
+    STATE_DATA_ERASE,             
+    STATE_HEAD_RESTORE,           
+    STATE_TAIL_RESTORE,           
+    STATE_NEW_BODY_WRITE,         
+    STATE_SWAP_ERASE,             
+    STATE_COMPLETE,               
+    STATE_SWAP_DIRTY              
+} swap_backup_state_t;
+
+
+
+
+
+
+
+ 
+typedef struct
+{
+    pstorage_ntf_cb_t      cb;              
+    pstorage_block_t       base_id;         
+    pstorage_size_t        block_size;      
+    pstorage_size_t        block_count;     
+    pstorage_size_t        num_of_pages;    
+} pstorage_module_table_t;
+
+
+#line 182 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\app_common\\pstorage.c"
+
+
+
+
+
+
+
+ 
+typedef struct
+{
+    uint8_t                op_code;        
+    pstorage_size_t        size;           
+    pstorage_size_t        offset;         
+    pstorage_handle_t      storage_addr;   
+    uint8_t *              p_data_addr;    
+} cmd_queue_element_t;
+
+
+
+
+
+
+
+
+
+
+ 
+typedef struct
+{
+    uint8_t                rp;                            
+    uint8_t                count;                         
+    _Bool                   flash_access;                  
+    cmd_queue_element_t    cmd[30];  
+} cmd_queue_t;
+
+
+static cmd_queue_t         m_cmd_queue;                   
+static pstorage_size_t     m_next_app_instance;           
+static uint32_t            m_next_page_addr;              
+static pstorage_size_t     m_round_val;                   
+static _Bool                m_module_initialized = 0;  
+static swap_backup_state_t m_swap_state;                  
+
+
+static pstorage_module_table_t     m_app_table[2];  
+
+
+
+
+
+
+
+
+
+
+ 
+static uint32_t cmd_process(void);
+
+
+
+
+
+
+ 
+static void app_notify (uint32_t result);
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+static void cmd_queue_element_init(uint32_t index)
+{
+    
+    m_cmd_queue.cmd[index].op_code                = 0x00;
+    m_cmd_queue.cmd[index].size                   = 0;
+    m_cmd_queue.cmd[index].storage_addr.module_id = 2;
+    m_cmd_queue.cmd[index].storage_addr.block_id  = 0;
+    m_cmd_queue.cmd[index].p_data_addr            = 0;
+    m_cmd_queue.cmd[index].offset                 = 0;
+}
+
+
+
+
+ 
+static void cmd_queue_init (void)
+{
+    uint32_t cmd_index;
+
+    m_round_val              = 0;
+    m_swap_state             = STATE_INIT;
+    m_cmd_queue.rp           = 0;
+    m_cmd_queue.count        = 0;
+    m_cmd_queue.flash_access = 0;
+
+    for(cmd_index = 0; cmd_index < 30; cmd_index++)
+    {
+        cmd_queue_element_init(cmd_index);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+static uint32_t cmd_queue_enqueue(uint8_t             opcode,
+                                  pstorage_handle_t * p_storage_addr,
+                                  uint8_t *           p_data_addr,
+                                  pstorage_size_t     size,
+                                  pstorage_size_t     offset)
+{
+    uint32_t retval;
+    uint8_t  write_index = 0;
+
+    if (m_cmd_queue.count != 30)
+    {
+        
+        write_index = m_cmd_queue.rp + m_cmd_queue.count;
+
+        if (write_index >= 30)
+        {
+            write_index -= 30;
+        }
+
+        m_cmd_queue.cmd[write_index].op_code      = opcode;
+        m_cmd_queue.cmd[write_index].p_data_addr  = p_data_addr;
+        m_cmd_queue.cmd[write_index].storage_addr = (*p_storage_addr);
+        m_cmd_queue.cmd[write_index].size         = size;
+        m_cmd_queue.cmd[write_index].offset       = offset;
+        retval                                    = ((0x0) + 0);
+        if (m_cmd_queue.flash_access == 0)
+        {
+            retval = cmd_process();
+            if (retval == ((0x0) + 17))
+            {
+                
+                retval = ((0x0) + 0);
+            }
+        }
+        m_cmd_queue.count++;
+    }
+    else
+    {
+        retval = ((0x0) + 4);
+    }
+
+    return retval;
+}
+
+
+
+
+
+
+ 
+static uint32_t cmd_queue_dequeue(void)
+{
+    uint32_t retval;
+    retval = ((0x0) + 0);
+
+    
+    if (m_cmd_queue.count > 0)
+    {
+        retval = cmd_process();
+        if (retval != ((0x0) + 0))
+        {
+            
+            
+            if (retval != ((0x0) + 17))
+            {
+                app_notify (retval);
+            }
+            else
+            {
+                
+            }
+        }
+    }
+    else
+    {
+        
+    }
+
+    return retval;
+}
+
+
+
+
+
+
+ 
+static void app_notify(uint32_t result)
+{
+    pstorage_ntf_cb_t  ntf_cb;
+    uint8_t            op_code = m_cmd_queue.cmd[m_cmd_queue.rp].op_code;
+
+#line 409 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\app_common\\pstorage.c"
+    {
+        ntf_cb = m_app_table[m_cmd_queue.cmd[m_cmd_queue.rp].storage_addr.module_id].cb;
+    }
+
+    
+    
+    
+    ntf_cb(&m_cmd_queue.cmd[m_cmd_queue.rp].storage_addr,
+           op_code,
+           result,
+           m_cmd_queue.cmd[m_cmd_queue.rp].p_data_addr,
+           m_cmd_queue.cmd[m_cmd_queue.rp].size);
+}
+
+
+
+
+
+
+ 
+void pstorage_sys_event_handler(uint32_t sys_evt)
+{
+    uint32_t retval = ((0x0) + 0);
+
+    
+    
+    
+    if (m_cmd_queue.flash_access == 1)
+    {
+        cmd_queue_element_t * p_cmd;
+
+        m_cmd_queue.flash_access = 0;
+
+        if (m_swap_state == STATE_SWAP_DIRTY)
+        {
+            if (sys_evt == NRF_EVT_FLASH_OPERATION_SUCCESS)
+            {
+                m_swap_state = STATE_INIT;
+            }
+            else
+            {
+                
+                
+                m_module_initialized = 0;
+            }
+
+            
+            retval = cmd_queue_dequeue();
+            if (retval != ((0x0) + 0))
+            {
+                app_notify(retval);
+            }
+            return;
+        }
+
+        switch (sys_evt)
+        {
+            case NRF_EVT_FLASH_OPERATION_SUCCESS:
+                {
+                    p_cmd = &m_cmd_queue.cmd[m_cmd_queue.rp];
+                    m_round_val++;
+
+                    const _Bool store_finished =
+                        ((p_cmd->op_code == 0x02) &&
+                        ((m_round_val * 1024) >= p_cmd->size));
+
+                    const _Bool update_finished =
+                        ((p_cmd->op_code == 0x05) &&
+                        (m_swap_state == STATE_COMPLETE));
+
+                    const _Bool clear_block_finished =
+                        ((p_cmd->op_code == 0x04) &&
+                        (m_swap_state == STATE_COMPLETE));
+
+                    const _Bool clear_all_finished =
+                        ((p_cmd->op_code == 0x04)         &&
+                        ((m_round_val * 1024) >= p_cmd->size) &&
+                        (m_swap_state == STATE_INIT));
+
+                    if  (update_finished      ||
+                         clear_block_finished ||
+                         clear_all_finished   ||
+                         store_finished)
+                    {
+                        m_swap_state = STATE_INIT;
+
+                        app_notify(retval);
+
+                        
+                        cmd_queue_element_init(m_cmd_queue.rp);
+                        m_round_val = 0;
+                        m_cmd_queue.count--;
+                        m_cmd_queue.rp++;
+                        if (m_cmd_queue.rp >= 30)
+                        {
+                            m_cmd_queue.rp -= 30;
+                        }
+                    }
+                    
+                    retval = cmd_queue_dequeue();
+                    if (retval != ((0x0) + 0))
+                    {
+                        app_notify(retval);
+                    }
+                }
+                break;
+
+            case NRF_EVT_FLASH_OPERATION_ERROR:
+                app_notify(((0x0) + 13));
+                break;
+
+            default:
+                
+                break;
+
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+static uint32_t swap_state_process(cmd_queue_element_t * p_cmd,
+                                   uint32_t              page_number,
+                                   uint32_t              head_word_size,
+                                   uint32_t              tail_word_size)
+{
+    uint32_t retval = ((0x0) + 3);
+
+    
+    
+    if (m_swap_state == STATE_INIT)
+    {
+        if ((head_word_size == 0) && (tail_word_size == 0))
+        {
+            
+            m_swap_state = STATE_DATA_ERASE;
+        }
+        else
+        {
+            
+            m_swap_state = STATE_DATA_TO_SWAP_WRITE;
+        }
+    }
+
+    switch (m_swap_state)
+    {
+        case STATE_DATA_TO_SWAP_WRITE:
+            
+            retval = sd_flash_write((uint32_t *)(((((((NRF_UICR_Type *) 0x10001000UL)->BOOTLOADERADDR != 0xFFFFFFFF) ? (((NRF_UICR_Type *) 0x10001000UL)->BOOTLOADERADDR / ((uint16_t)((NRF_FICR_Type *) 0x10000000UL)->CODEPAGESIZE)) : ((NRF_FICR_Type *) 0x10000000UL)->CODESIZE) - 1) * ((uint16_t)((NRF_FICR_Type *) 0x10000000UL)->CODEPAGESIZE))),
+                                    (uint32_t *)(page_number * ((uint16_t)((NRF_FICR_Type *) 0x10000000UL)->CODEPAGESIZE)),
+                                    ((uint16_t)((NRF_FICR_Type *) 0x10000000UL)->CODEPAGESIZE) / sizeof(uint32_t));
+            if (retval == ((0x0) + 0))
+            {
+                m_swap_state = STATE_DATA_ERASE;
+            }
+            break;
+
+        case STATE_DATA_ERASE:
+            
+            retval = sd_flash_page_erase(page_number);
+            if (retval == ((0x0) + 0))
+            {
+                if (head_word_size == 0)
+                {
+                    if (tail_word_size == 0)
+                    {
+                        if (p_cmd->op_code == 0x04)
+                        {
+                            m_swap_state = STATE_COMPLETE;
+                        }
+                        else
+                        {
+                            m_swap_state = STATE_NEW_BODY_WRITE;
+                        }
+                    }
+                    else
+                    {
+                        m_swap_state = STATE_TAIL_RESTORE;
+                    }
+                }
+                else
+                {
+                    m_swap_state = STATE_HEAD_RESTORE;
+                }
+            }
+            break;
+
+        case STATE_HEAD_RESTORE:
+            
+            retval = sd_flash_write((uint32_t *)(page_number * ((uint16_t)((NRF_FICR_Type *) 0x10000000UL)->CODEPAGESIZE)),
+                                    (uint32_t *)((((((NRF_UICR_Type *) 0x10001000UL)->BOOTLOADERADDR != 0xFFFFFFFF) ? (((NRF_UICR_Type *) 0x10001000UL)->BOOTLOADERADDR / ((uint16_t)((NRF_FICR_Type *) 0x10000000UL)->CODEPAGESIZE)) : ((NRF_FICR_Type *) 0x10000000UL)->CODESIZE) - 1) * ((uint16_t)((NRF_FICR_Type *) 0x10000000UL)->CODEPAGESIZE)),
+                                    head_word_size);
+            if (retval == ((0x0) + 0))
+            {
+                if (tail_word_size == 0)
+                {
+                    if (p_cmd->op_code == 0x04)
+                    {
+                        m_swap_state = STATE_SWAP_ERASE;
+                    }
+                    else
+                    {
+                        m_swap_state = STATE_NEW_BODY_WRITE;
+                    }
+                }
+                else
+                {
+                    m_swap_state = STATE_TAIL_RESTORE;
+                }
+            }
+            break;
+
+        case STATE_TAIL_RESTORE:
+            
+            retval = sd_flash_write((uint32_t *)((page_number * ((uint16_t)((NRF_FICR_Type *) 0x10000000UL)->CODEPAGESIZE)) +
+                                                 (head_word_size * sizeof(uint32_t)) +
+                                                 p_cmd->size),
+                                    (uint32_t *)(((((((NRF_UICR_Type *) 0x10001000UL)->BOOTLOADERADDR != 0xFFFFFFFF) ? (((NRF_UICR_Type *) 0x10001000UL)->BOOTLOADERADDR / ((uint16_t)((NRF_FICR_Type *) 0x10000000UL)->CODEPAGESIZE)) : ((NRF_FICR_Type *) 0x10000000UL)->CODESIZE) - 1) * ((uint16_t)((NRF_FICR_Type *) 0x10000000UL)->CODEPAGESIZE)) +
+                                                 (head_word_size * sizeof(uint32_t)) +
+                                                 p_cmd->size),
+                                    tail_word_size);
+            if (retval == ((0x0) + 0))
+            {
+                if (p_cmd->op_code == 0x04)
+                {
+                    m_swap_state = STATE_SWAP_ERASE;
+                }
+                else
+                {
+                    m_swap_state = STATE_NEW_BODY_WRITE;
+                }
+            }
+            break;
+
+        case STATE_NEW_BODY_WRITE:
+            
+            retval = sd_flash_write((uint32_t *)((page_number * ((uint16_t)((NRF_FICR_Type *) 0x10000000UL)->CODEPAGESIZE)) +
+                                                 (head_word_size * sizeof(uint32_t))),
+                                    (uint32_t *)p_cmd->p_data_addr,
+                                    p_cmd->size / sizeof(uint32_t));
+            if (retval == ((0x0) + 0))
+            {
+                if ((head_word_size == 0) && (tail_word_size == 0))
+                {
+                    m_swap_state = STATE_COMPLETE;
+                }
+                else
+                {
+                    m_swap_state = STATE_SWAP_ERASE;
+                }
+            }
+            break;
+
+        case STATE_SWAP_ERASE:
+            
+            retval = sd_flash_page_erase(((((((NRF_UICR_Type *) 0x10001000UL)->BOOTLOADERADDR != 0xFFFFFFFF) ? (((NRF_UICR_Type *) 0x10001000UL)->BOOTLOADERADDR / ((uint16_t)((NRF_FICR_Type *) 0x10000000UL)->CODEPAGESIZE)) : ((NRF_FICR_Type *) 0x10000000UL)->CODESIZE) - 1) * ((uint16_t)((NRF_FICR_Type *) 0x10000000UL)->CODEPAGESIZE)) / ((uint16_t)((NRF_FICR_Type *) 0x10000000UL)->CODEPAGESIZE));
+            if (retval == ((0x0) + 0))
+            {
+                m_swap_state = STATE_COMPLETE;
+            }
+            break;
+
+        default:
+            break;
+    }
+
+    return retval;
+}
+
+
+
+
+
+
+ 
+static uint32_t cmd_process(void)
+{
+    uint32_t              retval;
+    uint32_t              storage_addr;
+    cmd_queue_element_t * p_cmd;
+
+    retval = ((0x0) + 15);
+
+    p_cmd = &m_cmd_queue.cmd[m_cmd_queue.rp];
+
+    storage_addr = p_cmd->storage_addr.block_id;
+
+    switch (p_cmd->op_code)
+    {
+        case 0x02:
+            {
+                uint32_t size;
+                uint32_t offset;
+                uint8_t * p_data_addr = p_cmd->p_data_addr;
+
+                offset        = (m_round_val * 1024);
+                size          = p_cmd->size - offset;
+                p_data_addr  += offset;
+                storage_addr += (p_cmd->offset + offset);
+
+                if (size < 1024)
+                {
+                    retval = sd_flash_write(((uint32_t *)storage_addr),
+                                             (uint32_t *)p_data_addr,
+                                             size / sizeof(uint32_t));
+                }
+                else
+                {
+                    retval = sd_flash_write(((uint32_t *)storage_addr),
+                                             (uint32_t *)p_data_addr,
+                                             1024 / sizeof(uint32_t));
+                }
+            }
+            break;
+
+        case 0x04:
+            {
+                
+                uint32_t page_number;
+
+                pstorage_size_t  block_size =
+                    m_app_table[p_cmd->storage_addr.module_id].block_size;
+
+                pstorage_size_t  block_count =
+                    m_app_table[p_cmd->storage_addr.module_id].block_count;
+
+                pstorage_block_t base_address =
+                    m_app_table[p_cmd->storage_addr.module_id].base_id;
+
+                
+                if (((base_address == storage_addr) && (block_size * block_count == p_cmd->size)) ||
+                    (p_cmd->storage_addr.module_id == (2 + 1)))
+                {
+                    page_number = ((storage_addr / ((uint16_t)((NRF_FICR_Type *) 0x10000000UL)->CODEPAGESIZE)) + m_round_val);
+
+                    retval = sd_flash_page_erase(page_number);
+                }
+                
+                else
+                {
+                    page_number = (storage_addr / ((uint16_t)((NRF_FICR_Type *) 0x10000000UL)->CODEPAGESIZE));
+
+                    uint32_t head_word_size =   (
+                                                storage_addr -
+                                                (page_number * ((uint16_t)((NRF_FICR_Type *) 0x10000000UL)->CODEPAGESIZE))
+                                            ) / sizeof(uint32_t);
+
+                    uint32_t tail_word_size =   (
+                                                ((page_number + 1) * ((uint16_t)((NRF_FICR_Type *) 0x10000000UL)->CODEPAGESIZE)) -
+                                                (storage_addr + p_cmd->size)
+                                            ) / sizeof(uint32_t);
+
+                    retval = swap_state_process(p_cmd,
+                                                page_number,
+                                                head_word_size,
+                                                tail_word_size);
+                }
+            }
+            break;
+
+        case 0x05:
+            {
+                uint32_t page_number =  (storage_addr / ((uint16_t)((NRF_FICR_Type *) 0x10000000UL)->CODEPAGESIZE));
+
+                uint32_t head_word_size =   (
+                                                storage_addr + p_cmd->offset -
+                                                (page_number * ((uint16_t)((NRF_FICR_Type *) 0x10000000UL)->CODEPAGESIZE))
+                                            ) / sizeof(uint32_t);
+
+                uint32_t tail_word_size =   (
+                                                ((page_number + 1) * ((uint16_t)((NRF_FICR_Type *) 0x10000000UL)->CODEPAGESIZE)) -
+                                                (storage_addr + p_cmd->offset + p_cmd->size)
+                                            ) / sizeof(uint32_t);
+
+                retval = swap_state_process(p_cmd, page_number, head_word_size, tail_word_size);
+            }
+            break;
+
+        default:
+            
+            break;
+    }
+
+    if (retval == ((0x0) + 0))
+    {
+       m_cmd_queue.flash_access = 1;
+    }
+
+    return retval;
+}
+ 
+
+
+uint32_t pstorage_init(void)
+{
+    uint32_t retval;
+
+    cmd_queue_init();
+
+    m_next_app_instance = 0;
+    m_next_page_addr    = ((((((NRF_UICR_Type *) 0x10001000UL)->BOOTLOADERADDR != 0xFFFFFFFF) ? (((NRF_UICR_Type *) 0x10001000UL)->BOOTLOADERADDR / ((uint16_t)((NRF_FICR_Type *) 0x10000000UL)->CODEPAGESIZE)) : ((NRF_FICR_Type *) 0x10000000UL)->CODESIZE) - 2 - 1) * ((uint16_t)((NRF_FICR_Type *) 0x10000000UL)->CODEPAGESIZE));
+    m_round_val         = 0;
+
+    for (uint32_t index = 0; index < 2; index++)
+    {
+        m_app_table[index].cb           = 0;
+        m_app_table[index].block_size   = 0;
+        m_app_table[index].num_of_pages = 0;
+        m_app_table[index].block_count  = 0;
+    }
+
+#line 842 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\app_common\\pstorage.c"
+    m_swap_state = STATE_SWAP_DIRTY;
+
+    
+    retval = sd_flash_page_erase(((((((NRF_UICR_Type *) 0x10001000UL)->BOOTLOADERADDR != 0xFFFFFFFF) ? (((NRF_UICR_Type *) 0x10001000UL)->BOOTLOADERADDR / ((uint16_t)((NRF_FICR_Type *) 0x10000000UL)->CODEPAGESIZE)) : ((NRF_FICR_Type *) 0x10000000UL)->CODESIZE) - 1) * ((uint16_t)((NRF_FICR_Type *) 0x10000000UL)->CODEPAGESIZE)) / ((uint16_t)((NRF_FICR_Type *) 0x10000000UL)->CODEPAGESIZE));
+    if (retval == ((0x0) + 0))
+    {
+        m_cmd_queue.flash_access = 1;
+        m_module_initialized     = 1;
+    }
+
+
+    return retval;
+}
+
+
+uint32_t pstorage_register(pstorage_module_param_t * p_module_param,
+                           pstorage_handle_t       * p_block_id)
+{
+    uint16_t page_count;
+    uint32_t total_size;
+
+    do { if (!m_module_initialized) { return ((0x0) + 8); } } while(0);
+    if ((p_module_param) == 0) { return ((0x0) + 14); };
+    if ((p_block_id) == 0) { return ((0x0) + 14); };
+    if ((p_module_param->cb) == 0) { return ((0x0) + 14); };
+    if (((p_module_param->block_size) > ((uint16_t)((NRF_FICR_Type *) 0x10000000UL)->CODEPAGESIZE)) || ((p_module_param->block_size) < 0x0010)) { return ((0x0) + 7); };
+    if (((p_module_param->block_count) == 0) || ((m_next_page_addr + ((p_module_param->block_count) *(p_module_param->block_size)) > ((((((NRF_UICR_Type *) 0x10001000UL)->BOOTLOADERADDR != 0xFFFFFFFF) ? (((NRF_UICR_Type *) 0x10001000UL)->BOOTLOADERADDR / ((uint16_t)((NRF_FICR_Type *) 0x10000000UL)->CODEPAGESIZE)) : ((NRF_FICR_Type *) 0x10000000UL)->CODESIZE) - 1) * ((uint16_t)((NRF_FICR_Type *) 0x10000000UL)->CODEPAGESIZE))))) { return ((0x0) + 7); };
+
+    
+    if (!((p_module_param->block_size % sizeof(uint32_t)) == 0))
+    {
+        return ((0x0) + 7);
+    }
+
+    if (m_next_app_instance == 2)
+    {
+        return ((0x0) + 4);
+    }
+
+    p_block_id->module_id = m_next_app_instance;
+    p_block_id->block_id  = m_next_page_addr;
+
+    m_app_table[m_next_app_instance].base_id     = p_block_id->block_id;
+    m_app_table[m_next_app_instance].cb          = p_module_param->cb;
+    m_app_table[m_next_app_instance].block_size  = p_module_param->block_size;
+    m_app_table[m_next_app_instance].block_count = p_module_param->block_count;
+
+    
+    page_count = 0;
+    total_size = p_module_param->block_size * p_module_param->block_count;
+    do
+    {
+        page_count++;
+        if (total_size > ((uint16_t)((NRF_FICR_Type *) 0x10000000UL)->CODEPAGESIZE))
+        {
+            total_size -= ((uint16_t)((NRF_FICR_Type *) 0x10000000UL)->CODEPAGESIZE);
+        }
+        else
+        {
+            total_size = 0;
+        }
+        m_next_page_addr += ((uint16_t)((NRF_FICR_Type *) 0x10000000UL)->CODEPAGESIZE);
+    }
+    while (total_size >= ((uint16_t)((NRF_FICR_Type *) 0x10000000UL)->CODEPAGESIZE));
+
+    m_app_table[m_next_app_instance].num_of_pages = page_count;
+    m_next_app_instance++;
+
+    return ((0x0) + 0);
+}
+
+
+uint32_t pstorage_block_identifier_get(pstorage_handle_t * p_base_id,
+                                       pstorage_size_t     block_num,
+                                       pstorage_handle_t * p_block_id)
+{
+    pstorage_handle_t temp_id;
+
+    do { if (!m_module_initialized) { return ((0x0) + 8); } } while(0);
+    if ((p_base_id) == 0) { return ((0x0) + 14); };
+    if ((p_block_id) == 0) { return ((0x0) + 14); };
+    if ((((p_base_id)->module_id) >= 2) || (m_app_table[(p_base_id)->module_id]. cb == 0)) { return ((0x0) + 7); };
+
+    temp_id           = (*p_base_id);
+    temp_id.block_id += (block_num * (m_app_table[(p_base_id)->module_id]. block_size));
+
+    if (((&temp_id)->block_id) >= (m_app_table[(&temp_id)->module_id]. base_id + (m_app_table[(&temp_id)->module_id]. block_count * (m_app_table[(&temp_id)->module_id]. block_size)))) { return ((0x0) + 7); };
+
+    (*p_block_id) = temp_id;
+
+    return ((0x0) + 0);
+}
+
+
+uint32_t pstorage_store(pstorage_handle_t * p_dest,
+                        uint8_t           * p_src,
+                        pstorage_size_t     size,
+                        pstorage_size_t     offset)
+{
+    do { if (!m_module_initialized) { return ((0x0) + 8); } } while(0);
+    if ((p_src) == 0) { return ((0x0) + 14); };
+    if ((p_dest) == 0) { return ((0x0) + 14); };
+    if ((((p_dest)->module_id) >= 2) || (m_app_table[(p_dest)->module_id]. cb == 0)) { return ((0x0) + 7); };
+    if (((p_dest)->block_id) >= (m_app_table[(p_dest)->module_id]. base_id + (m_app_table[(p_dest)->module_id]. block_count * (m_app_table[(p_dest)->module_id]. block_size)))) { return ((0x0) + 7); };
+    if(((size) == 0) || ((size) > (m_app_table[(p_dest)->module_id]. block_size))) { return ((0x0) + 7); };
+    if(((size) + (offset)) > (m_app_table[(p_dest)->module_id]. block_size)) { return ((0x0) + 7); };
+
+    
+    if ((!is_word_aligned(p_src)) || (!is_word_aligned((void *)(uint32_t)offset)))
+    {
+        return ((0x0) + 16);
+    }
+
+    if ((!is_word_aligned((uint32_t *)p_dest->block_id)))
+    {
+        return ((0x0) + 16);
+    }
+
+    return cmd_queue_enqueue(0x02, p_dest, p_src, size, offset);
+}
+
+
+uint32_t pstorage_update(pstorage_handle_t * p_dest,
+                         uint8_t *           p_src,
+                         pstorage_size_t     size,
+                         pstorage_size_t     offset)
+{
+    do { if (!m_module_initialized) { return ((0x0) + 8); } } while(0);
+    if ((p_src) == 0) { return ((0x0) + 14); };
+    if ((p_dest) == 0) { return ((0x0) + 14); };
+    if ((((p_dest)->module_id) >= 2) || (m_app_table[(p_dest)->module_id]. cb == 0)) { return ((0x0) + 7); };
+    if (((p_dest)->block_id) >= (m_app_table[(p_dest)->module_id]. base_id + (m_app_table[(p_dest)->module_id]. block_count * (m_app_table[(p_dest)->module_id]. block_size)))) { return ((0x0) + 7); };
+    if(((size) == 0) || ((size) > (m_app_table[(p_dest)->module_id]. block_size))) { return ((0x0) + 7); };
+    if(((size) + (offset)) > (m_app_table[(p_dest)->module_id]. block_size)) { return ((0x0) + 7); };
+
+    
+    if ((!is_word_aligned(p_src)) || (!is_word_aligned((void *)(uint32_t)offset)))
+    {
+        return ((0x0) + 16);
+    }
+
+    if ((!is_word_aligned((uint32_t *)p_dest->block_id)))
+    {
+        return ((0x0) + 16);
+    }
+
+    return cmd_queue_enqueue(0x05, p_dest, p_src, size, offset);
+}
+
+
+uint32_t pstorage_load(uint8_t           * p_dest,
+                       pstorage_handle_t * p_src,
+                       pstorage_size_t     size,
+                       pstorage_size_t     offset)
+{
+    do { if (!m_module_initialized) { return ((0x0) + 8); } } while(0);
+    if ((p_src) == 0) { return ((0x0) + 14); };
+    if ((p_dest) == 0) { return ((0x0) + 14); };
+    if ((((p_src)->module_id) >= 2) || (m_app_table[(p_src)->module_id]. cb == 0)) { return ((0x0) + 7); };
+    if (((p_src)->block_id) >= (m_app_table[(p_src)->module_id]. base_id + (m_app_table[(p_src)->module_id]. block_count * (m_app_table[(p_src)->module_id]. block_size)))) { return ((0x0) + 7); };
+    if(((size) == 0) || ((size) > (m_app_table[(p_src)->module_id]. block_size))) { return ((0x0) + 7); };
+    if(((size) + (offset)) > (m_app_table[(p_src)->module_id]. block_size)) { return ((0x0) + 7); };
+
+    
+    if ((!is_word_aligned(p_dest)) || (!is_word_aligned((void *)(uint32_t)offset)))
+    {
+        return ((0x0) + 16);
+    }
+
+    if ((!is_word_aligned((uint32_t *)p_src->block_id)))
+    {
+        return ((0x0) + 16);
+    }
+
+    memcpy(p_dest, (((uint8_t *)p_src->block_id) + offset), size);
+
+    return ((0x0) + 0);
+}
+
+
+uint32_t pstorage_clear(pstorage_handle_t * p_dest, pstorage_size_t size)
+{
+    uint32_t retval;
+
+    do { if (!m_module_initialized) { return ((0x0) + 8); } } while(0);
+    if ((p_dest) == 0) { return ((0x0) + 14); };
+    if ((((p_dest)->module_id) >= 2) || (m_app_table[(p_dest)->module_id]. cb == 0)) { return ((0x0) + 7); };
+    if (((p_dest)->block_id) >= (m_app_table[(p_dest)->module_id]. base_id + (m_app_table[(p_dest)->module_id]. block_count * (m_app_table[(p_dest)->module_id]. block_size)))) { return ((0x0) + 7); };
+
+    if ((!is_word_aligned((uint32_t *)p_dest->block_id)))
+    {
+        return ((0x0) + 16);
+    }
+
+    if (
+           !(
+                ((p_dest->block_id - m_app_table[p_dest->module_id].base_id) %
+                m_app_table[p_dest->module_id].block_size) == 0
+            )
+        )
+    {
+        return ((0x0) + 7);
+    }
+
+    retval = cmd_queue_enqueue(0x04, p_dest, 0, size, 0);
+
+    return retval;
+}
+
+
+uint32_t pstorage_access_status_get (uint32_t * p_count)
+{
+    do { if (!m_module_initialized) { return ((0x0) + 8); } } while(0);
+    if ((p_count) == 0) { return ((0x0) + 14); };
+
+    (*p_count) = m_cmd_queue.count;
+
+    return ((0x0) + 0);
+}
+
+#line 39 "..\\PCAPint_main.c"
+#line 1 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\sd_common\\softdevice_handler.h"
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+#line 36 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\sd_common\\softdevice_handler.h"
+#line 37 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\sd_common\\softdevice_handler.h"
+#line 38 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\sd_common\\softdevice_handler.h"
+#line 1 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\app_common\\app_scheduler.h"
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+#line 52 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\app_common\\app_scheduler.h"
+#line 53 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\app_common\\app_scheduler.h"
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+            
+ 
+typedef void (*app_sched_event_handler_t)(void * p_event_data, uint16_t event_size);
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+#line 90 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\app_common\\app_scheduler.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t app_sched_init(uint16_t max_event_size, uint16_t queue_size, void * p_evt_buffer);
+
+
+
+
+
+ 
+void app_sched_execute(void);
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t app_sched_event_put(void *                    p_event_data,
+                             uint16_t                  event_size,
+                             app_sched_event_handler_t handler);
+
+
+
+ 
+#line 39 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\sd_common\\softdevice_handler.h"
+#line 40 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\sd_common\\softdevice_handler.h"
+#line 1 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\sd_common\\ble_stack_handler_types.h"
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+#line 28 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\sd_common\\ble_stack_handler_types.h"
+#line 1 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble.h"
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+#line 1 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_ranges.h"
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+#line 22 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble.h"
+#line 1 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_types.h"
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+ 
+
+
+
+
+#line 21 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_types.h"
+
+
+ 
+
+
+ 
+
+
+ 
+
+
+
+ 
+ 
+#line 46 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_types.h"
+ 
+
+
+ 
+#line 56 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_types.h"
+ 
+
+
+
+ 
+
+
+
+ 
+
+
+
+
+ 
+#line 110 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_types.h"
+ 
+
+ 
+
+
+
+
+ 
+
+
+
+
+ 
+
+
+
+
+ 
+
+
+
+ 
+
+
+
+ 
+
+ 
+typedef struct
+{ 
+    unsigned char uuid128[16];
+} ble_uuid128_t;
+
+ 
+typedef struct
+{
+    uint16_t    uuid;  
+    uint8_t     type;  
+} ble_uuid_t;
+
+
+
+
+
+
+
+
+ 
+#line 23 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble.h"
+#line 1 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_gap.h"
+
+
+
+
+
+
+ 
+
+
+
+
+ 
+
+
+
+
+#line 18 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_gap.h"
+#line 19 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_gap.h"
+#line 1 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\nrf_svc.h"
+#line 20 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_gap.h"
+
+
+
+ 
+enum BLE_GAP_SVCS
+{
+  SD_BLE_GAP_ADDRESS_SET  = 0x70,   
+  SD_BLE_GAP_ADDRESS_GET,                       
+  SD_BLE_GAP_ADV_DATA_SET,                      
+  SD_BLE_GAP_ADV_START,                         
+  SD_BLE_GAP_ADV_STOP,                          
+  SD_BLE_GAP_CONN_PARAM_UPDATE,                 
+  SD_BLE_GAP_DISCONNECT,                        
+  SD_BLE_GAP_TX_POWER_SET,                      
+  SD_BLE_GAP_APPEARANCE_SET,                    
+  SD_BLE_GAP_APPEARANCE_GET,                    
+  SD_BLE_GAP_PPCP_SET,                          
+  SD_BLE_GAP_PPCP_GET,                          
+  SD_BLE_GAP_DEVICE_NAME_SET,                   
+  SD_BLE_GAP_DEVICE_NAME_GET,                   
+  SD_BLE_GAP_AUTHENTICATE,                      
+  SD_BLE_GAP_SEC_PARAMS_REPLY,                  
+  SD_BLE_GAP_AUTH_KEY_REPLY,                    
+  SD_BLE_GAP_SEC_INFO_REPLY,                    
+  SD_BLE_GAP_CONN_SEC_GET,                      
+  SD_BLE_GAP_RSSI_START,                         
+  SD_BLE_GAP_RSSI_STOP,                          
+};
+
+
+
+ 
+
+
+ 
+
+
+
+ 
+
+
+
+
+ 
+
+
+
+ 
+
+
+
+ 
+
+
+ 
+
+
+
+ 
+
+
+
+
+ 
+
+
+ 
+
+
+
+
+
+ 
+#line 116 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_gap.h"
+ 
+
+
+
+ 
+#line 128 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_gap.h"
+ 
+
+
+
+ 
+
+
+
+  
+
+
+ 
+
+
+
+
+ 
+
+
+
+
+ 
+
+
+
+ 
+
+
+
+
+ 
+
+
+
+ 
+
+
+ 
+
+
+
+ 
+
+
+
+ 
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+
+
+
+ 
+
+
+ 
+#line 207 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_gap.h"
+ 
+
+
+ 
+
+
+ 
+
+
+ 
+#line 227 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_gap.h"
+ 
+
+
+ 
+
+
+
+
+
+
+ 
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+ 
+
+
+ 
+
+
+
+
+ 
+
+
+
+ 
+
+
+ 
+
+
+ 
+
+ 
+typedef struct
+{
+  uint8_t addr_type;                     
+  uint8_t addr[6];        
+} ble_gap_addr_t;
+
+
+
+
+
+
+ 
+typedef struct
+{
+  uint16_t min_conn_interval;          
+  uint16_t max_conn_interval;          
+  uint16_t slave_latency;              
+  uint16_t conn_sup_timeout;           
+} ble_gap_conn_params_t;
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+typedef struct
+{
+  uint8_t sm : 4;                      
+  uint8_t lv : 4;                      
+
+} ble_gap_conn_sec_mode_t;
+
+
+
+ 
+typedef struct
+{
+  ble_gap_conn_sec_mode_t sec_mode;            
+  uint8_t                 encr_key_size;       
+} ble_gap_conn_sec_t;
+
+
+
+ 
+typedef struct
+{
+  uint8_t irk[16];    
+} ble_gap_irk_t;
+
+
+ 
+typedef struct
+{
+  ble_gap_addr_t   ** pp_addrs;         
+  uint8_t             addr_count;       
+  ble_gap_irk_t    ** pp_irks;          
+  uint8_t             irk_count;        
+} ble_gap_whitelist_t;
+
+
+ 
+typedef struct
+{
+  uint8_t               type;                  
+  ble_gap_addr_t*       p_peer_addr;           
+  uint8_t               fp;                    
+  ble_gap_whitelist_t * p_whitelist;           
+  uint16_t              interval;              
+  uint16_t              timeout;               
+} ble_gap_adv_params_t;
+
+
+ 
+typedef struct
+{
+  uint8_t    filter;                     
+  uint8_t    active    : 1;              
+  uint8_t    selective : 1;              
+  uint16_t   interval;                   
+  uint16_t   window;                     
+  uint16_t   timeout;                    
+} ble_gap_scan_params_t;
+
+
+ 
+typedef struct
+{
+  uint16_t   timeout;                    
+  uint8_t    bond    : 1;                
+  uint8_t    mitm    : 1;                
+  uint8_t    io_caps : 3;                
+  uint8_t    oob     : 1;                
+  uint8_t    min_key_size;               
+  uint8_t    max_key_size;               
+} ble_gap_sec_params_t;
+
+
+ 
+typedef struct
+{
+  uint16_t  div;                         
+  uint8_t   ltk[16];    
+  uint8_t   auth : 1;                    
+  uint8_t   ltk_len : 7;                 
+} ble_gap_enc_info_t;
+
+
+ 
+typedef struct
+{
+  uint16_t  ediv;                        
+  uint8_t   rand[8];                     
+} ble_gap_master_id_t;
+
+
+ 
+typedef struct
+{
+  ble_gap_addr_t  addr;                        
+  uint8_t         irk[16];    
+} ble_gap_id_info_t;
+
+
+ 
+typedef struct
+{
+  uint8_t   csrk[16];  
+} ble_gap_sign_info_t;
+
+
+
+
+
+
+ 
+enum BLE_GAP_EVTS
+{
+  BLE_GAP_EVT_CONNECTED  = 0x10,     
+  BLE_GAP_EVT_DISCONNECTED,                      
+  BLE_GAP_EVT_CONN_PARAM_UPDATE,                 
+  BLE_GAP_EVT_SEC_PARAMS_REQUEST,                
+  BLE_GAP_EVT_SEC_INFO_REQUEST,                  
+  BLE_GAP_EVT_PASSKEY_DISPLAY,                   
+  BLE_GAP_EVT_AUTH_KEY_REQUEST,                  
+  BLE_GAP_EVT_AUTH_STATUS,                       
+  BLE_GAP_EVT_CONN_SEC_UPDATE,                   
+  BLE_GAP_EVT_TIMEOUT,                           
+  BLE_GAP_EVT_RSSI_CHANGED,                      
+};
+
+
+ 
+typedef struct
+{
+  ble_gap_addr_t        peer_addr;               
+  uint8_t               irk_match :1;            
+  uint8_t               irk_match_idx  :7;       
+  ble_gap_conn_params_t conn_params;             
+} ble_gap_evt_connected_t;
+
+
+ 
+typedef struct
+{
+  uint8_t reason;                                
+} ble_gap_evt_disconnected_t;
+
+
+ 
+typedef struct
+{
+  ble_gap_conn_params_t conn_params;             
+} ble_gap_evt_conn_param_update_t;
+
+
+ 
+typedef struct
+{
+  ble_gap_sec_params_t peer_params;              
+} ble_gap_evt_sec_params_request_t;
+
+
+ 
+typedef struct
+{
+  ble_gap_addr_t peer_addr;                      
+  uint16_t       div;                            
+  uint8_t        enc_info  : 1;                  
+  uint8_t        id_info   : 1;                  
+  uint8_t        sign_info : 1;                  
+} ble_gap_evt_sec_info_request_t;
+
+
+ 
+typedef struct
+{
+  uint8_t passkey[6];                            
+} ble_gap_evt_passkey_display_t;
+
+
+ 
+typedef struct
+{
+  uint8_t key_type;                              
+} ble_gap_evt_auth_key_request_t;
+
+
+
+
+ 
+typedef struct
+{
+  uint8_t lv1 : 1;                               
+  uint8_t lv2 : 1;                               
+  uint8_t lv3 : 1;                               
+} ble_gap_sec_levels_t;
+
+
+ 
+typedef struct
+{
+  uint8_t ltk       : 1;                         
+  uint8_t ediv_rand : 1;                         
+  uint8_t irk       : 1;                         
+  uint8_t address   : 1;                         
+  uint8_t csrk      : 1;                         
+} ble_gap_sec_keys_t;
+
+
+ 
+typedef struct
+{
+  uint8_t               auth_status;             
+  uint8_t               error_src;               
+  ble_gap_sec_levels_t  sm1_levels;              
+  ble_gap_sec_levels_t  sm2_levels;              
+  ble_gap_sec_keys_t    periph_kex;              
+  ble_gap_sec_keys_t    central_kex;             
+  struct periph_keys_t
+  {
+    ble_gap_enc_info_t    enc_info;              
+  } periph_keys;                                  
+  struct central_keys_t
+  {
+    ble_gap_irk_t         irk;                   
+    ble_gap_addr_t        id_info;               
+  } central_keys;                                
+} ble_gap_evt_auth_status_t;
+
+
+ 
+typedef struct
+{
+  ble_gap_conn_sec_t conn_sec;                   
+} ble_gap_evt_conn_sec_update_t;
+
+
+ 
+typedef struct
+{
+  uint8_t src;                                   
+} ble_gap_evt_timeout_t;
+
+
+ 
+typedef struct
+{
+  int8_t  rssi;                                
+} ble_gap_evt_rssi_changed_t;
+
+
+
+ 
+typedef struct
+{
+  uint16_t conn_handle;                                      
+  union                                                      
+  {
+    ble_gap_evt_connected_t          connected;              
+    ble_gap_evt_disconnected_t       disconnected;           
+    ble_gap_evt_conn_param_update_t  conn_param_update;      
+    ble_gap_evt_sec_params_request_t sec_params_request;     
+    ble_gap_evt_sec_info_request_t   sec_info_request;       
+    ble_gap_evt_passkey_display_t    passkey_display;        
+    ble_gap_evt_auth_key_request_t   auth_key_request;       
+    ble_gap_evt_auth_status_t        auth_status;            
+    ble_gap_evt_conn_sec_update_t    conn_sec_update;        
+    ble_gap_evt_timeout_t            timeout;                
+    ble_gap_evt_rssi_changed_t       rssi_changed;           
+  } params;
+
+} ble_gap_evt_t;
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GAP_ADDRESS_SET) sd_ble_gap_address_set(ble_gap_addr_t const * const p_addr);
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GAP_ADDRESS_GET) sd_ble_gap_address_get(ble_gap_addr_t * const p_addr);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GAP_ADV_DATA_SET) sd_ble_gap_adv_data_set(uint8_t const * const p_data, uint8_t dlen, uint8_t const * const p_sr_data, uint8_t srdlen);
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GAP_ADV_START) sd_ble_gap_adv_start(ble_gap_adv_params_t const * const p_adv_params);
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GAP_ADV_STOP) sd_ble_gap_adv_stop(void);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GAP_CONN_PARAM_UPDATE) sd_ble_gap_conn_param_update(uint16_t conn_handle, ble_gap_conn_params_t const * const p_conn_params);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GAP_DISCONNECT) sd_ble_gap_disconnect(uint16_t conn_handle, uint8_t hci_status_code);
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GAP_TX_POWER_SET) sd_ble_gap_tx_power_set(int8_t tx_power);
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GAP_APPEARANCE_SET) sd_ble_gap_appearance_set(uint16_t appearance);
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GAP_APPEARANCE_GET) sd_ble_gap_appearance_get(uint16_t * const p_appearance);
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GAP_PPCP_SET) sd_ble_gap_ppcp_set(ble_gap_conn_params_t const * const p_conn_params);
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GAP_PPCP_GET) sd_ble_gap_ppcp_get(ble_gap_conn_params_t * const p_conn_params);
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GAP_DEVICE_NAME_SET) sd_ble_gap_device_name_set(ble_gap_conn_sec_mode_t const * const p_write_perm, uint8_t const * const p_dev_name, uint16_t len);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GAP_DEVICE_NAME_GET) sd_ble_gap_device_name_get(uint8_t * const p_dev_name, uint16_t * const p_len);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GAP_AUTHENTICATE) sd_ble_gap_authenticate(uint16_t conn_handle, ble_gap_sec_params_t const * const p_sec_params);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GAP_SEC_PARAMS_REPLY) sd_ble_gap_sec_params_reply(uint16_t conn_handle, uint8_t sec_status, ble_gap_sec_params_t const * const p_sec_params);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GAP_AUTH_KEY_REPLY) sd_ble_gap_auth_key_reply(uint16_t conn_handle, uint8_t key_type, uint8_t const * const key);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GAP_SEC_INFO_REPLY) sd_ble_gap_sec_info_reply(uint16_t conn_handle, ble_gap_enc_info_t const * const p_enc_info, ble_gap_sign_info_t const * const p_sign_info);
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GAP_CONN_SEC_GET) sd_ble_gap_conn_sec_get(uint16_t conn_handle, ble_gap_conn_sec_t * const p_conn_sec);
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GAP_RSSI_START) sd_ble_gap_rssi_start(uint16_t conn_handle);
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GAP_RSSI_STOP) sd_ble_gap_rssi_stop(uint16_t conn_handle);
+
+
+
+
+
+ 
+#line 24 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble.h"
+#line 1 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_l2cap.h"
+
+
+
+
+
+
+ 
+
+
+
+
+ 
+
+
+
+
+#line 18 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_l2cap.h"
+#line 19 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_l2cap.h"
+#line 1 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_err.h"
+
+
+
+
+
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+#line 1 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\nrf_error.h"
+
+
+
+
+
+
+
+ 
+ 
+
+
+
+
+ 
+
+ 
+#line 48 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\nrf_error.h"
+
+
+
+ 
+#line 28 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_err.h"
+
+
+ 
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+ 
+
+
+
+
+
+
+
+ 
+#line 20 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_l2cap.h"
+#line 21 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_l2cap.h"
+
+ 
+enum BLE_L2CAP_SVCS 
+{
+  SD_BLE_L2CAP_CID_REGISTER = 0xB0,   
+  SD_BLE_L2CAP_CID_UNREGISTER,                      
+  SD_BLE_L2CAP_TX                                   
+};
+
+
+ 
+
+
+ 
+
+ 
+
+ 
+
+
+ 
+
+
+ 
+
+
+ 
+
+
+ 
+
+ 
+typedef struct
+{
+  uint16_t   len;                                  
+  uint16_t   cid;                                  
+} ble_l2cap_header_t;
+
+ 
+enum BLE_L2CAP_EVTS 
+{
+  BLE_L2CAP_EVT_RX  = 0x70           
+};
+
+
+ 
+typedef struct
+{
+  ble_l2cap_header_t header;                       
+  uint8_t    data[1];                              
+} ble_l2cap_evt_rx_t;
+
+
+ 
+typedef struct
+{
+  uint16_t conn_handle;                            
+  union
+  {
+    ble_l2cap_evt_rx_t rx;                         
+  } params;
+} ble_l2cap_evt_t;
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_L2CAP_CID_REGISTER) sd_ble_l2cap_cid_register(uint16_t cid);
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_L2CAP_CID_UNREGISTER) sd_ble_l2cap_cid_unregister(uint16_t cid);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_L2CAP_TX) sd_ble_l2cap_tx(uint16_t conn_handle, ble_l2cap_header_t const * const p_header, uint8_t const * const p_data);
+
+
+
+
+
+
+ 
+#line 25 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble.h"
+#line 1 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_gatt.h"
+
+
+
+
+
+
+ 
+ 
+
+
+
+ 
+
+
+
+
+#line 18 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_gatt.h"
+#line 19 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_gatt.h"
+
+
+
+ 
+
+ 
+
+
+ 
+
+
+
+ 
+
+
+
+ 
+
+ 
+
+
+ 
+#line 47 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_gatt.h"
+ 
+
+
+ 
+
+
+ 
+
+
+ 
+
+
+
+ 
+
+
+ 
+#line 95 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_gatt.h"
+ 
+
+
+
+
+ 
+#line 129 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_gatt.h"
+ 
+
+
+
+ 
+
+
+ 
+
+ 
+
+ 
+typedef struct
+{
+   
+  uint8_t broadcast       :1;  
+  uint8_t read            :1;  
+  uint8_t write_wo_resp   :1;  
+  uint8_t write           :1;  
+  uint8_t notify          :1;  
+  uint8_t indicate        :1;  
+  uint8_t auth_signed_wr  :1;  
+} ble_gatt_char_props_t;
+
+ 
+typedef struct
+{
+   
+  uint8_t reliable_wr     :1;  
+  uint8_t wr_aux          :1;  
+} ble_gatt_char_ext_props_t;
+
+
+
+
+
+
+ 
+#line 26 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble.h"
+#line 1 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_gattc.h"
+
+
+
+
+
+
+ 
+
+
+
+
+ 
+
+
+
+
+#line 18 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_gattc.h"
+#line 19 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_gattc.h"
+#line 20 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_gattc.h"
+#line 21 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_gattc.h"
+
+
+ 
+enum BLE_GATTC_SVCS
+{
+  SD_BLE_GATTC_PRIMARY_SERVICES_DISCOVER = 0x90,  
+  SD_BLE_GATTC_RELATIONSHIPS_DISCOVER,                          
+  SD_BLE_GATTC_CHARACTERISTICS_DISCOVER,                        
+  SD_BLE_GATTC_DESCRIPTORS_DISCOVER,                            
+  SD_BLE_GATTC_CHAR_VALUE_BY_UUID_READ,                         
+  SD_BLE_GATTC_READ,                                            
+  SD_BLE_GATTC_CHAR_VALUES_READ,                                
+  SD_BLE_GATTC_WRITE,                                           
+  SD_BLE_GATTC_HV_CONFIRM                                       
+};
+
+
+ 
+
+
+ 
+
+ 
+
+ 
+
+
+ 
+
+ 
+typedef struct
+{
+  uint16_t          start_handle;  
+  uint16_t          end_handle;    
+} ble_gattc_handle_range_t;
+
+
+ 
+typedef struct
+{
+  ble_uuid_t               uuid;           
+  ble_gattc_handle_range_t handle_range;   
+} ble_gattc_service_t;
+
+
+ 
+typedef struct
+{
+  uint16_t            handle;            
+  ble_gattc_service_t included_srvc;     
+} ble_gattc_include_t;
+
+
+ 
+typedef struct
+{
+  ble_uuid_t              uuid;                  
+  ble_gatt_char_props_t   char_props;            
+  uint8_t                 char_ext_props : 1;    
+  uint16_t                handle_decl;           
+  uint16_t                handle_value;          
+} ble_gattc_char_t;
+
+
+ 
+typedef struct
+{
+  uint16_t          handle;          
+  ble_uuid_t        uuid;            
+} ble_gattc_desc_t;
+
+
+ 
+typedef struct
+{
+  uint8_t    write_op;                  
+  uint16_t   handle;                    
+  uint16_t   offset;                    
+  uint16_t   len;                       
+  uint8_t*   p_value;                   
+  uint8_t    flags;                     
+} ble_gattc_write_params_t;
+
+
+
+
+ 
+enum BLE_GATTC_EVTS
+{
+  BLE_GATTC_EVT_PRIM_SRVC_DISC_RSP = 0x30,   
+  BLE_GATTC_EVT_REL_DISC_RSP,                              
+  BLE_GATTC_EVT_CHAR_DISC_RSP,                             
+  BLE_GATTC_EVT_DESC_DISC_RSP,                             
+  BLE_GATTC_EVT_CHAR_VAL_BY_UUID_READ_RSP,                 
+  BLE_GATTC_EVT_READ_RSP,                                  
+  BLE_GATTC_EVT_CHAR_VALS_READ_RSP,                        
+  BLE_GATTC_EVT_WRITE_RSP,                                 
+  BLE_GATTC_EVT_HVX,                                       
+  BLE_GATTC_EVT_TIMEOUT                                    
+};
+
+ 
+typedef struct
+{
+  uint16_t             count;            
+  ble_gattc_service_t services[1];       
+} ble_gattc_evt_prim_srvc_disc_rsp_t;
+
+ 
+typedef struct
+{
+  uint16_t             count;            
+  ble_gattc_include_t includes[1];       
+} ble_gattc_evt_rel_disc_rsp_t;
+
+ 
+typedef struct
+{
+  uint16_t            count;           
+  ble_gattc_char_t    chars[1];        
+} ble_gattc_evt_char_disc_rsp_t;
+
+ 
+typedef struct
+{
+  uint16_t            count;           
+  ble_gattc_desc_t    descs[1];        
+} ble_gattc_evt_desc_disc_rsp_t;
+
+ 
+typedef struct 
+{
+  uint16_t            handle;           
+  uint8_t             *p_value;        
+
+ 
+} ble_gattc_handle_value_t;
+
+ 
+typedef struct
+{
+  uint16_t                  count;             
+  uint16_t                  value_len;         
+  ble_gattc_handle_value_t  handle_value[1];   
+} ble_gattc_evt_char_val_by_uuid_read_rsp_t;
+
+ 
+typedef struct
+{
+  uint16_t            handle;          
+  uint16_t            offset;          
+  uint16_t            len;             
+  uint8_t             data[1];         
+} ble_gattc_evt_read_rsp_t;
+
+ 
+typedef struct
+{
+  uint16_t            len;             
+  uint8_t             values[1];       
+} ble_gattc_evt_char_vals_read_rsp_t;
+
+ 
+typedef struct
+{
+  uint16_t            handle;            
+  uint8_t             write_op;          
+  uint16_t            offset;            
+  uint16_t            len;               
+  uint8_t             data[1];           
+} ble_gattc_evt_write_rsp_t;
+
+ 
+typedef struct
+{
+  uint16_t            handle;          
+  uint8_t             type;            
+  uint16_t            len;             
+  uint8_t             data[1];         
+} ble_gattc_evt_hvx_t;
+
+ 
+typedef struct
+{
+  uint8_t          src;                        
+} ble_gattc_evt_timeout_t;
+
+ 
+typedef struct
+{
+  uint16_t            conn_handle;                 
+  uint16_t            gatt_status;                 
+  uint16_t            error_handle;                
+  union
+  {
+    ble_gattc_evt_prim_srvc_disc_rsp_t          prim_srvc_disc_rsp;          
+    ble_gattc_evt_rel_disc_rsp_t                rel_disc_rsp;                
+    ble_gattc_evt_char_disc_rsp_t               char_disc_rsp;               
+    ble_gattc_evt_desc_disc_rsp_t               desc_disc_rsp;               
+    ble_gattc_evt_char_val_by_uuid_read_rsp_t   char_val_by_uuid_read_rsp;   
+    ble_gattc_evt_read_rsp_t                    read_rsp;                    
+    ble_gattc_evt_char_vals_read_rsp_t          char_vals_read_rsp;          
+    ble_gattc_evt_write_rsp_t                   write_rsp;                   
+    ble_gattc_evt_hvx_t                         hvx;                         
+    ble_gattc_evt_timeout_t                     timeout;                     
+  } params;                                                                  
+} ble_gattc_evt_t;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GATTC_PRIMARY_SERVICES_DISCOVER) sd_ble_gattc_primary_services_discover(uint16_t conn_handle, uint16_t start_handle, ble_uuid_t const * const p_srvc_uuid);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GATTC_RELATIONSHIPS_DISCOVER) sd_ble_gattc_relationships_discover(uint16_t conn_handle, ble_gattc_handle_range_t const * const p_handle_range);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GATTC_CHARACTERISTICS_DISCOVER) sd_ble_gattc_characteristics_discover(uint16_t conn_handle, ble_gattc_handle_range_t const * const p_handle_range);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GATTC_DESCRIPTORS_DISCOVER) sd_ble_gattc_descriptors_discover(uint16_t conn_handle, ble_gattc_handle_range_t const * const p_handle_range);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GATTC_CHAR_VALUE_BY_UUID_READ) sd_ble_gattc_char_value_by_uuid_read(uint16_t conn_handle, ble_uuid_t const * const p_uuid, ble_gattc_handle_range_t const * const p_handle_range);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GATTC_READ) sd_ble_gattc_read(uint16_t conn_handle, uint16_t handle, uint16_t offset);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GATTC_CHAR_VALUES_READ) sd_ble_gattc_char_values_read(uint16_t conn_handle, uint16_t const * const p_handles, uint16_t handle_count);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GATTC_WRITE) sd_ble_gattc_write(uint16_t conn_handle, ble_gattc_write_params_t const * const p_write_params);
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GATTC_HV_CONFIRM) sd_ble_gattc_hv_confirm(uint16_t conn_handle, uint16_t handle);
+
+
+
+
+
+
+
+ 
+#line 27 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble.h"
+#line 1 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_gatts.h"
+
+
+
+
+
+
+ 
+
+
+
+
+ 
+
+
+
+
+#line 18 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_gatts.h"
+#line 19 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_gatts.h"
+#line 20 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_gatts.h"
+#line 21 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_gatts.h"
+#line 22 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_gatts.h"
+#line 23 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_gatts.h"
+
+
+
+
+ 
+enum BLE_GATTS_SVCS
+{
+  SD_BLE_GATTS_SERVICE_ADD = 0xA0,  
+  SD_BLE_GATTS_INCLUDE_ADD,                       
+  SD_BLE_GATTS_CHARACTERISTIC_ADD,                
+  SD_BLE_GATTS_DESCRIPTOR_ADD,                    
+  SD_BLE_GATTS_VALUE_SET,                         
+  SD_BLE_GATTS_VALUE_GET,                         
+  SD_BLE_GATTS_HVX,                               
+  SD_BLE_GATTS_SERVICE_CHANGED,                   
+  SD_BLE_GATTS_RW_AUTHORIZE_REPLY,                 
+  SD_BLE_GATTS_SYS_ATTR_SET,                        
+  SD_BLE_GATTS_SYS_ATTR_GET,                      
+};
+
+
+
+ 
+
+ 
+
+
+
+ 
+
+
+ 
+
+
+ 
+
+
+ 
+
+
+ 
+
+
+
+ 
+
+
+
+ 
+#line 80 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_gatts.h"
+ 
+
+
+
+ 
+#line 92 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble_gatts.h"
+ 
+
+
+ 
+
+
+
+
+ 
+
+
+ 
+
+
+
+ 
+
+
+ 
+
+ 
+typedef struct
+{
+  ble_gap_conn_sec_mode_t read_perm;        
+  ble_gap_conn_sec_mode_t write_perm;       
+  uint8_t                 vlen       :1;    
+  uint8_t                 vloc       :2;    
+  uint8_t                 rd_auth    :1;     
+  uint8_t                 wr_auth    :1;    
+} ble_gatts_attr_md_t;
+
+
+ 
+typedef struct
+{
+  ble_uuid_t*          p_uuid;           
+  ble_gatts_attr_md_t* p_attr_md;        
+  uint16_t             init_len;         
+  uint16_t             init_offs;        
+  uint16_t             max_len;          
+  uint8_t*             p_value;         
+
+ 
+} ble_gatts_attr_t;
+
+
+ 
+typedef struct
+{
+  ble_uuid_t           srvc_uuid;        
+  ble_uuid_t           char_uuid;        
+  ble_uuid_t           desc_uuid;        
+  uint16_t             srvc_handle;      
+  uint16_t             value_handle;     
+  uint8_t              type;             
+} ble_gatts_attr_context_t;
+
+
+ 
+typedef struct
+{
+  uint8_t          format;       
+  int8_t           exponent;     
+  uint16_t         unit;         
+  uint8_t          name_space;   
+  uint16_t         desc;         
+} ble_gatts_char_pf_t;
+
+
+ 
+typedef struct
+{
+  ble_gatt_char_props_t       char_props;                
+  ble_gatt_char_ext_props_t   char_ext_props;            
+  uint8_t*                    p_char_user_desc;          
+  uint16_t                    char_user_desc_max_size;   
+  uint16_t                    char_user_desc_size;        
+  ble_gatts_char_pf_t*        p_char_pf;                 
+  ble_gatts_attr_md_t*        p_user_desc_md;            
+  ble_gatts_attr_md_t*        p_cccd_md;                 
+  ble_gatts_attr_md_t*        p_sccd_md;                 
+} ble_gatts_char_md_t;
+
+
+ 
+typedef struct
+{
+  uint16_t          value_handle;        
+  uint16_t          user_desc_handle;    
+  uint16_t          cccd_handle;         
+  uint16_t          sccd_handle;         
+} ble_gatts_char_handles_t;
+
+
+ 
+typedef struct
+{
+  uint16_t          handle;              
+  uint8_t           type;                
+  uint16_t          offset;              
+  uint16_t*         p_len;               
+  uint8_t*          p_data;              
+} ble_gatts_hvx_params_t;
+
+ 
+typedef struct
+{
+  uint16_t          gatt_status;         
+  uint8_t           update : 1;          
+  uint16_t          offset;              
+  uint16_t          len;                 
+  uint8_t*          p_data;              
+} ble_gatts_read_authorize_params_t;
+
+ 
+typedef struct
+{
+  uint16_t          gatt_status;         
+} ble_gatts_write_authorize_params_t;
+
+ 
+typedef struct
+{
+  uint8_t                               type;    
+  union {
+    ble_gatts_read_authorize_params_t   read;    
+    ble_gatts_write_authorize_params_t  write;   
+  } params;
+} ble_gatts_rw_authorize_reply_params_t;
+
+
+
+
+ 
+enum BLE_GATTS_EVTS
+{
+  BLE_GATTS_EVT_WRITE = 0x50,        
+  BLE_GATTS_EVT_RW_AUTHORIZE_REQUEST,              
+  BLE_GATTS_EVT_SYS_ATTR_MISSING,                  
+  BLE_GATTS_EVT_HVC,                               
+  BLE_GATTS_EVT_SC_CONFIRM,                        
+  BLE_GATTS_EVT_TIMEOUT                            
+};
+
+
+ 
+typedef struct
+{
+  uint16_t                    handle;              
+  uint8_t                     op;                  
+  ble_gatts_attr_context_t    context;             
+  uint16_t                    offset;              
+  uint16_t                    len;                 
+  uint8_t                     data[1];             
+} ble_gatts_evt_write_t;
+
+ 
+typedef struct
+{
+  uint16_t                    handle;              
+  ble_gatts_attr_context_t    context;             
+  uint16_t                    offset;              
+} ble_gatts_evt_read_t;
+
+ 
+typedef struct
+{
+  uint8_t                     type;              
+  union {
+    ble_gatts_evt_read_t      read;              
+    ble_gatts_evt_write_t     write;             
+  } request;
+} ble_gatts_evt_rw_authorize_request_t;
+
+ 
+typedef struct
+{
+  uint8_t hint;
+} ble_gatts_evt_sys_attr_missing_t;
+
+
+ 
+typedef struct
+{
+  uint16_t          handle;                        
+} ble_gatts_evt_hvc_t;
+
+ 
+typedef struct
+{
+  uint8_t          src;                        
+} ble_gatts_evt_timeout_t;
+
+
+ 
+typedef struct
+{
+  uint16_t conn_handle;                                        
+  union
+  {
+    ble_gatts_evt_write_t                 write;               
+    ble_gatts_evt_rw_authorize_request_t  authorize_request;   
+    ble_gatts_evt_sys_attr_missing_t      sys_attr_missing;    
+    ble_gatts_evt_hvc_t                   hvc;                 
+    ble_gatts_evt_timeout_t               timeout;             
+  } params;
+} ble_gatts_evt_t;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GATTS_SERVICE_ADD) sd_ble_gatts_service_add(uint8_t type, ble_uuid_t const*const p_uuid, uint16_t *const p_handle);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GATTS_INCLUDE_ADD) sd_ble_gatts_include_add(uint16_t service_handle, uint16_t inc_srvc_handle, uint16_t *const p_include_handle);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GATTS_CHARACTERISTIC_ADD) sd_ble_gatts_characteristic_add(uint16_t service_handle, ble_gatts_char_md_t const*const p_char_md, ble_gatts_attr_t const*const p_attr_char_value, ble_gatts_char_handles_t *const p_handles);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GATTS_DESCRIPTOR_ADD) sd_ble_gatts_descriptor_add(uint16_t char_handle, ble_gatts_attr_t const * const p_attr, uint16_t* const p_handle);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GATTS_VALUE_SET) sd_ble_gatts_value_set(uint16_t handle, uint16_t offset, uint16_t* const p_len, uint8_t const * const p_value);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GATTS_VALUE_GET) sd_ble_gatts_value_get(uint16_t handle, uint16_t offset, uint16_t *const p_len, uint8_t* const p_data);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GATTS_HVX) sd_ble_gatts_hvx(uint16_t conn_handle, ble_gatts_hvx_params_t const*const p_hvx_params);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GATTS_SERVICE_CHANGED) sd_ble_gatts_service_changed(uint16_t conn_handle, uint16_t start_handle, uint16_t end_handle);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_GATTS_RW_AUTHORIZE_REPLY) sd_ble_gatts_rw_authorize_reply(uint16_t conn_handle, ble_gatts_rw_authorize_reply_params_t const*const p_rw_authorize_reply_params);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+uint32_t __svc(SD_BLE_GATTS_SYS_ATTR_SET) sd_ble_gatts_sys_attr_set(uint16_t conn_handle, uint8_t const*const p_sys_attr_data, uint16_t len); 
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+uint32_t __svc(SD_BLE_GATTS_SYS_ATTR_GET) sd_ble_gatts_sys_attr_get(uint16_t conn_handle, uint8_t * const p_sys_attr_data, uint16_t* const p_len); 
+
+
+
+
+
+
+ 
+#line 28 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\s310\\ble.h"
+
+
+
+ 
+enum BLE_COMMON_SVCS
+{
+  SD_BLE_EVT_GET  = 0x60,        
+  SD_BLE_TX_BUFFER_COUNT_GET,            
+  SD_BLE_UUID_VS_ADD,                    
+  SD_BLE_UUID_DECODE,                    
+  SD_BLE_UUID_ENCODE,                    
+  SD_BLE_VERSION_GET,                    
+  SD_BLE_USER_MEM_REPLY,                 
+};
+
+
+ 
+
+
+
+ 
+
+
+ 
+
+
+ 
+
+
+
+
+ 
+enum BLE_COMMON_EVTS
+{
+  BLE_EVT_TX_COMPLETE  = 0x01,   
+  BLE_EVT_USER_MEM_REQUEST,              
+  BLE_EVT_USER_MEM_RELEASE               
+};
+
+ 
+typedef struct
+{
+  uint8_t*          p_mem;       
+  uint16_t          len;         
+} ble_user_mem_block_t;
+
+
+
+ 
+typedef struct
+{
+  uint8_t count;                         
+} ble_evt_tx_complete_t;
+
+ 
+typedef struct
+{
+  uint8_t                     type;      
+} ble_evt_user_mem_request_t;
+
+ 
+typedef struct
+{
+  uint8_t                     type;        
+  ble_user_mem_block_t        mem_block;   
+} ble_evt_user_mem_release_t;
+
+
+ 
+typedef struct
+{
+  uint16_t conn_handle;                  
+  union
+  {
+    ble_evt_tx_complete_t           tx_complete;         
+    ble_evt_user_mem_request_t      user_mem_request;    
+    ble_evt_user_mem_release_t      user_mem_release;    
+  } params;
+} ble_common_evt_t;
+
+ 
+typedef struct
+{
+  uint16_t evt_id;                       
+  uint16_t evt_len;                      
+} ble_evt_hdr_t;
+
+ 
+typedef struct
+{
+  ble_evt_hdr_t header;                  
+  union
+  {
+    ble_common_evt_t  common_evt;          
+    ble_gap_evt_t     gap_evt;             
+    ble_l2cap_evt_t   l2cap_evt;           
+    ble_gattc_evt_t   gattc_evt;           
+    ble_gatts_evt_t   gatts_evt;           
+  } evt;
+} ble_evt_t;
+
+
+
+
+ 
+typedef struct
+{
+  uint8_t   version_number;              
+  uint16_t  company_id;                  
+  uint16_t  subversion_number;           
+} ble_version_t;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_EVT_GET) sd_ble_evt_get(uint8_t* p_dest, uint16_t *p_len);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_TX_BUFFER_COUNT_GET) sd_ble_tx_buffer_count_get(uint8_t* p_count);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_UUID_VS_ADD) sd_ble_uuid_vs_add(ble_uuid128_t const * const p_vs_uuid, uint8_t * const p_uuid_type);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                  
+uint32_t __svc(SD_BLE_UUID_DECODE) sd_ble_uuid_decode(uint8_t uuid_le_len, uint8_t const * const p_uuid_le, ble_uuid_t * const p_uuid);
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_UUID_ENCODE) sd_ble_uuid_encode(ble_uuid_t const * const p_uuid, uint8_t * const p_uuid_le_len, uint8_t * const p_uuid_le);
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_VERSION_GET) sd_ble_version_get(ble_version_t * p_version);
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t __svc(SD_BLE_USER_MEM_REPLY) sd_ble_user_mem_reply(uint16_t conn_handle, ble_user_mem_block_t *p_block);
+
+
+
+
+
+
+ 
+#line 29 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\sd_common\\ble_stack_handler_types.h"
+#line 30 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\sd_common\\ble_stack_handler_types.h"
+#line 31 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\sd_common\\ble_stack_handler_types.h"
+#line 32 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\sd_common\\ble_stack_handler_types.h"
+#line 33 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\sd_common\\ble_stack_handler_types.h"
+
+
+
+
+ 
+typedef void (*ble_evt_handler_t) (ble_evt_t * p_ble_evt);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t softdevice_ble_evt_handler_set(ble_evt_handler_t ble_evt_handler);
+
+#line 62 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\sd_common\\ble_stack_handler_types.h"
+
+
+
+ 
+#line 41 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\sd_common\\softdevice_handler.h"
+#line 1 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\sd_common\\ant_stack_handler_types.h"
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+#line 28 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\sd_common\\ant_stack_handler_types.h"
+
+
+
+
+ 
+typedef struct
+{
+    uint8_t channel;                                                                       
+    uint8_t event;                                                                         
+    uint8_t evt_buffer[32];                                        
+} ant_evt_t;
+
+ 
+typedef void (*ant_evt_handler_t) (ant_evt_t * p_ant_evt);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t softdevice_ant_evt_handler_set(ant_evt_handler_t ant_evt_handler);
+
+#line 66 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\sd_common\\ant_stack_handler_types.h"
+
+
+
+ 
+#line 42 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\sd_common\\softdevice_handler.h"
+
+
+
+
+ 
+typedef uint32_t (*softdevice_evt_schedule_func_t) (void);
+
+ 
+typedef void (*sys_evt_handler_t) (uint32_t evt_id);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+   
+#line 86 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\sd_common\\softdevice_handler.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t softdevice_handler_init(nrf_clock_lfclksrc_t              clock_source,
+                                 void *                            p_evt_buffer,
+                                 uint16_t                          evt_buffer_size,
+                                 softdevice_evt_schedule_func_t    evt_schedule_func);
+
+
+
+
+
+
+ 
+uint32_t softdevice_handler_sd_disable(void);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+uint32_t softdevice_sys_evt_handler_set(sys_evt_handler_t sys_evt_handler);
+
+
+
+ 
+void intern_softdevice_events_execute(void);
+
+static __inline void softdevice_evt_get(void * p_event_data, uint16_t event_size)
+{
+    do { const _Bool LOCAL_BOOLEAN_VALUE = (event_size == 0); if (!LOCAL_BOOLEAN_VALUE) { do { app_error_handler((0), 152, (uint8_t*) "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Include\\sd_common\\softdevice_handler.h"); } while (0); } } while (0);
+    intern_softdevice_events_execute();
+}
+
+static __inline uint32_t softdevice_evt_schedule(void)
+{
+    return app_sched_event_put(0, 0, softdevice_evt_get);
+}
+ 
+
+
+
+ 
+#line 40 "..\\PCAPint_main.c"
+#line 1 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\sd_common\\softdevice_handler.c"
+
+
+
+
+
+
+
+
+
+
+ 
+
+#line 14 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\sd_common\\softdevice_handler.c"
+#line 15 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\sd_common\\softdevice_handler.c"
+#line 16 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\sd_common\\softdevice_handler.c"
+#line 17 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\sd_common\\softdevice_handler.c"
+#line 18 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\sd_common\\softdevice_handler.c"
+#line 19 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\sd_common\\softdevice_handler.c"
+#line 20 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\sd_common\\softdevice_handler.c"
+
+#line 23 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\sd_common\\softdevice_handler.c"
+
+
+
+
+
+
+
+static softdevice_evt_schedule_func_t m_evt_schedule_func;               
+
+
+
+static uint8_t *                      m_evt_buffer;                      
+
+
+
+static uint16_t                       m_ble_evt_buffer_size;             
+
+
+static volatile _Bool                  m_softdevice_enabled = 0;      
+
+
+static ble_evt_handler_t              m_ble_evt_handler;                 
+
+
+
+static ant_evt_handler_t              m_ant_evt_handler;                 
+
+
+static sys_evt_handler_t              m_sys_evt_handler;                 
+
+
+
+
+
+
+
+
+
+
+ 
+void softdevice_assertion_handler(uint32_t pc, uint16_t line_num, const uint8_t * file_name)
+{
+    ((void)(pc));
+    assert_nrf_callback(line_num, file_name);
+}
+
+
+void intern_softdevice_events_execute(void)
+{
+    if (!m_softdevice_enabled)
+    {
+        
+        
+
+        return;
+    }
+
+    _Bool no_more_soc_evts = (m_sys_evt_handler == 0);
+
+    _Bool no_more_ble_evts = (m_ble_evt_handler == 0);
+
+
+    _Bool no_more_ant_evts = (m_ant_evt_handler == 0);
+
+
+    for (;;)
+    {
+        uint32_t err_code;
+
+        if (!no_more_soc_evts)
+        {
+            uint32_t evt_id;
+
+            
+            err_code = sd_evt_get(&evt_id);
+            
+            if (err_code == ((0x0) + 5))
+            {
+                no_more_soc_evts = 1;
+            }
+            else if (err_code != ((0x0) + 0))
+            {
+                do { app_error_handler((err_code), 105, (uint8_t*) "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\sd_common\\softdevice_handler.c"); } while (0);
+            }
+            else
+            {
+                
+                m_sys_evt_handler(evt_id);
+            }
+        }
+
+
+        
+        if (!no_more_ble_evts)
+        {
+            
+            uint16_t evt_len = m_ble_evt_buffer_size;
+
+            err_code = sd_ble_evt_get(m_evt_buffer, &evt_len);
+            if (err_code == ((0x0) + 5))
+            {
+                no_more_ble_evts = 1;
+            }
+            else if (err_code != ((0x0) + 0))
+            {
+                do { app_error_handler((err_code), 128, (uint8_t*) "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\sd_common\\softdevice_handler.c"); } while (0);
+            }
+            else
+            {
+                
+                m_ble_evt_handler((ble_evt_t *)m_evt_buffer);
+            }
+        }
+
+
+
+        
+        if (!no_more_ant_evts)
+        {
+            
+            err_code = sd_ant_event_get(&((ant_evt_t *)m_evt_buffer)->channel,
+                                        &((ant_evt_t *)m_evt_buffer)->event,
+                                        ((ant_evt_t *)m_evt_buffer)->evt_buffer);
+            if (err_code == ((0x0) + 5))
+            {
+                no_more_ant_evts = 1;
+            }
+            else if (err_code != ((0x0) + 0))
+            {
+                do { app_error_handler((err_code), 152, (uint8_t*) "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\sd_common\\softdevice_handler.c"); } while (0);
+            }
+            else
+            {
+                
+                m_ant_evt_handler((ant_evt_t *)m_evt_buffer);
+            }
+        }
+
+
+        if (no_more_soc_evts)
+        {
+            
+
+            
+            if (no_more_ble_evts && no_more_ant_evts)
+            {
+                break;
+            }
+#line 188 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\sd_common\\softdevice_handler.c"
+        }
+    }
+}
+
+
+uint32_t softdevice_handler_init(nrf_clock_lfclksrc_t           clock_source,
+                                 void *                         p_evt_buffer,
+                                 uint16_t                       evt_buffer_size,
+                                 softdevice_evt_schedule_func_t evt_schedule_func)
+{
+    uint32_t err_code;
+
+    
+
+    
+    if (p_evt_buffer == 0)
+    {
+        return ((0x0) + 7);
+    }
+    
+    
+    if (!is_word_aligned(p_evt_buffer))
+    {
+        return ((0x0) + 7);
+    }
+
+    m_evt_buffer = (uint8_t *)p_evt_buffer;
+
+
+
+
+
+
+
+    m_ble_evt_buffer_size = evt_buffer_size;
+
+
+
+
+    
+    m_evt_schedule_func = evt_schedule_func;
+
+    
+    err_code = sd_softdevice_enable(clock_source, softdevice_assertion_handler);
+    if (err_code != ((0x0) + 0))
+    {
+        return err_code;
+    }
+
+    m_softdevice_enabled = 1;
+
+    
+    return sd_nvic_EnableIRQ(SWI2_IRQn);
+}
+
+
+uint32_t softdevice_handler_sd_disable(void)
+{
+    uint32_t err_code = sd_softdevice_disable();
+ 
+    m_softdevice_enabled = !(err_code == ((0x0) + 0));
+
+    return err_code;
+}
+
+
+
+uint32_t softdevice_ble_evt_handler_set(ble_evt_handler_t ble_evt_handler)
+{
+    if (ble_evt_handler == 0)
+    {
+        return ((0x0) + 14);
+    }
+
+    m_ble_evt_handler = ble_evt_handler;
+
+    return ((0x0) + 0);
+}
+
+
+
+
+uint32_t softdevice_ant_evt_handler_set(ant_evt_handler_t ant_evt_handler)
+{
+    if (ant_evt_handler == 0)
+    {
+        return ((0x0) + 14);
+    }
+
+    m_ant_evt_handler = ant_evt_handler;
+
+    return ((0x0) + 0);
+}
+
+
+
+uint32_t softdevice_sys_evt_handler_set(sys_evt_handler_t sys_evt_handler)
+{
+    if (sys_evt_handler == 0)
+    {
+        return ((0x0) + 14);
+    }
+
+    m_sys_evt_handler = sys_evt_handler;
+
+    return ((0x0) + 0);
+}
+
+
+
+
+
+ 
+void SWI2_IRQHandler(void)
+{
+    if (m_evt_schedule_func != 0)
+    {
+        uint32_t err_code = m_evt_schedule_func();
+        do { const uint32_t LOCAL_ERR_CODE = (err_code); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 306, (uint8_t*) "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\sd_common\\softdevice_handler.c"); } while (0); } } while (0);
+    }
+    else
+    {
+        intern_softdevice_events_execute();
+    }
+}
+#line 41 "..\\PCAPint_main.c"
+#line 1 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\nrf_assert\\nrf_assert.c"
+
+
+
+
+
+
+
+
+
+
+ 
+#line 13 "C:\\Keil\\ARM\\Device\\Nordic\\nrf51422\\Source\\nrf_assert\\nrf_assert.c"
+
+
+void assert_nrf_callback(uint16_t line_num, const uint8_t *file_name)
+{
+  (void) file_name;  
+  (void) line_num;  
+ 
+  while (1) ;
+}
+#line 42 "..\\PCAPint_main.c"
+#line 43 "..\\PCAPint_main.c"
+
+
+
+
+
+
+#line 1 "..\\ant_config.h"
+
+
+ 
+
+
+
+
+
+
+
+
+
+#line 19 "..\\ant_config.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 50 "..\\PCAPint_main.c"
+#line 1 "..\\ant_setup.c"
+#line 2 "..\\ant_setup.c"
+#line 3 "..\\ant_setup.c"
 #line 4 "..\\ant_setup.c"
 #line 1 "C:\\Keil\\ARM\\ARMCC\\bin\\..\\include\\stdio.h"
  
@@ -14766,7 +20535,8 @@ _Bool ant_channel_tx_broadcast_setup( void ) {
 	
 	
 	
-	
+			
+
 	if( err_code != ((0x0) + 0) ) {
 		return 1; 
 	}
@@ -14785,7 +20555,7 @@ _Bool ant_channel_tx_broadcast_setup( void ) {
 		
 	return 0; 
 }
-#line 41 "..\\PCAPint_main.c"
+#line 51 "..\\PCAPint_main.c"
 
 #line 1 "..\\PCAP.h"
 
@@ -14853,7 +20623,7 @@ _Bool ant_channel_tx_broadcast_setup( void ) {
 
  
 
-#line 43 "..\\PCAPint_main.c"
+#line 53 "..\\PCAPint_main.c"
 #line 1 "..\\PCAP.c"
 #line 2 "..\\PCAP.c"
 #line 3 "..\\PCAP.c"
@@ -15058,7 +20828,23 @@ _Bool pcap_config_write(uint32_t *PCAP_spi_address, uint32_t *regdata)
                 memset(rx_data, 0, 8);
                 
             }
-            nrf_delay_ms(100); 
+            
+						
+			((NRF_RTC_Type *) 0x40011000UL)->CC[0] = 3276; 
+			rtc_flag = 1;
+			((NRF_RTC_Type *) 0x40011000UL)->TASKS_START = 1;
+			do 
+			{ 
+				
+				__wfe();   
+				
+				__sev(); 
+				__wfe();                 
+			}while(rtc_flag); 
+			
+			((NRF_RTC_Type *) 0x40011000UL)->TASKS_STOP = 1; 
+			((NRF_RTC_Type *) 0x40011000UL)->TASKS_CLEAR = 1; 
+
             
             p = 0x03; 
             p = (p << 6)|20; 
@@ -15079,7 +20865,7 @@ _Bool pcap_config_write(uint32_t *PCAP_spi_address, uint32_t *regdata)
 
 
  
-_Bool config_reg_set(uint32_t *PCAP_spi_address,int c_avg,int onoff) 
+_Bool config_reg_set(uint32_t *PCAP_spi_address,int c_avg,int onoff, int cy_time, int rdc_sel) 
     { 
         uint32_t config_reg_d[20];
         uint8_t DSP_PRESET, PG_PRESET;
@@ -15092,13 +20878,13 @@ _Bool config_reg_set(uint32_t *PCAP_spi_address,int c_avg,int onoff)
         config_reg_d[1] = 0x201022;
         
          
-        config_reg_d[2] = pack(((uint8_t) 0xFF), ((uint8_t) 4), 4, ((uint8_t) 6), 4, 0x0B, 8, 0, 0);
+        config_reg_d[2] = pack(((uint8_t) 0xFF), ((uint8_t) 4), 4, rdc_sel, 4, 0x0B, 8, 0, 0);
         
          
         config_reg_d[3] = pack(((uint8_t) 0), ((uint8_t) 0x0D), 6, ((uint8_t) 0), 3, c_avg, 13 , 0, 0);
         
          
-        config_reg_d[4] = pack(((uint8_t) 0), ((uint8_t) 0), 2, ((uint16_t) 4), 10, ((uint8_t) 0 ), 4, ((((uint8_t) 0) << 2)|onoff), 4);
+        config_reg_d[4] = pack(((uint8_t) 0), ((uint8_t) 0), 2, cy_time, 10, ((uint8_t) 0 ), 4, ((((uint8_t) 0) << 2)|onoff), 4);
         
          
         config_reg_d[5] = pack(((uint8_t) 1), ((uint32_t) 1), 22, 0, 0, 0, 0, 0 ,0);
@@ -15241,11 +21027,11 @@ _Bool pcap_commcheck(uint32_t *PCAP_spi_address)
 
 
  
-_Bool 	pcap_config(uint32_t *PCAP_spi_address, int c_avg,int onoff)
+_Bool 	pcap_config(uint32_t *PCAP_spi_address, int c_avg,int onoff, int cy_time, int rdc_sel)
 {
 		_Bool w,w1,w2; 
 		 
-		w1 = config_reg_set(PCAP_spi_address, c_avg, onoff);
+		w1 = config_reg_set(PCAP_spi_address, c_avg, onoff, cy_time, rdc_sel);
 		
 		 
 		MSG_LEN = 8;
@@ -15273,7 +21059,7 @@ _Bool 	pcap_config(uint32_t *PCAP_spi_address, int c_avg,int onoff)
 
 
  
-_Bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg, int onoff)
+_Bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg, int onoff, int cy_time)
 {
 	_Bool w;
 	uint8_t cap_n, n, pul_n;
@@ -15327,7 +21113,7 @@ _Bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg, int onoff)
 			case 0:
 			
 			
-			float time = ((float)pul_n*(float)((float)(((uint16_t) 4)+1)*0.02*(float)c_avg)+250)/1000; 
+			float time = ((float)pul_n*(float)((float)(cy_time+1)*0.02*(float)c_avg)+250)/1000; 
 			((NRF_RTC_Type *) 0x40011000UL)->CC[0] = time*32768; 
 			rtc_flag = 1;
 			((NRF_RTC_Type *) 0x40011000UL)->TASKS_START = 1;
@@ -15348,7 +21134,7 @@ _Bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg, int onoff)
 			
 			
 			
-			time = ((float)pul_n*(float)((float)(((uint16_t) 4)+1)*0.02*(float)c_avg)+250)/1000; 
+			time = ((float)pul_n*(float)((float)(cy_time+1)*0.02*(float)c_avg)+250)/1000; 
 			((NRF_RTC_Type *) 0x40011000UL)->CC[0] = time*32768; 
 			rtc_flag = 1;
 			((NRF_RTC_Type *) 0x40011000UL)->TASKS_START = 1;
@@ -15367,738 +21153,15 @@ _Bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg, int onoff)
 		}
 		return w;
 }
-#line 44 "..\\PCAPint_main.c"
-
-#line 46 "..\\PCAPint_main.c"
-#line 47 "..\\PCAPint_main.c"
-#line 48 "..\\PCAPint_main.c"
-#line 49 "..\\PCAPint_main.c"
-#line 50 "..\\PCAPint_main.c"
-
-#line 1 "C:\\Keil\\ARM\\ARMCC\\bin\\..\\include\\stdlib.h"
- 
- 
- 
-
-
-
-
- 
- 
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
- 
-
-
-
-
-
-
-
-
-#line 46 "C:\\Keil\\ARM\\ARMCC\\bin\\..\\include\\stdlib.h"
-
-
-  
-  typedef unsigned int size_t;
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-    typedef unsigned short wchar_t;  
-#line 75 "C:\\Keil\\ARM\\ARMCC\\bin\\..\\include\\stdlib.h"
-
-typedef struct div_t { int quot, rem; } div_t;
-    
-typedef struct ldiv_t { long int quot, rem; } ldiv_t;
-    
-
-typedef struct lldiv_t { __int64 quot, rem; } lldiv_t;
-    
-
-
-#line 96 "C:\\Keil\\ARM\\ARMCC\\bin\\..\\include\\stdlib.h"
-   
-
-
-
- 
-
-   
-
-
-
-
- 
-#line 115 "C:\\Keil\\ARM\\ARMCC\\bin\\..\\include\\stdlib.h"
-   
-
-
- 
-extern __declspec(__nothrow) int __aeabi_MB_CUR_MAX(void);
-
-   
-
-
-
-
- 
-
-   
-
-
-
-
- 
-
-
-
-
-extern __declspec(__nothrow) double atof(const char *  ) __attribute__((__nonnull__(1)));
-   
-
-
-
- 
-extern __declspec(__nothrow) int atoi(const char *  ) __attribute__((__nonnull__(1)));
-   
-
-
-
- 
-extern __declspec(__nothrow) long int atol(const char *  ) __attribute__((__nonnull__(1)));
-   
-
-
-
- 
-
-extern __declspec(__nothrow) __int64 atoll(const char *  ) __attribute__((__nonnull__(1)));
-   
-
-
-
- 
-
-
-extern __declspec(__nothrow) double strtod(const char * __restrict  , char ** __restrict  ) __attribute__((__nonnull__(1)));
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-extern __declspec(__nothrow) float strtof(const char * __restrict  , char ** __restrict  ) __attribute__((__nonnull__(1)));
-extern __declspec(__nothrow) long double strtold(const char * __restrict  , char ** __restrict  ) __attribute__((__nonnull__(1)));
-   
-
- 
-
-extern __declspec(__nothrow) long int strtol(const char * __restrict  ,
-                        char ** __restrict  , int  ) __attribute__((__nonnull__(1)));
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-extern __declspec(__nothrow) unsigned long int strtoul(const char * __restrict  ,
-                                       char ** __restrict  , int  ) __attribute__((__nonnull__(1)));
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
- 
-extern __declspec(__nothrow) __int64 strtoll(const char * __restrict  ,
-                               char ** __restrict  , int  ) __attribute__((__nonnull__(1)));
-   
-
-
-
-
- 
-extern __declspec(__nothrow) unsigned __int64 strtoull(const char * __restrict  ,
-                                         char ** __restrict  , int  ) __attribute__((__nonnull__(1)));
-   
-
-
-
- 
-
-extern __declspec(__nothrow) int rand(void);
-   
-
-
-
-
-
-
-
- 
-extern __declspec(__nothrow) void srand(unsigned int  );
-   
-
-
-
-
-
-
- 
-
-struct _rand_state { int __x[57]; };
-extern __declspec(__nothrow) int _rand_r(struct _rand_state *);
-extern __declspec(__nothrow) void _srand_r(struct _rand_state *, unsigned int);
-struct _ANSI_rand_state { int __x[1]; };
-extern __declspec(__nothrow) int _ANSI_rand_r(struct _ANSI_rand_state *);
-extern __declspec(__nothrow) void _ANSI_srand_r(struct _ANSI_rand_state *, unsigned int);
-   
-
-
- 
-
-extern __declspec(__nothrow) void *calloc(size_t  , size_t  );
-   
-
-
-
- 
-extern __declspec(__nothrow) void free(void *  );
-   
-
-
-
-
-
- 
-extern __declspec(__nothrow) void *malloc(size_t  );
-   
-
-
-
- 
-extern __declspec(__nothrow) void *realloc(void *  , size_t  );
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-extern __declspec(__nothrow) int posix_memalign(void **  , size_t  , size_t  );
-   
-
-
-
-
-
-
-
-
-
- 
-
-typedef int (*__heapprt)(void *, char const *, ...);
-extern __declspec(__nothrow) void __heapstats(int (*  )(void *  ,
-                                           char const *  , ...),
-                        void *  ) __attribute__((__nonnull__(1)));
-   
-
-
-
-
-
-
-
-
-
-
- 
-extern __declspec(__nothrow) int __heapvalid(int (*  )(void *  ,
-                                           char const *  , ...),
-                       void *  , int  ) __attribute__((__nonnull__(1)));
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-extern __declspec(__nothrow) __declspec(__noreturn) void abort(void);
-   
-
-
-
-
-
-
-
- 
-
-extern __declspec(__nothrow) int atexit(void (*  )(void)) __attribute__((__nonnull__(1)));
-   
-
-
-
-
- 
-#line 415 "C:\\Keil\\ARM\\ARMCC\\bin\\..\\include\\stdlib.h"
-
-
-extern __declspec(__nothrow) __declspec(__noreturn) void exit(int  );
-   
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-extern __declspec(__nothrow) __declspec(__noreturn) void _Exit(int  );
-   
-
-
-
-
-
-
-
-      
-
-extern __declspec(__nothrow) char *getenv(const char *  ) __attribute__((__nonnull__(1)));
-   
-
-
-
-
-
-
-
-
-
- 
-
-extern __declspec(__nothrow) int  system(const char *  );
-   
-
-
-
-
-
-
-
-
-
- 
-
-extern  void *bsearch(const void *  , const void *  ,
-              size_t  , size_t  ,
-              int (*  )(const void *, const void *)) __attribute__((__nonnull__(1,2,5)));
-   
-
-
-
-
-
-
-
-
-
-
-
-
- 
-#line 503 "C:\\Keil\\ARM\\ARMCC\\bin\\..\\include\\stdlib.h"
-
-
-extern  void qsort(void *  , size_t  , size_t  ,
-           int (*  )(const void *, const void *)) __attribute__((__nonnull__(1,4)));
-   
-
-
-
-
-
-
-
-
-
- 
-
-#line 532 "C:\\Keil\\ARM\\ARMCC\\bin\\..\\include\\stdlib.h"
-
-extern __declspec(__nothrow) __pure int abs(int  );
-   
-
-
-
- 
-
-extern __declspec(__nothrow) __pure div_t div(int  , int  );
-   
-
-
-
-
-
-
-
-
-
- 
-extern __declspec(__nothrow) __pure long int labs(long int  );
-   
-
-
-
- 
-
-
-
-
-extern __declspec(__nothrow) __pure ldiv_t ldiv(long int  , long int  );
-   
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-extern __declspec(__nothrow) __pure __int64 llabs(__int64  );
-   
-
-
-
- 
-
-
-
-
-extern __declspec(__nothrow) __pure lldiv_t lldiv(__int64  , __int64  );
-   
-
-
-
-
-
-
-
-
-
-
-
- 
-#line 613 "C:\\Keil\\ARM\\ARMCC\\bin\\..\\include\\stdlib.h"
-
-
-
- 
-typedef struct __sdiv32by16 { int quot, rem; } __sdiv32by16;
-typedef struct __udiv32by16 { unsigned int quot, rem; } __udiv32by16;
-    
-typedef struct __sdiv64by32 { int rem, quot; } __sdiv64by32;
-
-__value_in_regs extern __declspec(__nothrow) __pure __sdiv32by16 __rt_sdiv32by16(
-     int  ,
-     short int  );
-   
-
- 
-__value_in_regs extern __declspec(__nothrow) __pure __udiv32by16 __rt_udiv32by16(
-     unsigned int  ,
-     unsigned short  );
-   
-
- 
-__value_in_regs extern __declspec(__nothrow) __pure __sdiv64by32 __rt_sdiv64by32(
-     int  , unsigned int  ,
-     int  );
-   
-
- 
-
-
-
- 
-extern __declspec(__nothrow) unsigned int __fp_status(unsigned int  , unsigned int  );
-   
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-extern __declspec(__nothrow) int mblen(const char *  , size_t  );
-   
-
-
-
-
-
-
-
-
-
-
-
-
- 
-extern __declspec(__nothrow) int mbtowc(wchar_t * __restrict  ,
-                   const char * __restrict  , size_t  );
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-extern __declspec(__nothrow) int wctomb(char *  , wchar_t  );
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
- 
-extern __declspec(__nothrow) size_t mbstowcs(wchar_t * __restrict  ,
-                      const char * __restrict  , size_t  ) __attribute__((__nonnull__(2)));
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-extern __declspec(__nothrow) size_t wcstombs(char * __restrict  ,
-                      const wchar_t * __restrict  , size_t  ) __attribute__((__nonnull__(2)));
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-extern __declspec(__nothrow) void __use_realtime_heap(void);
-extern __declspec(__nothrow) void __use_realtime_division(void);
-extern __declspec(__nothrow) void __use_two_region_memory(void);
-extern __declspec(__nothrow) void __use_no_heap(void);
-extern __declspec(__nothrow) void __use_no_heap_region(void);
-
-extern __declspec(__nothrow) char const *__C_library_version_string(void);
-extern __declspec(__nothrow) int __C_library_version_number(void);
-
-
-
-
-
-
-
-
-
-
-
-#line 867 "C:\\Keil\\ARM\\ARMCC\\bin\\..\\include\\stdlib.h"
-
-
- 
-
-#line 52 "..\\PCAPint_main.c"
+#line 54 "..\\PCAPint_main.c"
+
+#line 56 "..\\PCAPint_main.c"
+#line 57 "..\\PCAPint_main.c"
+#line 58 "..\\PCAPint_main.c"
+#line 59 "..\\PCAPint_main.c"
+#line 60 "..\\PCAPint_main.c"
+
+#line 62 "..\\PCAPint_main.c"
 
 
 
@@ -16108,6 +21171,22 @@ extern __declspec(__nothrow) int __C_library_version_number(void);
 
  
 static uint8_t s_broadcast_data[(8)];	
+static int8_t s_broadcast_temp[8];
+static uint8_t ps_flag = 0;
+uint8_t test_data[20] __attribute__((aligned(4)));
+uint8_t test_data[20] = {0}; 
+int a[3] = {0};
+int b[3] = {0};
+int programming = 1;
+int cap[3] = {0};
+
+uint8_t *ua;
+uint8_t *ub;
+
+
+pstorage_module_param_t flashparam;
+pstorage_handle_t       flashhandle;
+pstorage_handle_t       flash_block_handle;
 
 
 
@@ -16120,6 +21199,86 @@ static uint8_t s_broadcast_data[(8)];
 
 
 
+
+
+static void sys_evt_dispatch(uint32_t sys_evt)
+{
+    pstorage_sys_event_handler(sys_evt);
+}
+
+
+
+static void dm_pstorage_cb_handler(pstorage_handle_t * p_handle,
+                                   uint8_t             op_code,
+                                   uint32_t            result,
+                                   uint8_t           * p_data,
+                                   uint32_t            data_len)
+{
+    switch(op_code)
+    {
+        case 0x01:
+                ps_flag = 1;
+            break;
+        case 0x02: 
+                ps_flag = 2;           
+            break;
+        case 0x03:
+                ps_flag = 3;           
+            break;
+        case 0x04:
+                ps_flag = 4;            
+            break;
+        case 0x05:
+                ps_flag = 5;
+            break;
+        default:
+                ps_flag = 6;
+            break;
+    }
+}
+
+int pstorage_test(void)
+{
+		int check = 0;
+
+    uint32_t retval;
+
+    flashparam.block_size  = 20;
+    flashparam.block_count = 1;
+    flashparam.cb          = dm_pstorage_cb_handler;
+
+    retval = pstorage_init();   
+    retval = pstorage_register(&flashparam, &flashhandle);   
+
+    
+
+    retval = pstorage_block_identifier_get(&flashhandle, 0, &flash_block_handle);      
+    
+
+    
+
+    
+    retval = pstorage_load(test_data, &flash_block_handle,20, 0); 
+		if((test_data[0] == 0x01) | (test_data[1] == 0x01) | (test_data[2] == 0x01))
+		{
+			check = 1;
+			a[0] = ((test_data[5] & 0xFF) | ((test_data[4] & 0xFF) << 8) | ((test_data[3] & 0x0F) << 16));
+			b[0] = ((test_data[6] & 0xff) << 8) | (test_data[7] & 0xff);		
+			a[1] = ((test_data[10] & 0xFF) | ((test_data[9] & 0xFF) << 8) | ((test_data[8] & 0x0F) << 16));
+			b[1] = ((test_data[11] & 0xff) << 8) | (test_data[12] & 0xff);		
+			a[2] = ((test_data[15] & 0xFF) | ((test_data[14] & 0xFF) << 8) | ((test_data[13] & 0x0F) << 16));
+			b[2] = ((test_data[16] & 0xff) << 8) | (test_data[17] & 0xff);		
+			
+			
+			
+			
+		}
+
+		return check;
+		
+}
+
+void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p_file_name) {}
 
 
  
@@ -16149,19 +21308,49 @@ void softdevice_assert_callback(uint32_t pc, uint16_t line_num, const uint8_t * 
 
 
  
-static void pcap_broadcast_data(uint8_t add, uint32_t data1,uint32_t data2)
+	
+void rtc_delay(int second)
+{
+		((NRF_RTC_Type *) 0x40011000UL)->CC[0] = second*32768; 
+	  rtc_flag = 1;
+		((NRF_RTC_Type *) 0x40011000UL)->TASKS_START = 1;
+		do 
+    { 
+       
+       __wfe();   
+       
+       __sev(); 
+       __wfe();                 
+    }while(rtc_flag); 
+		
+    ((NRF_RTC_Type *) 0x40011000UL)->TASKS_STOP = 1; 
+    ((NRF_RTC_Type *) 0x40011000UL)->TASKS_CLEAR = 1;
+}
+static void pcap_broadcast_data(uint8_t add, int data1,int data2,int data3)
 		{
-				s_broadcast_data[0] = 0x07;;
+			if(add == 5 )
+			{
+				s_broadcast_data[0] = 1;;
 				s_broadcast_data[1] = add;
-				for (uint8_t y = 2; y < (5); y++)
-				{
-						s_broadcast_data[y] = (data1 >> ((4)-y)*8) & (0xFF) ;
-				}
-				for (uint8_t y = 5; y < (8); y++)
-				{
-						s_broadcast_data[y] = (data2 >> ((7)-y)*8) & (0xFF) ;
-				}
-				
+				s_broadcast_data[2] = data1 >> 16;
+				s_broadcast_data[3] = data1 >> 8;
+				s_broadcast_data[4] = data1;
+				s_broadcast_data[5] = 0;
+				s_broadcast_data[6] = 0;
+				s_broadcast_data[7] = 0;
+
+			}
+			else{
+				s_broadcast_temp[0] = 1;;
+				s_broadcast_temp[1] = add;
+				s_broadcast_temp[2] = data1 >> 8;
+				s_broadcast_temp[3] = data1;
+			  s_broadcast_temp[4] = data2 >> 8;
+				s_broadcast_temp[5] = data2;
+				s_broadcast_temp[6] = data3>> 8;
+				s_broadcast_temp[7] = data3;
+			  memcpy(s_broadcast_data,s_broadcast_temp,8);
+			}
 		}
 
 
@@ -16187,12 +21376,13 @@ static void pcap_broadcast_data(uint8_t add, uint32_t data1,uint32_t data2)
 
 
  
-static void handle_channel_event(uint32_t event, uint8_t add, uint32_t data1,uint32_t data2)					
+static void handle_channel_event(uint32_t event, uint8_t add, int data1,int data2,int data3)					
 {
 		uint32_t return_value;
 		
 		 
-		pcap_broadcast_data(add, data1,data2);
+		pcap_broadcast_data(add, data1,data2,data3);
+	  
 						
 		 
 		return_value = sd_ant_broadcast_message_tx((0), (8), s_broadcast_data);
@@ -16252,43 +21442,47 @@ int main(void)
   char capref_s[16]; 
   char cap1_s[7][16]; 
   float cap1, cap2, cap3, cap4, cap5, cap6, cap7, capref;
-	int check = 0;
 	int acknowledge_flag = 0;
 	int event_flag = 0;
 	int delay = 1;
 	int pcap_flag = 1;
 	int temp_flag = 0;
+	int cy_time = 4;
+	int rdc_sel = 6;
 	int c_avg = 100;
-	
+	double temp1 = 0;
+	double temp2 = 0;
+	double temp3 = 0;
+	int check_temp = 0;
+	int deviceid = 1;;
+	int good = 0;
+
 		 
 	 
 	static uint8_t event_message_buffer[(32)];
 	
 	 
-	return_value = sd_softdevice_enable(NRF_CLOCK_LFCLKSRC_SYNTH_250_PPM, softdevice_assert_callback);
-	if (return_value != ((0x0) + 0)) 	{	while(1);}
-
-  
-
-
-
-
-
-
-
- 
+	do { static uint32_t EVT_BUFFER[(((((((((sizeof(ble_evt_t) + (23))) < ((sizeof(ant_evt_t))) ? ((sizeof(ant_evt_t))) : ((sizeof(ble_evt_t) + (23))))) < (sizeof(uint32_t)) ? (sizeof(uint32_t)) : ((((sizeof(ble_evt_t) + (23))) < ((sizeof(ant_evt_t))) ? ((sizeof(ant_evt_t))) : ((sizeof(ble_evt_t) + (23))))))) - 1) / (sizeof(uint32_t))) + 1)]; uint32_t ERR_CODE; ERR_CODE = softdevice_handler_init((NRF_CLOCK_LFCLKSRC_RC_250_PPM_4000MS_CALIBRATION), EVT_BUFFER, sizeof(EVT_BUFFER), (0) ? softdevice_evt_schedule : 0); do { const uint32_t LOCAL_ERR_CODE = (ERR_CODE); if (LOCAL_ERR_CODE != ((0x0) + 0)) { do { app_error_handler((LOCAL_ERR_CODE), 362, (uint8_t*) "..\\PCAPint_main.c"); } while (0); } } while (0); } while (0); 
+	softdevice_sys_evt_handler_set(sys_evt_dispatch); 
 	
-  
+	
+	
+   	
+	
   ((NRF_RTC_Type *) 0x40011000UL)->PRESCALER = 0; 
   ((NRF_RTC_Type *) 0x40011000UL)->EVTENSET = (0x1UL << (16UL));  
   ((NRF_RTC_Type *) 0x40011000UL)->INTENSET = (0x1UL << (16UL));  
   ((NRF_RTC_Type *) 0x40011000UL)->CC[0] = 5*32768; 
   NVIC_EnableIRQ(RTC1_IRQn); 
 	
+  sd_power_mode_set ( NRF_POWER_MODE_LOWPWR   );
+
    
-	((NRF_RTC_Type *) 0x40011000UL)->CC[0] = (rand() % 1000 + 1)*32768/1000; 
+	((NRF_RTC_Type *) 0x40011000UL)->CC[0] = (10+rand()%10)*32768; 
   rtc_flag = 1;
   ((NRF_RTC_Type *) 0x40011000UL)->TASKS_START = 1;
+	
+
 	do 
   { 
 	  
@@ -16297,7 +21491,14 @@ int main(void)
 		__sev(); 
 		__wfe();                 
   }while(rtc_flag); 
-  
+	
+	((NRF_RTC_Type *) 0x40011000UL)->TASKS_STOP = 1; 
+	((NRF_RTC_Type *) 0x40011000UL)->TASKS_CLEAR = 1; 
+
+	 
+	check_temp = pstorage_test();
+
+	
 
 	 
 	
@@ -16313,14 +21514,6 @@ int main(void)
 	  
 	uint32_t *PCAP_spi_address = pcap_spi_set(SPI1); 
   pcap_dsp_write(PCAP_spi_address); 
-	return_value = pcap_commcheck(PCAP_spi_address);
-	while( return_value != 1) 
-		{
-		 pcap_dsp_write(PCAP_spi_address); 
-		 return_value = pcap_commcheck(PCAP_spi_address);
-		}
-
-		
 	
 	 
 	while(1)
@@ -16329,36 +21522,12 @@ int main(void)
 		{
 			pcap_flag = 0;
 			 
-	    ret0 = pcap_config(PCAP_spi_address,c_avg,temp_flag);
+	    ret0 = pcap_config(PCAP_spi_address,c_avg,temp_flag,cy_time,rdc_sel);
 		}
-		check = 0;
 		 
-		
-		
-		
 		 
-		ret2 = pcap_measure(PCAP_spi_address,c_avg,temp_flag);
+		ret2 = pcap_measure(PCAP_spi_address,c_avg,temp_flag,cy_time);
 		
-		
-		 
-		
-		
-		 
-
-		 
-		
-		
-
-
-
-
-
-
-
-
-
-
- 
 		ret3 = (stat == 0 && cap_t == 0 && cap_t[1] == 0); 
 		
 		  
@@ -16371,90 +21540,118 @@ int main(void)
 		CAP_ERR_PC = (stat >> 5) & 0x0F;
 		TEMP_ERR = (stat >> 3) & 1;
 		
+	  
+		return_value = sd_ant_channel_open((0));
+
 		 
-		capref = data_extract(cap_t[0])*47 ;
 		
-  
+		memset(tx_data, 0, 8);
+		memset(rx_data, 0, 8);
+
+		stat = read_reg(PCAP_spi_address, (8));
+		if(!(stat == 	0x100000 | stat == 	0x500000)) good = 0;
+		else good = 1;
+		 
+		if(!good)
+		{
+			for(int i = 0; i< 10; i++)
+			{
 				
-
-
-
-
-
-
-
-
-
- 
-	
-	return_value = sd_ant_channel_open((0));
-		
-	s_broadcast_data[0] = 0x07;;
-	return_value = sd_ant_broadcast_message_tx((0), (8), s_broadcast_data );
-
-
-	if( return_value != ((0x0) + 0) ) {
-		return 1; 
+				if(!good)
+				{		
+					  handle_channel_event(event, 5, stat,0,0);
+						MSG_LEN = 8;
+						memset(tx_data, 0, 8);
+						memset(rx_data, 0, 8);
+						tx_data[0] = 0x88; 
+					
+						acknowledge_flag = 1;
+						
+						event_flag = 0;
+						
+						return_value = pcap_spi_tx_rx(PCAP_spi_address, MSG_LEN, tx_data);
+						pcap_dsp_write(PCAP_spi_address); 
+						return_value = pcap_config(PCAP_spi_address,c_avg,temp_flag,cy_time,rdc_sel);
+						return_value = pcap_measure(PCAP_spi_address,c_avg,temp_flag,cy_time);
+						 
+						stat = read_reg(PCAP_spi_address, (8));
+						if(!(stat == 	0x100000 | stat == 	0x500000)) good = 0;
+						else good = 1;
+						rtc_delay(delay);
+				
+			
+						}
+		}
 	}
+		if(!good)
+		{
+			while(1)
+			{
+				handle_channel_event(event, 5, stat,0,0);
+				rtc_delay(1);
+			}
+		}
+		
 		n = 0;
-		
-		
-
-		
-
 		 
 		do
-		{	
+		{				
 			 
+			n++;
+			if(1) 
+				{
+					switch (n)
+					{
+						case 1:
+						memset(tx_data, 0, 8);
+						memset(rx_data, 0, 8);
 			
-			
-				 
-						n++;
-						
-					
-						
-						
-						
-						
-
 						 
-						if(1) 
-						{
-								switch (n)
-								{
-										case 1:
-										memset(tx_data, 0, 8);
-										memset(rx_data, 0, 8);
-		
-										 
-										stat = read_reg(PCAP_spi_address, (8));
-										 
-										
-										cap_t[1] = read_reg(PCAP_spi_address, (1));
-										handle_channel_event(event, (1), stat,cap_t[1]);
-										break;
-										
-										case 2:
-										 
-										
-										cap_t[2] = read_reg(PCAP_spi_address, (2));
-										cap_t[3] = read_reg(PCAP_spi_address, (3));
-										handle_channel_event(event, (2), cap_t[2],cap_t[3]);
-										break;
-										
-										case 3:
-										if(temp_flag){
-											 
-											cap_t[4] = read_reg(PCAP_spi_address, (13));
-											cap_t[5] = read_reg(PCAP_spi_address, (14));
-											handle_channel_event(event, 3, cap_t[4],cap_t[5]);
-										}
-								}															 
-						}
+											
+						cap_t[1] = read_reg(PCAP_spi_address, (1));		
+						cap_t[2] = read_reg(PCAP_spi_address, (2));		
+						cap_t[3] = read_reg(PCAP_spi_address, (3));		
+											
+						if(check_temp)
+						{	
+							temp1 = data_extract(cap_t[1])*1200;
+							temp1 = (-(float)a[0]*temp1)/10000 + (float)b[0]/10;
+							temp1 = temp1 * 100;
+												
+							temp2 = data_extract(cap_t[2])*1200;
+							temp2 = (-(float)a[1]*temp2)/10000 + (float)b[1]/10;
+							temp2 = temp2 * 100;
+												
+							temp3 = data_extract(cap_t[3])*1200;
+							temp3 = (-(float)a[2]*temp3)/10000 + (float)b[2]/10;
+							temp3 = temp3 * 100;
 
+							handle_channel_event(event, 4, temp1,temp2,temp3);
+
+						}
+						else
+						{
+							cap[0] =  (int)((float)(data_extract(cap_t[1]))*10000);
+							cap[1] =  (int)((float)(data_extract(cap_t[2]))*10000);
+							cap[2] =  (int)((float)(data_extract(cap_t[3]))*10000);
+							handle_channel_event(event, 4, cap[0],cap[1],cap[2]);
+						}		
+					break;
+										
+						case 2:
+							if(temp_flag)
+							{
+									 
+									cap_t[4] = read_reg(PCAP_spi_address, (13));
+								  cap_t[5] = read_reg(PCAP_spi_address, (14));
+									
+							}										
+							break;										
+						}															 
+			  }
 						 
 						sw2 = 0;
-		} while ( n < 3 );
+		} while ( n < 2 );
 		
 		n = 0;			
 		sw2 = 0;			
@@ -16465,24 +21662,74 @@ int main(void)
 		event_flag = 0;
 		while(!event_flag){
 	  return_value = sd_ant_event_get(&ant_channel, &event, event_message_buffer);
+			
 		if (return_value == ((0x0) + 0)) 
 		{
 			switch (event)
 			{
 				case ((uint8_t)0x80):
-					if(event_message_buffer[1u] ==  ((uint8_t)0x4E) ) {
-						delay = event_message_buffer[5];
-						if(c_avg !=  (int)(event_message_buffer[8] << 8 |event_message_buffer[7] ))
+					if( event_message_buffer[1u] ==  ((uint8_t)0x4E)) 
 						{
-							c_avg = (int)(event_message_buffer[8] << 8 |event_message_buffer[7] );
-							pcap_flag = 1;
-						}	
-						if(event_message_buffer[6] != temp_flag)
+						
+						if(event_message_buffer[5] < 2)
 						{
-						  temp_flag = event_message_buffer[6];
-							ret0 = pcap_config(PCAP_spi_address,c_avg,temp_flag);
-						}
+							delay = event_message_buffer[6];
+							if(c_avg !=  (int)(event_message_buffer[8] << 8 |event_message_buffer[7] ))
+							{
+								c_avg = (int)(event_message_buffer[8] << 8 |event_message_buffer[7] );
+								pcap_flag = 1;
+							}	
+							
+							if(event_message_buffer[5] != temp_flag)
+							{
+								temp_flag = event_message_buffer[5];
+								pcap_flag = 1;
+								
+								
+							}
+							if(event_message_buffer[9] != cy_time)
+							{
+								cy_time = event_message_buffer[9];
+								pcap_flag = 1;
+							}
+							if(event_message_buffer[10] != rdc_sel)
+							{
+								rdc_sel = event_message_buffer[10];
+								pcap_flag = 1;
+							}
 					}
+					else if(event_message_buffer[3] == deviceid)
+					{
+							if((a[event_message_buffer[5] - 2] !=  ((event_message_buffer[8] & 0xFF) | ((event_message_buffer[7] & 0xFF) << 8) | ((event_message_buffer[6] & 0x0F) << 16))) | (b[event_message_buffer[5] - 2] !=  (((event_message_buffer[9] & 0xff) << 8) | (event_message_buffer[10] & 0xff))))
+							{
+								a[event_message_buffer[5] - 2] = ((event_message_buffer[8] & 0xFF) | ((event_message_buffer[7] & 0xFF) << 8) | ((event_message_buffer[6] & 0x0F) << 16));
+								b[event_message_buffer[5] - 2] = ((event_message_buffer[9] & 0xff) << 8) | (event_message_buffer[10] & 0xff);
+								test_data[event_message_buffer[5] - 2] = 0x01;
+								test_data[3 + 5 * ((event_message_buffer[5]) - 2)] = event_message_buffer[6];
+								test_data[3 + 5 * ((event_message_buffer[5]) - 2) + 1] = event_message_buffer[7];
+								test_data[3 + 5 * ((event_message_buffer[5]) - 2) + 2] = event_message_buffer[8];
+								test_data[3 + 5 * ((event_message_buffer[5]) - 2) + 3] = event_message_buffer[9];
+								test_data[3 + 5 * ((event_message_buffer[5]) - 2) + 4] = event_message_buffer[10];
+								if(check_temp){
+									
+									return_value =  pstorage_update(&flash_block_handle, test_data, 20, 0);
+								}
+								else
+								{
+									return_value =  pstorage_store(&flash_block_handle, test_data, 20, 0);
+									check_temp = 1;
+								}
+							}
+							
+
+
+
+
+ 
+						 
+						 
+					}
+				}
 					event_flag = 1;
 					break;
 				default:
@@ -16509,7 +21756,7 @@ int main(void)
 			
 	    return_value = sd_ant_channel_open((0));
 		  
-	    s_broadcast_data[0] = 0x07;;
+	    s_broadcast_data[0] = 1;;
 	    return_value = sd_ant_broadcast_message_tx((0), (8), s_broadcast_data );
 			
 		  ((NRF_RTC_Type *) 0x40011000UL)->CC[0] = 1*32768; 

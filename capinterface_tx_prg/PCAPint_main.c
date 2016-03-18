@@ -34,6 +34,16 @@
 #include "nrf_sdm.h"
 #include "app_error.h"
 #include "boards.h"
+#include "pstorage.h"
+#include "pstorage.c"
+#include "softdevice_handler.h"
+#include "softdevice_handler.c"
+#include "nrf_assert.c"
+#include "nrf_assert.h"
+#define CHECK_BIT(var,pos) ((var) & (1<<(pos)))
+
+
+
 
 //ANT SETUP
 #include "ant_config.h"
@@ -52,12 +62,29 @@
 
 //*****************************************
 //DEVICE ID
-#define DEVICE_ID 0x07; //hex	
+#define DEVICE_ID 1;
 //*******************************************
 
 
 /* Static variables and buffers */
 static uint8_t s_broadcast_data[BROADCAST_DATA_BUFFER_SIZE];	///< Primary data transmit buffer
+static int8_t s_broadcast_temp[8];
+static uint8_t ps_flag = 0;
+uint8_t test_data[20] __attribute__((aligned(4)));
+uint8_t test_data[20] = {0}; 
+int a[3] = {0};
+int b[3] = {0};
+int programming = 1;
+int cap[3] = {0};
+
+uint8_t *ua;
+uint8_t *ub;
+
+
+pstorage_module_param_t flashparam;
+pstorage_handle_t       flashhandle;
+pstorage_handle_t       flash_block_handle;
+
 
 
 //int rtc_flag = 1;
@@ -69,7 +96,86 @@ static uint8_t s_broadcast_data[BROADCAST_DATA_BUFFER_SIZE];	///< Primary data t
 #define BUTTON2							 						2
 #define LED7															 15
 #define LED6															 14
+//#define NEED_PSTORAGE 1
 
+static void sys_evt_dispatch(uint32_t sys_evt)
+{
+    pstorage_sys_event_handler(sys_evt);
+}
+
+
+
+static void dm_pstorage_cb_handler(pstorage_handle_t * p_handle,
+                                   uint8_t             op_code,
+                                   uint32_t            result,
+                                   uint8_t           * p_data,
+                                   uint32_t            data_len)
+{
+    switch(op_code)
+    {
+        case PSTORAGE_ERROR_OP_CODE:
+                ps_flag = 1;
+            break;
+        case PSTORAGE_STORE_OP_CODE: 
+                ps_flag = 2;           
+            break;
+        case PSTORAGE_LOAD_OP_CODE:
+                ps_flag = 3;           
+            break;
+        case PSTORAGE_CLEAR_OP_CODE:
+                ps_flag = 4;            
+            break;
+        case PSTORAGE_UPDATE_OP_CODE:
+                ps_flag = 5;
+            break;
+        default:
+                ps_flag = 6;
+            break;
+    }
+}
+
+int pstorage_test(void)
+{
+		int check = 0;
+
+    uint32_t retval;
+
+    flashparam.block_size  = 20;
+    flashparam.block_count = 1;
+    flashparam.cb          = dm_pstorage_cb_handler;
+
+    retval = pstorage_init();   
+    retval = pstorage_register(&flashparam, &flashhandle);   
+
+    //retval = pstorage_clear(&flashhandle, 20);  
+
+    retval = pstorage_block_identifier_get(&flashhandle, 0, &flash_block_handle);      
+    //retval = pstorage_store(&flash_block_handle, test_data, 4, 0);
+
+    //retval = pstorage_block_identifier_get(&flashhandle, 0, &flash_block_handle);
+
+    //uint8_t load_data[6];
+    retval = pstorage_load(test_data, &flash_block_handle,20, 0); 
+		if((test_data[0] == 0x01) | (test_data[1] == 0x01) | (test_data[2] == 0x01))
+		{
+			check = 1;
+			a[0] = ((test_data[5] & 0xFF) | ((test_data[4] & 0xFF) << 8) | ((test_data[3] & 0x0F) << 16));
+			b[0] = ((test_data[6] & 0xff) << 8) | (test_data[7] & 0xff);		
+			a[1] = ((test_data[10] & 0xFF) | ((test_data[9] & 0xFF) << 8) | ((test_data[8] & 0x0F) << 16));
+			b[1] = ((test_data[11] & 0xff) << 8) | (test_data[12] & 0xff);		
+			a[2] = ((test_data[15] & 0xFF) | ((test_data[14] & 0xFF) << 8) | ((test_data[13] & 0x0F) << 16));
+			b[2] = ((test_data[16] & 0xff) << 8) | (test_data[17] & 0xff);		
+			//retval = pstorage_load(ua, &flash_block_handle, 4, 1); 
+			//retval = pstorage_load(ub, &flash_block_handle, 4, 5); 
+			//memcpy(&a,ua,sizeof(float));
+			//memcpy(&b,ub,sizeof(float));
+		}
+
+		return check;
+		
+}
+
+void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p_file_name) {}
 /** 
  * @brief Handle error from application
  */
@@ -99,19 +205,49 @@ void softdevice_assert_callback(uint32_t pc, uint16_t line_num, const uint8_t * 
 		* @param data: Data to be sent
 		* @retval none
 */
-static void pcap_broadcast_data(uint8_t add, uint32_t data1,uint32_t data2)
+	
+void rtc_delay(int second)
+{
+		NRF_RTC1->CC[0] = second*32768; 
+	  rtc_flag = 1;
+		NRF_RTC1->TASKS_START = 1;
+		do 
+    { 
+       // Enter System ON sleep mode 
+       __WFE();   
+       // Make sure any pending events are cleared 
+       __SEV(); 
+       __WFE();                 
+    }while(rtc_flag); 
+		
+    NRF_RTC1->TASKS_STOP = 1; 
+    NRF_RTC1->TASKS_CLEAR = 1;
+}
+static void pcap_broadcast_data(uint8_t add, int data1,int data2,int data3)
 		{
+			if(add == 5 )
+			{
 				s_broadcast_data[0] = DEVICE_ID;
 				s_broadcast_data[1] = add;
-				for (uint8_t y = 2; y < (5); y++)
-				{
-						s_broadcast_data[y] = (data1 >> ((4)-y)*CHAR_BIT) & (0xFF) ;
-				}
-				for (uint8_t y = 5; y < (8); y++)
-				{
-						s_broadcast_data[y] = (data2 >> ((7)-y)*CHAR_BIT) & (0xFF) ;
-				}
-				
+				s_broadcast_data[2] = data1 >> 16;
+				s_broadcast_data[3] = data1 >> 8;
+				s_broadcast_data[4] = data1;
+				s_broadcast_data[5] = 0;
+				s_broadcast_data[6] = 0;
+				s_broadcast_data[7] = 0;
+
+			}
+			else{
+				s_broadcast_temp[0] = DEVICE_ID;
+				s_broadcast_temp[1] = add;
+				s_broadcast_temp[2] = data1 >> 8;
+				s_broadcast_temp[3] = data1;
+			  s_broadcast_temp[4] = data2 >> 8;
+				s_broadcast_temp[5] = data2;
+				s_broadcast_temp[6] = data3>> 8;
+				s_broadcast_temp[7] = data3;
+			  memcpy(s_broadcast_data,s_broadcast_temp,8);
+			}
 		}
 
 
@@ -137,12 +273,13 @@ static void pcap_broadcast_data(uint8_t add, uint32_t data1,uint32_t data2)
  * @param[in] event is the received ant event to handle
  *
  */
-static void handle_channel_event(uint32_t event, uint8_t add, uint32_t data1,uint32_t data2)					
+static void handle_channel_event(uint32_t event, uint8_t add, int data1,int data2,int data3)					
 {
 		uint32_t return_value;
 		
 		/* Prep broad cast data for transmit */
-		pcap_broadcast_data(add, data1,data2);
+		pcap_broadcast_data(add, data1,data2,data3);
+	  
 						
 		/* Broadcast the data */
 		return_value = sd_ant_broadcast_message_tx(CHANNEL_0, BROADCAST_DATA_BUFFER_SIZE, s_broadcast_data);
@@ -202,43 +339,47 @@ int main(void)
   char capref_s[16]; // String displays for LCD
   char cap1_s[7][16]; 
   float cap1, cap2, cap3, cap4, cap5, cap6, cap7, capref;
-	int check = 0;
 	int acknowledge_flag = 0;
 	int event_flag = 0;
 	int delay = 1;
 	int pcap_flag = 1;
 	int temp_flag = 0;
+	int cy_time = 4;
+	int rdc_sel = 6;
 	int c_avg = 100;
-	
+	double temp1 = 0;
+	double temp2 = 0;
+	double temp3 = 0;
+	int check_temp = 0;
+	int deviceid = DEVICE_ID;
+	int good = 0;
+
 		 
 	/* ANT event message buffer */
 	static uint8_t event_message_buffer[ANT_EVENT_MSG_BUFFER_MIN_SIZE];
 	
 	/* Enable softdevice */
-	return_value = sd_softdevice_enable(NRF_CLOCK_LFCLKSRC_SYNTH_250_PPM, softdevice_assert_callback);//NRF_CLOCK_LFCLKSRC_XTAL_250_PPM   NRF_CLOCK_LFCLKSRC_SYNTH_250_PPM
-	if (return_value != NRF_SUCCESS) 	{	while(true);}
-
-  /*RTC Intialisation
-	// Internal 32kHz RC 
-  NRF_CLOCK->LFCLKSRC = CLOCK_LFCLKSRC_SRC_RC << CLOCK_LFCLKSRC_SRC_Pos; 
-  
-  // Start the 32 kHz clock, and wait for the start up to complete 
-  NRF_CLOCK->EVENTS_LFCLKSTARTED = 0; 
-  NRF_CLOCK->TASKS_LFCLKSTART = 1; 
-  while(NRF_CLOCK->EVENTS_LFCLKSTARTED == 0); 
-  */
+	SOFTDEVICE_HANDLER_INIT(NRF_CLOCK_LFCLKSRC_RC_250_PPM_4000MS_CALIBRATION, false); //NRF_CLOCK_LFCLKSRC_SYNTH_250_PPM
+	softdevice_sys_evt_handler_set(sys_evt_dispatch); 
+	//return_value = sd_softdevice_enable(NRF_CLOCK_LFCLKSRC_SYNTH_250_PPM, softdevice_assert_callback);//NRF_CLOCK_LFCLKSRC_XTAL_250_PPM   NRF_CLOCK_LFCLKSRC_SYNTH_250_PPM
+	//if (return_value != NRF_SUCCESS) 	{	while(true);}
 	
-  // Configure the RTC to run at 2 second intervals, and make sure COMPARE0 generates an interrupt (this will be the wakeup source) 
+  /*RTC Intialisation*/	
+	
   NRF_RTC1->PRESCALER = 0; 
   NRF_RTC1->EVTENSET = RTC_EVTEN_COMPARE0_Msk;  
   NRF_RTC1->INTENSET = RTC_INTENSET_COMPARE0_Msk;  
   NRF_RTC1->CC[0] = 5*32768; 
   NVIC_EnableIRQ(RTC1_IRQn); 
 	
+  sd_power_mode_set ( NRF_POWER_MODE_LOWPWR   );
+
   /*Random Delay*/
-	NRF_RTC1->CC[0] = (rand() % 1000 + 1)*32768/1000; 
+	NRF_RTC1->CC[0] = (10+rand()%10)*32768; 
   rtc_flag = 1;
   NRF_RTC1->TASKS_START = 1;
+	//NRF_CLOCK->TASKS_HFCLKSTOP = 1;
+
 	do 
   { 
 	  // Enter System ON sleep mode 
@@ -247,7 +388,14 @@ int main(void)
 		__SEV(); 
 		__WFE();                 
   }while(rtc_flag); 
-  //nrf_delay_ms(rand() % 1000 + 1);
+	
+	NRF_RTC1->TASKS_STOP = 1; 
+	NRF_RTC1->TASKS_CLEAR = 1; 
+
+	/*Persistent Storage*/
+	check_temp = pstorage_test();
+
+	
 
 	/* Set application IRQ to lowest priority */
 	//return_value = sd_nvic_SetPriority(SD_EVT_IRQn, NRF_APP_PRIORITY_LOW); 
@@ -263,14 +411,6 @@ int main(void)
 	/* SPI Intialisation */ 
 	uint32_t *PCAP_spi_address = pcap_spi_set(SPI1); 
   pcap_dsp_write(PCAP_spi_address); 
-	return_value = pcap_commcheck(PCAP_spi_address);
-	while( return_value != true) 
-		{
-		 pcap_dsp_write(PCAP_spi_address); 
-		 return_value = pcap_commcheck(PCAP_spi_address);
-		}
-
-		
 	
 	/* Main Loop */
 	while(true)
@@ -279,36 +419,12 @@ int main(void)
 		{
 			pcap_flag = 0;
 			/* PCAP Config */
-	    ret0 = pcap_config(PCAP_spi_address,c_avg,temp_flag);
+	    ret0 = pcap_config(PCAP_spi_address,c_avg,temp_flag,cy_time,rdc_sel);
 		}
-		check = 0;
 		/* PCAP Config */
-		//needs implementation into loop to check if this needs to be reconfigured based on ANT recieved messages
-		//ret0 = pcap_config(PCAP_spi_address);
-		
 		/* Capacitance Measurement */
-		ret2 = pcap_measure(PCAP_spi_address,c_avg,temp_flag);
+		ret2 = pcap_measure(PCAP_spi_address,c_avg,temp_flag,cy_time);
 		
-		
-		/* Prep broad cast data for transmit */
-		//pcap_broadcast_data(read_stat, stat);
-		
-		/* Read cap values: */
-
-		/* Reference Capacitor */
-		//cap_t[0] = read_reg(PCAP_spi_address, read_reg0);
-		/*
-
-		
-		cap_t[4] = read_reg(PCAP_spi_address, read_reg4);
-		
-		cap_t[5] = read_reg(PCAP_spi_address, read_reg5);
-		
-		cap_t[6] = read_reg(PCAP_spi_address, read_reg6);
-		
-		cap_t[7] = read_reg(PCAP_spi_address, read_reg7);
-														
-		*/
 		ret3 = (stat == 0 && cap_t == 0 && cap_t[1] == 0); 
 		
 		/* Status bits */ 
@@ -321,90 +437,118 @@ int main(void)
 		CAP_ERR_PC = (stat >> 5) & 0x0F;
 		TEMP_ERR = (stat >> 3) & 1;
 		
-		/* Data extraction: */
-		capref = data_extract(cap_t[0])*47 ;
-		//capref = 5;
-  //if (return_value != NRF_SUCCESS) while(true);	
-				/*return_value = sd_ant_event_get(&ant_channel, &event, event_message_buffer);
-			if (return_value == NRF_SUCCESS) 
+	  // Open channel. 
+		return_value = sd_ant_channel_open(CHANNEL_0);
+
+		/*Check Status make sure good data*/
+		
+		memset(tx_data, 0, 8);
+		memset(rx_data, 0, 8);
+
+		stat = read_reg(PCAP_spi_address, read_stat);
+		if(!(stat == 	0x100000 | stat == 	0x500000)) good = 0;
+		else good = 1;
+		/*Try to fix for 10 times*/
+		if(!good)
+		{
+			for(int i = 0; i< 10; i++)
 			{
-
-				switch (event)
-				{
-					case EVENT_RX:
-					check = 1;
-					break;
-				}
-			}		*/
-	// Open channel. 
-	return_value = sd_ant_channel_open(CHANNEL_0);
-		// Get first data to send
-	s_broadcast_data[0] = DEVICE_ID;
-	return_value = sd_ant_broadcast_message_tx(CHANNEL_0, BROADCAST_DATA_BUFFER_SIZE, s_broadcast_data );
-
-
-	if( return_value != NRF_SUCCESS ) {
-		return true; // error
+				
+				if(!good)
+				{		
+					  handle_channel_event(event, 5, stat,0,0);
+						MSG_LEN = 8;
+						memset(tx_data, 0, 8);
+						memset(rx_data, 0, 8);
+						tx_data[0] = 0x88; // full Reset 
+					
+						acknowledge_flag = 1;
+						
+						event_flag = 0;
+						
+						return_value = pcap_spi_tx_rx(PCAP_spi_address, MSG_LEN, tx_data);
+						pcap_dsp_write(PCAP_spi_address); 
+						return_value = pcap_config(PCAP_spi_address,c_avg,temp_flag,cy_time,rdc_sel);
+						return_value = pcap_measure(PCAP_spi_address,c_avg,temp_flag,cy_time);
+						/*Check again*/
+						stat = read_reg(PCAP_spi_address, read_stat);
+						if(!(stat == 	0x100000 | stat == 	0x500000)) good = 0;
+						else good = 1;
+						rtc_delay(delay);
+				
+			
+						}
+		}
 	}
+		if(!good)
+		{
+			while(1)
+			{
+				handle_channel_event(event, 5, stat,0,0);
+				rtc_delay(1);
+			}
+		}
+		
 		n = 0;
-		//return_value = sd_ant_broadcast_message_tx(CHANNEL_0, BROADCAST_DATA_BUFFER_SIZE, s_broadcast_data);
-		//nrf_delay_ms(2000);
-
-		//return_value = sd_ant_event_get(&ant_channel, &event, event_message_buffer);
-
 		/* send data */
 		do
-		{	
-			/* Fetch the event */
-			//return_value = sd_ant_event_get(&ant_channel, &event, event_message_buffer);
+		{				
+			/* Handle event */
+			n++;
+			if(1) 
+				{
+					switch (n)
+					{
+						case 1:
+						memset(tx_data, 0, 8);
+						memset(rx_data, 0, 8);
 			
-				/* Handle event */
-						n++;
-						//sd_ant_event_get(&ant_channel, &event, event_message_buffer);
-					
-						// HARD CODED FOR CMEAS_BITS equal to 4
-						
-						//uint16_t chk = (CMEAS_PORT_EN >> 2*n) & 0x03;
-						//x = 0;
+						/* Read Status register: */
+											
+						cap_t[1] = read_reg(PCAP_spi_address, read_reg1);		
+						cap_t[2] = read_reg(PCAP_spi_address, read_reg2);		
+						cap_t[3] = read_reg(PCAP_spi_address, read_reg3);		
+											
+						if(check_temp)
+						{	
+							temp1 = data_extract(cap_t[1])*1200;
+							temp1 = (-(float)a[0]*temp1)/10000 + (float)b[0]/10;
+							temp1 = temp1 * 100;
+												
+							temp2 = data_extract(cap_t[2])*1200;
+							temp2 = (-(float)a[1]*temp2)/10000 + (float)b[1]/10;
+							temp2 = temp2 * 100;
+												
+							temp3 = data_extract(cap_t[3])*1200;
+							temp3 = (-(float)a[2]*temp3)/10000 + (float)b[2]/10;
+							temp3 = temp3 * 100;
 
-						/* Check for transmission and no of capacitors to be read*/
-						if(1) 
-						{
-								switch (n)
-								{
-										case 1:
-										memset(tx_data, 0, 8);
-										memset(rx_data, 0, 8);
-		
-										/* Read Status register: */
-										stat = read_reg(PCAP_spi_address, read_stat);
-										/* Measure Capacitor 1  */
-										//Needs a bit of refinement here ... this switch statement is useless but can be refined to handle registers
-										cap_t[1] = read_reg(PCAP_spi_address, read_reg1);
-										handle_channel_event(event, read_reg1, stat,cap_t[1]);
-										break;
-										
-										case 2:
-										/* Measure Capacitor 2 & 3 */
-										//May need a memset
-										cap_t[2] = read_reg(PCAP_spi_address, read_reg2);
-										cap_t[3] = read_reg(PCAP_spi_address, read_reg3);
-										handle_channel_event(event, read_reg2, cap_t[2],cap_t[3]);
-										break;
-										
-										case 3:
-										if(temp_flag){
-											/*Temp Measure*/
-											cap_t[4] = read_reg(PCAP_spi_address, read_reg10);
-											cap_t[5] = read_reg(PCAP_spi_address, read_reg11);
-											handle_channel_event(event, 3, cap_t[4],cap_t[5]);
-										}
-								}															 
+							handle_channel_event(event, 4, temp1,temp2,temp3);
+
 						}
-
+						else
+						{
+							cap[0] =  (int)((float)(data_extract(cap_t[1]))*10000);
+							cap[1] =  (int)((float)(data_extract(cap_t[2]))*10000);
+							cap[2] =  (int)((float)(data_extract(cap_t[3]))*10000);
+							handle_channel_event(event, 4, cap[0],cap[1],cap[2]);
+						}		
+					break;
+										
+						case 2:
+							if(temp_flag)
+							{
+									/*Temp Measure*/
+									cap_t[4] = read_reg(PCAP_spi_address, read_reg10);
+								  cap_t[5] = read_reg(PCAP_spi_address, read_reg11);
+									//handle_channel_event(event, 3, cap_t[4],cap_t[5]);
+							}										
+							break;										
+						}															 
+			  }
 						/* Flag to ensure all capacitors values have been transmitted*/
 						sw2 = 0;
-		} while ( n < 3 );
+		} while ( n < 2 );
 		
 		n = 0;			
 		sw2 = 0;			
@@ -415,24 +559,74 @@ int main(void)
 		event_flag = 0;
 		while(!event_flag){
 	  return_value = sd_ant_event_get(&ant_channel, &event, event_message_buffer);
+			
 		if (return_value == NRF_SUCCESS) 
 		{
 			switch (event)
 			{
 				case EVENT_RX:
-					if(event_message_buffer[1u] ==  MESG_BROADCAST_DATA_ID ) {
-						delay = event_message_buffer[5];
-						if(c_avg !=  (int)(event_message_buffer[8] << 8 |event_message_buffer[7] ))
+					if( event_message_buffer[1u] ==  MESG_BROADCAST_DATA_ID) 
 						{
-							c_avg = (int)(event_message_buffer[8] << 8 |event_message_buffer[7] );
-							pcap_flag = 1;
-						}	
-						if(event_message_buffer[6] != temp_flag)
+						
+						if(event_message_buffer[5] < 2)
 						{
-						  temp_flag = event_message_buffer[6];
-							ret0 = pcap_config(PCAP_spi_address,c_avg,temp_flag);
-						}
+							delay = event_message_buffer[6];
+							if(c_avg !=  (int)(event_message_buffer[8] << 8 |event_message_buffer[7] ))
+							{
+								c_avg = (int)(event_message_buffer[8] << 8 |event_message_buffer[7] );
+								pcap_flag = 1;
+							}	
+							//temp_flag = event_message_buffer[6];
+							if(event_message_buffer[5] != temp_flag)
+							{
+								temp_flag = event_message_buffer[5];
+								pcap_flag = 1;
+								//return_value =  pstorage_store(&flash_block_handle, test_data, 4, 0);
+								//check_temp = 1;
+							}
+							if(event_message_buffer[9] != cy_time)
+							{
+								cy_time = event_message_buffer[9];
+								pcap_flag = 1;
+							}
+							if(event_message_buffer[10] != rdc_sel)
+							{
+								rdc_sel = event_message_buffer[10];
+								pcap_flag = 1;
+							}
 					}
+					else if(event_message_buffer[3] == deviceid)
+					{
+							if((a[event_message_buffer[5] - 2] !=  ((event_message_buffer[8] & 0xFF) | ((event_message_buffer[7] & 0xFF) << 8) | ((event_message_buffer[6] & 0x0F) << 16))) | (b[event_message_buffer[5] - 2] !=  (((event_message_buffer[9] & 0xff) << 8) | (event_message_buffer[10] & 0xff))))
+							{
+								a[event_message_buffer[5] - 2] = ((event_message_buffer[8] & 0xFF) | ((event_message_buffer[7] & 0xFF) << 8) | ((event_message_buffer[6] & 0x0F) << 16));
+								b[event_message_buffer[5] - 2] = ((event_message_buffer[9] & 0xff) << 8) | (event_message_buffer[10] & 0xff);
+								test_data[event_message_buffer[5] - 2] = 0x01;
+								test_data[3 + 5 * ((event_message_buffer[5]) - 2)] = event_message_buffer[6];
+								test_data[3 + 5 * ((event_message_buffer[5]) - 2) + 1] = event_message_buffer[7];
+								test_data[3 + 5 * ((event_message_buffer[5]) - 2) + 2] = event_message_buffer[8];
+								test_data[3 + 5 * ((event_message_buffer[5]) - 2) + 3] = event_message_buffer[9];
+								test_data[3 + 5 * ((event_message_buffer[5]) - 2) + 4] = event_message_buffer[10];
+								if(check_temp){
+									
+									return_value =  pstorage_update(&flash_block_handle, test_data, 20, 0);
+								}
+								else
+								{
+									return_value =  pstorage_store(&flash_block_handle, test_data, 20, 0);
+									check_temp = 1;
+								}
+							}
+							/*test_data[0] = 0x01;
+							return_value =  pstorage_store(&flash_block_handle, test_data, 1, 0);
+							ua = (uint8_t *)&a;
+							ub = (uint8_t *)&b;
+							return_value =  pstorage_store(&flash_block_handle, ua, 4, 1);
+							return_value =  pstorage_store(&flash_block_handle, ub, 4, 5);*/
+						 // a = 10447;
+						 //b = 12341;
+					}
+				}
 					event_flag = 1;
 					break;
 				default:

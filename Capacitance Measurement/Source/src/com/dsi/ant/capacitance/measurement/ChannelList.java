@@ -53,6 +53,8 @@
     import java.io.FileOutputStream;
     import java.io.OutputStreamWriter;
     import java.io.PrintWriter;
+    import java.nio.ByteBuffer;
+    import java.nio.ByteOrder;
     import java.util.ArrayList;
     import java.util.Calendar;
     import java.util.HashMap;
@@ -101,6 +103,8 @@
         private Spinner spinner1;
         private Spinner spinner2;
 
+        private int lasttime;
+
 
 
 
@@ -148,87 +152,93 @@
                                             }
                                         });
                                     }
-                                    convertData(newInfo.broadcastData);//covert the incoming data and save it to data matrix
-                                    //data[devn][5] = data[devn][5] + (float)11.5;
-                                    //check if all 4 data are received
-                                    if (onoff == 1) { //display the data when RTD is enabled
-                                        //display data once all 6 data is received
-                                        if ((data[devn][1] != 0) & (data[devn][2] != 0) & (data[devn][3] != 0)& (data[devn][7] != 0)) {
-                                            ListView listView_devlist = (ListView) findViewById(R.id.listView_devlist);
-                                            String display = getDisplayText(devn, data[devn][1], data[devn][2], data[devn][3], data[devn][0], data[devn][6], data[devn][7], data[devn][5]);
-                                            //write data to local txt file
-                                            writedata(devn, display);
-                                            //devlistListAdapter.get
-                                            //get the selected dev number, and diaplay the data to the list if dev is same
-                                            if (Integer.parseInt(listView_devlist.getItemAtPosition(list_pos).toString().replaceAll("[^0-9]", "")) == devn) {
-                                                MyRunnable obj = new MyRunnable(display);
-                                                Handler handler = new Handler();
-                                                handler.post(obj);
-                                            }
-                                            //Toast.makeText(getApplicationContext(), "List"+listView_devlist.getItemAtPosition(list_pos).toString().charAt(9),Toast.LENGTH_LONG).show();
-                                            //Make sure that the data selection on dev list stays when data is add to data list
-                                            runOnUiThread(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    ListView listView_devlist = (ListView) findViewById(R.id.listView_devlist);
-                                                    listView_devlist.requestFocusFromTouch();
-                                                    listView_devlist.setSelection(list_pos);
-                                                    listView_devlist.requestFocus();
-                                                    devlistListAdapter.notifyDataSetChanged();
-                                                    mChannelListAdapter.notifyDataSetChanged();
-                                                    //Toast.makeText(getApplicationContext(), "List"+list_pos,Toast.LENGTH_LONG).show();
-                                                }
-                                            });
-                                            Log.d(TAG, "TEMP:" + data[devn][6] + "    " + data[devn][7]);
-                                            // clear the displayed data in data matrix, getting ready for next data
-                                            data[devn][0] = 0;
-                                            data[devn][1] = 0;
-                                            data[devn][2] = 0;
-                                            data[devn][3] = 0;
-                                            data[devn][5] = 0;
-                                            data[devn][6] = 0;
-                                            data[devn][7] = 0;
-                                        }
-                                    } else {
-                                        //display the data when RTD is disabled
-                                        if ((data[devn][1] != 0) & (data[devn][2] != 0) & (data[devn][3] != 0)) {
-                                            ListView listView_devlist = (ListView) findViewById(R.id.listView_devlist);
-                                            String display = getDisplayTextoff(devn, data[devn][1], data[devn][2], data[devn][3], data[devn][0]);
-                                            writedata(devn, display);
-                                            //devlistListAdapter.get
+                                    c = Calendar.getInstance();
+                                    if (c.get(Calendar.SECOND) != lasttime) {
 
-                                            if (Integer.parseInt(listView_devlist.getItemAtPosition(list_pos).toString().replaceAll("[^0-9]", "")) == devn) {
-                                                //c1_data[t1] = data[devn][1];
-                                                //t1 = t1 + 1;
-                                                MyRunnable obj = new MyRunnable(display);
-                                                Handler handler = new Handler();
-                                                handler.post(obj);
-                                                //inigraph();
-                                                // mChannelListAdapter.notifyDataSetChanged();
-                                            }
-                                            //Toast.makeText(getApplicationContext(), "List"+listView_devlist.getItemAtPosition(list_pos).toString().charAt(9),Toast.LENGTH_LONG).show();
-                                            runOnUiThread(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    ListView listView_devlist = (ListView) findViewById(R.id.listView_devlist);
-                                                    listView_devlist.requestFocusFromTouch();
-                                                    listView_devlist.setSelection(list_pos);
-                                                    listView_devlist.requestFocus();
-                                                    devlistListAdapter.notifyDataSetChanged();
-                                                    mChannelListAdapter.notifyDataSetChanged();
-                                                    //Toast.makeText(getApplicationContext(), "List"+list_pos,Toast.LENGTH_LONG).show();
+                                        lasttime = c.get(Calendar.SECOND);
+                                        convertData(newInfo.broadcastData);//covert the incoming data and save it to data matrix
+                                        //data[devn][5] = data[devn][5] + (float)11.5;
+                                        //check if all 4 data are received
+                                        if (onoff == 1) { //display the data when RTD is enabled
+                                            //display data once all 6 data is received
+                                            if ((data[devn][1] != 0) & (data[devn][2] != 0) & (data[devn][3] != 0) & (data[devn][7] != 0)) {
+                                                ListView listView_devlist = (ListView) findViewById(R.id.listView_devlist);
+                                                String display = getDisplayText(devn, data[devn][1], data[devn][2], data[devn][3], data[devn][0], data[devn][6], data[devn][7], data[devn][5]);
+                                                //write data to local txt file
+                                                writedata(devn, display);
+                                                //devlistListAdapter.get
+                                                //get the selected dev number, and diaplay the data to the list if dev is same
+                                                if (Integer.parseInt(listView_devlist.getItemAtPosition(list_pos).toString().replaceAll("[^0-9]", "")) == devn) {
+                                                    MyRunnable obj = new MyRunnable(display);
+                                                    Handler handler = new Handler();
+                                                    handler.post(obj);
                                                 }
-                                            });
-                                            //Log.d(TAG, "TEMP:" + data[devn][6] + "    " + data[devn][7]);
-                                            data[devn][0] = 0;
-                                            data[devn][1] = 0;
-                                            data[devn][2] = 0;
-                                            data[devn][3] = 0;
-                                            data[devn][5] = 0;
-                                            data[devn][6] = 0;
-                                            data[devn][7] = 0;
-                                        }
+                                                //Toast.makeText(getApplicationContext(), "List"+listView_devlist.getItemAtPosition(list_pos).toString().charAt(9),Toast.LENGTH_LONG).show();
+                                                //Make sure that the data selection on dev list stays when data is add to data list
+                                                runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        ListView listView_devlist = (ListView) findViewById(R.id.listView_devlist);
+                                                        listView_devlist.requestFocusFromTouch();
+                                                        listView_devlist.setSelection(list_pos);
+                                                        listView_devlist.requestFocus();
+                                                        devlistListAdapter.notifyDataSetChanged();
+                                                        mChannelListAdapter.notifyDataSetChanged();
+                                                        //Toast.makeText(getApplicationContext(), "List"+list_pos,Toast.LENGTH_LONG).show();
+                                                    }
+                                                });
+                                                Log.d(TAG, "TEMP:" + data[devn][6] + "    " + data[devn][7]);
+                                                // clear the displayed data in data matrix, getting ready for next data
+                                                data[devn][0] = 0;
+                                                data[devn][1] = 0;
+                                                data[devn][2] = 0;
+                                                data[devn][3] = 0;
+                                                data[devn][5] = 0;
+                                                data[devn][6] = 0;
+                                                data[devn][7] = 0;
+                                            }
+                                        } else {
+                                            //display the data when RTD is disabled
+                                            if ((data[devn][1] != 0) & (data[devn][2] != 0) & (data[devn][3] != 0)) {
+                                                ListView listView_devlist = (ListView) findViewById(R.id.listView_devlist);
+                                                String display = getDisplayTextoff(devn, data[devn][1], data[devn][2], data[devn][3], data[devn][0]);
+                                                writedata(devn, display);
+                                                //devlistListAdapter.get
 
+                                                if (Integer.parseInt(listView_devlist.getItemAtPosition(list_pos).toString().replaceAll("[^0-9]", "")) == devn) {
+                                                    //c1_data[t1] = data[devn][1];
+                                                    //t1 = t1 + 1;
+                                                    MyRunnable obj = new MyRunnable(display);
+                                                    Handler handler = new Handler();
+                                                    handler.post(obj);
+                                                    Log.d(TAG, "OMGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
+
+                                                    //inigraph();
+                                                    // mChannelListAdapter.notifyDataSetChanged();
+                                                }
+                                                //Toast.makeText(getApplicationContext(), "List"+listView_devlist.getItemAtPosition(list_pos).toString().charAt(9),Toast.LENGTH_LONG).show();
+                                                runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        ListView listView_devlist = (ListView) findViewById(R.id.listView_devlist);
+                                                        listView_devlist.requestFocusFromTouch();
+                                                        listView_devlist.setSelection(list_pos);
+                                                        listView_devlist.requestFocus();
+                                                        devlistListAdapter.notifyDataSetChanged();
+                                                        mChannelListAdapter.notifyDataSetChanged();
+                                                        //Toast.makeText(getApplicationContext(), "List"+list_pos,Toast.LENGTH_LONG).show();
+                                                    }
+                                                });
+                                                //Log.d(TAG, "TEMP:" + data[devn][6] + "    " + data[devn][7]);
+                                                data[devn][0] = 0;
+                                                data[devn][1] = 0;
+                                                data[devn][2] = 0;
+                                                data[devn][3] = 0;
+                                                data[devn][5] = 0;
+                                                data[devn][6] = 0;
+                                                data[devn][7] = 0;
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -279,16 +289,28 @@
                 int month = c.get(Calendar.MONTH) + 1;
                 int day = c.get(Calendar.DAY_OF_MONTH);
                 int seconds = c.get(Calendar.SECOND);
-                int hours = c.get(Calendar.HOUR_OF_DAY);
+                int hours = c.get(Calendar.HOUR);
                 int mins = c.get(Calendar.MINUTE);
+                int AM_orPM = c.get(Calendar.AM_PM);
+
                 int int8 = (int) data8;
                 if (hours == 00) {
                     hours = 12;
                 }
-                if (int8 != 0) {
-                    displayText = String.format("%d  %02d/%02d  %02d:%02d:%02d    %.8s      %.5f     %.5f     %.5f    %.5f    %.5f    %.1f", devn, month, day, hours, mins, seconds, Integer.toBinaryString(int8), data1, data2, data3, res10, res11, temp);
-                } else {
-                    displayText = String.format("%d  %02d/%02d  %02d:%02d:%02d    00000000      %.5f     %.5f     %.5f    %.5f    %.5f    %.1f", devn, month, day, hours, mins, seconds, data1, data2, data3, res10, res11, temp);
+                if(AM_orPM == 0) {
+                    if (int8 != 0) {
+                        displayText = String.format("%d  %02d/%02d  %02d:%02d:%02d AM   %.8s      %.5f     %.5f     %.5f    %.5f    %.5f    %.1f", devn, month, day, hours, mins, seconds, Integer.toBinaryString(int8), data1, data2, data3, res10, res11, temp);
+                    } else {
+                        displayText = String.format("%d  %02d/%02d  %02d:%02d:%02d AM   00000000      %.5f     %.5f     %.5f    %.5f    %.5f    %.1f", devn, month, day, hours, mins, seconds, data1, data2, data3, res10, res11, temp);
+                    }
+                }
+                else
+                {
+                    if (int8 != 0) {
+                        displayText = String.format("%d  %02d/%02d  %02d:%02d:%02d PM   %.8s      %.5f     %.5f     %.5f    %.5f    %.5f    %.1f", devn, month, day, hours, mins, seconds, Integer.toBinaryString(int8), data1, data2, data3, res10, res11, temp);
+                    } else {
+                        displayText = String.format("%d  %02d/%02d  %02d:%02d:%02d PM   00000000      %.5f     %.5f     %.5f    %.5f    %.5f    %.1f", devn, month, day, hours, mins, seconds, data1, data2, data3, res10, res11, temp);
+                    }
                 }
             }
 
@@ -310,14 +332,29 @@
                 int hours = c.get(Calendar.HOUR_OF_DAY);
                 int mins = c.get(Calendar.MINUTE);
                 int int8 = (int) data8;
+                int AM_orPM = c.get(Calendar.AM_PM);
+
                 if (hours == 00) {
                     hours = 12;
                 }
-                if (int8 != 0) {
-                    displayText = String.format("%d  %02d/%02d  %02d:%02d:%02d  %.8s      %.5f     %.5f     %.5f", devn, month, day, hours, mins, seconds, Integer.toBinaryString(int8), data1, data2, data3);
-                } else {
-                    displayText = String.format("%d  %02d/%02d  %02d:%02d:%02d  00000000      %.5f     %.5f     %.5f", devn, month, day, hours, mins, seconds, data1, data2, data3);
+
+                if(AM_orPM == 0) {
+                    if (int8 != 0) {
+                        displayText = String.format("%d  %02d/%02d  %02d:%02d:%02d AM   %.8s      %.5f     %.5f     %.5f", devn, month, day, hours, mins, seconds, Integer.toBinaryString(int8), data1, data2, data3);
+                    } else {
+                        displayText = String.format("%d  %02d/%02d  %02d:%02d:%02d AM   00000000      %.5f     %.5f     %.5f", devn, month, day, hours, mins, seconds, data1, data2, data3);
+                    }
                 }
+                else
+                {
+                    if (int8 != 0) {
+                        displayText = String.format("%d  %02d/%02d  %02d:%02d:%02d PM   %.8s      %.5f     %.5f     %.5f", devn, month, day, hours, mins, seconds, Integer.toBinaryString(int8), data1, data2, data3);
+                    } else {
+                        displayText = String.format("%d  %02d/%02d  %02d:%02d:%02d PM   00000000      %.5f     %.5f     %.5f", devn, month, day, hours, mins, seconds, data1, data2, data3);
+                    }
+                }
+
+
             }
 
             Log.v(TAG, "...getDisplayText");
@@ -492,21 +529,19 @@
             });
 
             //Register Clear Channels Button handler
-            /*Button button_clearChannels = (Button) findViewById(R.id.button_ClearChannels);
+            Button button_clearChannels = (Button) findViewById(R.id.button_ClearChannels);
             button_clearChannels.setEnabled(mChannelServiceBound);
             button_clearChannels.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //clearAllChannels();
                     mChannelDisplayList.clear();
-                    //mIdChannelListIndexMap.clear();
                     mChannelListAdapter.notifyDataSetChanged();
-                    onoff = 0;
-                    Button button_addChannel = (Button) findViewById(R.id.button_AddChannel);
-                    button_addChannel.setEnabled(true);
-                    Toast.makeText(getApplicationContext(), "Channel Cleared" + list_pos, Toast.LENGTH_LONG).show();
+                    devlistListAdapter.clear();
+                    devlistListAdapter.notifyDataSetChanged();
+                    list_pos = 0;
                 }
-            });*/
+            });
 
             Button button_getc0 = (Button) findViewById(R.id.button_getc0);
             button_getc0.setEnabled(mChannelServiceBound);
@@ -556,7 +591,6 @@
                         data[i][3] = 0;
                         data[i][6] = 0;
                         data[i][7] = 0;
-
                     }
                     mChannelListAdapter.clear();
                     devlistListAdapter.clear();
@@ -592,6 +626,21 @@
                         writer = new PrintWriter("/sdcard/data10.txt");
                         writer.print("");
                         writer.close();
+                        writer = new PrintWriter("/sdcard/data11.txt");
+                        writer.print("");
+                        writer.close();
+                        writer = new PrintWriter("/sdcard/data12.txt");
+                        writer.print("");
+                        writer.close();
+                        writer = new PrintWriter("/sdcard/data13.txt");
+                        writer.print("");
+                        writer.close();
+                        writer = new PrintWriter("/sdcard/data14.txt");
+                        writer.print("");
+                        writer.close();
+                        writer = new PrintWriter("/sdcard/data15.txt");
+                        writer.print("");
+                        writer.close();
                     } catch (FileNotFoundException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
@@ -621,6 +670,11 @@
                     File file8 = new File("/sdcard/data8.txt");
                     File file9 = new File("/sdcard/data9.txt");
                     File file10 = new File("/sdcard/data10.txt");
+                    File file11 = new File("/sdcard/data11.txt");
+                    File file12 = new File("/sdcard/data12.txt");
+                    File file13 = new File("/sdcard/data13.txt");
+                    File file14 = new File("/sdcard/data14.txt");
+                    File file15 = new File("/sdcard/data15.txt");
 
                     if (!file1.exists() || !file1.canRead()) {
                         Toast.makeText(ChannelList.this, "Attachment Error", Toast.LENGTH_SHORT).show();
@@ -640,6 +694,12 @@
                     uris.add(Uri.fromFile(file8));
                     uris.add(Uri.fromFile(file9));
                     uris.add(Uri.fromFile(file10));
+                    uris.add(Uri.fromFile(file11));
+                    uris.add(Uri.fromFile(file12));
+                    uris.add(Uri.fromFile(file13));
+                    uris.add(Uri.fromFile(file14));
+                    uris.add(Uri.fromFile(file15));
+
                     i.putExtra(Intent.EXTRA_STREAM, uris);
                     try {
                         startActivity(Intent.createChooser(i, "Output Data"));
@@ -754,35 +814,35 @@
             spinner1 = (Spinner) findViewById(R.id.spinner);
             List<String> list = new ArrayList<String>();
             for(int i = 1; i<= 60;i++)
-            {
-                list.add(Integer.toString(i));
+                {
+                    list.add(Integer.toString(i));
+                }
+                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,list);
+                dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner1.setAdapter(dataAdapter);
+
+
+                spinner2 = (Spinner) findViewById(R.id.spinner_c);
+                List<String> list1 = new ArrayList<String>();
+                for(int i = 1; i<= 3;i++)
+                {
+                    list1.add(Integer.toString(i));
+                }
+                ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,list1);
+                dataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner2.setAdapter(dataAdapter2);
+
+
+                mChannelListAdapter = new ArrayAdapter<String>(this,R.layout.mylist , android.R.id.text1, mChannelDisplayList);//android.R.layout.simple_list_item_1
+                ListView listView_channelList = (ListView) findViewById(R.id.listView_channelList);
+                listView_channelList.setAdapter(mChannelListAdapter);
+
+                if (!mChannelServiceBound) doBindChannelService();
+
+                initButtons();
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                Log.v(TAG, "...onCreate");
             }
-            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,list);
-            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinner1.setAdapter(dataAdapter);
-
-
-            spinner2 = (Spinner) findViewById(R.id.spinner_c);
-            List<String> list1 = new ArrayList<String>();
-            for(int i = 1; i<= 3;i++)
-            {
-                list1.add(Integer.toString(i));
-            }
-            ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,list1);
-            dataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinner2.setAdapter(dataAdapter2);
-
-
-            mChannelListAdapter = new ArrayAdapter<String>(this,R.layout.mylist , android.R.id.text1, mChannelDisplayList);//android.R.layout.simple_list_item_1
-            ListView listView_channelList = (ListView) findViewById(R.id.listView_channelList);
-            listView_channelList.setAdapter(mChannelListAdapter);
-
-            if (!mChannelServiceBound) doBindChannelService();
-
-            initButtons();
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-            Log.v(TAG, "...onCreate");
-        }
 
         public void onBack() {
             finish();
@@ -812,6 +872,7 @@
             int datanum = (int) capbyte[1];
             byte[] temp1 = new byte[8];
             byte[] temp2 = new byte[8];
+
             double t1 = 0;
 
             //Log.v(TAG, "before" + "[" +capbyte[0]+ "]"+ "[" +capbyte[1]+ "]"+ "[" +capbyte[2]+ "]"+ "[" +capbyte[3]+ "]"+ "[" +capbyte[4]+ "]"+ "[" +capbyte[5]+ "]"+ "[" +capbyte[6]+ "]"+ "[" +capbyte[7]+ "]");
@@ -836,15 +897,27 @@
 
             if (datanum == 1 && data[devn][2] == 0 && data[devn][3] == 0) {
                 data[devn][0] = (float) (java.nio.ByteBuffer.wrap(temp1).getInt());
-                data[devn][1] = (float) java.nio.ByteBuffer.wrap(temp2).getInt() / 1000;// 2097152 ; //* c0;
+                if((float) java.nio.ByteBuffer.wrap(temp2).getInt() / 1000 > 300) {
+                    data[devn][1] = (float) java.nio.ByteBuffer.wrap(temp2).getInt() / 2097152 * c0 ; //* c0;
+                }else {
+                    data[devn][1] = (float) java.nio.ByteBuffer.wrap(temp2).getInt() / 1000;
+                }
             } else if (datanum == 1 && data[devn][2] != 0 && data[devn][3] != 0) {
                 data[devn][2] = 0;
                 data[devn][3] = 0;
             }
 
             if (datanum == 2 && data[devn][0] != 0 && data[devn][1] != 0) {
-                data[devn][2] = (float) java.nio.ByteBuffer.wrap(temp1).getInt()/1000;// 2097152 / 1000; //* c0;
-                data[devn][3] = (float) java.nio.ByteBuffer.wrap(temp2).getInt()/1000;// 2097152 / 1000; //* c0;
+
+                if((float) java.nio.ByteBuffer.wrap(temp1).getInt()/1000 > 300)
+                {
+                    data[devn][2] = (float) java.nio.ByteBuffer.wrap(temp1).getInt() / 2097152 * c0;
+                    data[devn][3] = (float) java.nio.ByteBuffer.wrap(temp2).getInt() / 2097152 * c0;
+                }
+                else {
+                    data[devn][2] = (float) java.nio.ByteBuffer.wrap(temp1).getInt()  / 1000; //* c0;
+                    data[devn][3] = (float) java.nio.ByteBuffer.wrap(temp2).getInt()  / 1000; //* c0;
+                }
             }
             if (datanum == 3) {
                 data[devn][6] = ((float) java.nio.ByteBuffer.wrap(temp1).getInt()) / 2097152;
@@ -852,18 +925,24 @@
                 //data[devn][6] = data[devn][6] * (float)1.052;
                 gettemp(devn);
             }
-           /* if (datanum == 1 ) {
-                data[devn][0] = (float) (java.nio.ByteBuffer.wrap(temp1).getInt());
-                data[devn][1] = (float) java.nio.ByteBuffer.wrap(temp2).getInt() / 2097152 * c0;
+            if (datanum == 4) {
+                short i = (short) ((capbyte[3] & 0xff) | (capbyte[2] << 8));
+                if(i/100 > 60 ) data[devn][1] = (float)i / 10000 * 1200;
+                else data[devn][1] = (float)i/100;
+                i = (short) ((capbyte[5] & 0xff) | (capbyte[4] << 8));
+                if(i/100 > 60 )data[devn][2] = (float)i / 10000 * 1200;
+                else data[devn][2] = (float)i/100;
+                i = (short) ((capbyte[7] & 0xff) | (capbyte[6] << 8));
+                if(i/100 > 60 ) data[devn][3] = (float)i / 10000 * 1200;
+                else data[devn][3] = (float)i/100;
             }
-            else if (datanum == 2 ) {
-                data[devn][2] = (float) java.nio.ByteBuffer.wrap(temp1).getInt() / 2097152 * c0;
-                data[devn][3] = (float) java.nio.ByteBuffer.wrap(temp2).getInt() / 2097152 * c0;
-            }*/
-
-            //data[devn][5] = 0;
-            //Log.v(TAG, "Data" + "[" + devn + "]" + "[" + datanum + "]" + "[" + data[devn][0] + "]" + "[" + data[devn][1] + "]" + "[" + data[devn][2] + "]" + "[" + data[devn][3] + "]");
-            Log.v(TAG, "Data1" + "[" + capbyte[1] + "]");
+            if (datanum == 5) {
+                data[devn][0] = (float) (java.nio.ByteBuffer.wrap(temp1).getInt());
+                data[devn][1] = 9999;
+                data[devn][2] = 9999;
+                data[devn][3] = 9999;
+            }
+            //Log.v(TAG, "Data1" + "[" + capbyte[1] + "]");
         }
 
         // This method is called when 'Add Channel' button is clicked
@@ -941,6 +1020,11 @@
             else if (devn == 8) fileanme = "/sdcard/data8.txt";
             else if (devn == 9) fileanme = "/sdcard/data9.txt";
             else if (devn == 10) fileanme = "/sdcard/data10.txt";
+            else if (devn == 11) fileanme = "/sdcard/data11.txt";
+            else if (devn == 12) fileanme = "/sdcard/data12.txt";
+            else if (devn == 13) fileanme = "/sdcard/data13.txt";
+            else if (devn == 14) fileanme = "/sdcard/data14.txt";
+            else if (devn == 15) fileanme = "/sdcard/data15.txt";
             try {
                 File myFile = new File(fileanme);
                 myFile.createNewFile();
@@ -1091,7 +1175,6 @@
             public MyRunnable(String _data) {
                 this.display = _data;
             }
-
             public void run() {
                 runOnUiThread(new Runnable() {
                     @Override
@@ -1103,6 +1186,11 @@
                 });
             }
         }
+
+        public static int unsignedByteToInt(byte b) {
+            return (int) b & 0xFF;
+        }
+
 
     }
 

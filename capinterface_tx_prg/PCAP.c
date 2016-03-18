@@ -135,7 +135,23 @@ bool pcap_config_write(uint32_t *PCAP_spi_address, uint32_t *regdata) // why doe
                 memset(rx_data, 0, 8);
                 //n = n + 4; // next segmentation incremetn
             }
-            nrf_delay_ms(100); 
+            //nrf_delay_ms(100); 
+						
+			NRF_RTC1->CC[0] = 3276; 
+			rtc_flag = 1;
+			NRF_RTC1->TASKS_START = 1;
+			do 
+			{ 
+				// Enter System ON sleep mode 
+				__WFE();   
+				// Make sure any pending events are cleared 
+				__SEV(); 
+				__WFE();                 
+			}while(rtc_flag); 
+			
+			NRF_RTC1->TASKS_STOP = 1; 
+			NRF_RTC1->TASKS_CLEAR = 1; 
+
             //run bit confiuration i.e register 20
             p = 0x03; // Add write code
             p = (p << 6)|20; // add Address 
@@ -156,7 +172,7 @@ bool pcap_config_write(uint32_t *PCAP_spi_address, uint32_t *regdata) // why doe
   * Sets the indivual configuration registers and send it to the PCAP_config_write function for SPI write.
     * Return false for unsucessful set
 */
-bool config_reg_set(uint32_t *PCAP_spi_address,int c_avg,int onoff) 
+bool config_reg_set(uint32_t *PCAP_spi_address,int c_avg,int onoff, int cy_time, int rdc_sel) 
     { 
         uint32_t config_reg_d[20];
         uint8_t DSP_PRESET, PG_PRESET;
@@ -169,13 +185,13 @@ bool config_reg_set(uint32_t *PCAP_spi_address,int c_avg,int onoff)
         config_reg_d[1] = 0x201022;
         
         /* register 2 */
-        config_reg_d[2] = pack(CMEAS_PORT_EN, CMEAS_BITS, 4, RDCHG_INT_SEL, 4, 0x0B, 8, 0, 0);
+        config_reg_d[2] = pack(CMEAS_PORT_EN, CMEAS_BITS, 4, rdc_sel, 4, 0x0B, 8, 0, 0);
         
         /* register 3 */
         config_reg_d[3] = pack(CY_CLK_SEL, SEQ_TIME, 6, CMEAS_FAKE, 3, c_avg, 13 , 0, 0);
         
         /* register 4 */
-        config_reg_d[4] = pack(CMEAS_STARTPIN, CMEAS_TRIG_SEL, 2, CMEAS_CYTIME, 10, TMEAS_CYTIME, 4, ((TMEAS_STARTPIN << 2)|onoff), 4);
+        config_reg_d[4] = pack(CMEAS_STARTPIN, CMEAS_TRIG_SEL, 2, cy_time, 10, TMEAS_CYTIME, 4, ((TMEAS_STARTPIN << 2)|onoff), 4);
         
         /* register 5 */
         config_reg_d[5] = pack(T_AVRG, TMEAS_TRIG_PREDIV, 22, 0, 0, 0, 0, 0 ,0);
@@ -318,11 +334,11 @@ bool pcap_commcheck(uint32_t *PCAP_spi_address)
 		* Initiates configuration Register set and implements a partial reset.
     * Return false for unsucessful set
 */
-bool 	pcap_config(uint32_t *PCAP_spi_address, int c_avg,int onoff)
+bool 	pcap_config(uint32_t *PCAP_spi_address, int c_avg,int onoff, int cy_time, int rdc_sel)
 {
 		bool w,w1,w2; 
 		/* Set configuration registers */
-		w1 = config_reg_set(PCAP_spi_address, c_avg, onoff);
+		w1 = config_reg_set(PCAP_spi_address, c_avg, onoff, cy_time, rdc_sel);
 		
 		/* Send a partial reset */
 		MSG_LEN = 8;
@@ -350,7 +366,7 @@ bool 	pcap_config(uint32_t *PCAP_spi_address, int c_avg,int onoff)
 		* Initiates measures and implements minimum delay before read.
     * Return false for unsucessful start
 */
-bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg, int onoff)
+bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg, int onoff, int cy_time)
 {
 	bool w;
 	uint8_t cap_n, n, pul_n;
@@ -404,7 +420,7 @@ bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg, int onoff)
 			case 0:
 			//nrf_delay_ms((cap_n*C_AVRG*0.02)+200);
 			//float time = (((float)cap_n*(float)((float)c_avg*CMEAS_CYTIME)*0.02)+2000)/1000;
-			float time = ((float)pul_n*(float)((float)(CMEAS_CYTIME+1)*0.02*(float)c_avg)+250)/1000; //used to be 5
+			float time = ((float)pul_n*(float)((float)(cy_time+1)*0.02*(float)c_avg)+250)/1000; //used to be 5
 			NRF_RTC1->CC[0] = time*32768; 
 			rtc_flag = 1;
 			NRF_RTC1->TASKS_START = 1;
@@ -425,7 +441,7 @@ bool 	pcap_measure(uint32_t *PCAP_spi_address,int c_avg, int onoff)
 			//nrf_delay_ms((cap_n*c_avg*0.02) +(0.14*2*4) + 200); //4fold averaging harcoded //
 			//need to edit the line below
 			//time = ((float)pul_n*(float)(CMEAS_CYTIME*0.02*c_avg)+ 10 + (0.14*2*4))/1000;
-			time = ((float)pul_n*(float)((float)(CMEAS_CYTIME+1)*0.02*(float)c_avg)+250)/1000; //used to be 5
+			time = ((float)pul_n*(float)((float)(cy_time+1)*0.02*(float)c_avg)+250)/1000; //used to be 5
 			NRF_RTC1->CC[0] = time*32768; 
 			rtc_flag = 1;
 			NRF_RTC1->TASKS_START = 1;

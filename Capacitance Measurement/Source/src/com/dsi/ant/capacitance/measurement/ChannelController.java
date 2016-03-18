@@ -37,8 +37,8 @@ public class ChannelController {
     private static final int CHANNEL_PROOF_TRANSMISSION_TYPE = 0x02;
 
     // The period and frequency values the channel will be configured to
-    private static final int CHANNEL_PROOF_PERIOD = 819; // 20hz
-    private static final int CHANNEL_PROOF_FREQUENCY = 66;
+    private static final int CHANNEL_PROOF_PERIOD = 819; // 60hz
+    private static final int CHANNEL_PROOF_FREQUENCY = 66 ;
 
     private static final String TAG = ChannelController.class.getSimpleName();
 
@@ -225,8 +225,17 @@ public class ChannelController {
                                 mChannelInfo.broadcastData[7] = (byte) (ChannelList.checkrdc());
                                 //counter ++;
                             }
-                            int i =  (mChannelInfo.broadcastData[5] & 0xFF) | ((mChannelInfo.broadcastData[4] & 0xFF) << 8) | ((mChannelInfo.broadcastData[3] & 0x0F) << 16);
-                            Log.d(TAG,counter  + "   TEST:  "+i +"    A:"+x+"B"+y+"counter"+counter+"        counter"+counter_c);
+                            //int i =  (mChannelInfo.broadcastData[5] & 0xFF) | ((mChannelInfo.broadcastData[4] & 0xFF) << 8) | ((mChannelInfo.broadcastData[3] & 0x0F) << 16);
+                            //Log.d(TAG,counter  + "   TEST:  "+i +"    A:"+x+"B"+y+"counter"+counter+"        counter"+counter_c);
+                            counter++;
+                            if(counter == 11){
+                                counter = 1;
+                                counter_c++;
+                            }
+                            if(counter_c == 4) {
+                                counter_c = 1;
+                            }
+
                             if (mIsOpen) {
                                 try {
                                     // Setting the data to be broadcast on the next channel period
@@ -234,14 +243,6 @@ public class ChannelController {
                                 } catch (RemoteException e) {
                                     channelError(e);
                                 }
-                            }
-                            counter++;
-                            if(counter == 11 ){
-                                counter = 1;
-                                counter_c++;
-                            }
-                            if(counter_c == 4) {
-                                counter_c = 1;
                             }
 
                             break;
